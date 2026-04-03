@@ -108,6 +108,62 @@
     .page-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .step-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
+
+  /* ── Mockup Buổi 2 ── */
+  .mockup-wrap { --phone-w: 260px; --phone-h: 530px; background: #f0eeff; padding: 24px 16px; line-height: 1.4; }
+  .mockup-wrap .phones { display: flex; gap: 24px; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
+  .mockup-wrap .phone-shell { background: #1a1a1a; border-radius: 36px; padding: 10px; box-shadow: inset 0 0 0 1px #333, 0 8px 32px rgba(0,0,0,0.3); width: var(--phone-w); flex-shrink: 0; }
+  .mockup-wrap .phone-screen { background: #f7f6f2; border-radius: 28px; overflow: hidden; width: 100%; height: var(--phone-h); display: flex; flex-direction: column; }
+  .mockup-wrap .notch { width: 80px; height: 22px; background: #1a1a1a; border-radius: 0 0 14px 14px; margin: 0 auto; flex-shrink: 0; }
+  .mockup-wrap .label-tag { font-size: 11px; font-weight: 600; color: #5B4FD9; text-align: center; margin-top: 10px; }
+  .mockup-wrap .screen-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+  .mockup-wrap .status-bar { display: flex; justify-content: space-between; padding: 4px 16px; font-size: 10px; font-weight: 500; color: #333; flex-shrink: 0; line-height: 1.4; }
+  .mockup-wrap .top-bar { padding: 6px 14px 4px; flex-shrink: 0; }
+  .mockup-wrap .top-bar h2 { font-size: 16px; font-weight: 600; margin: 0 0 2px; color: #111; line-height: 1.3; }
+  .mockup-wrap .top-bar p { font-size: 11px; color: #888; margin: 0; line-height: 1.3; }
+  .mockup-wrap .m-search-bar { margin: 6px 14px; background: #fff; border: 0.5px solid #e0ddd6; border-radius: 12px; display: flex; align-items: center; gap: 6px; padding: 7px 12px; flex-shrink: 0; }
+  .mockup-wrap .m-search-bar span { font-size: 11px; color: #aaa; }
+  .mockup-wrap .cats { display: flex; gap: 7px; padding: 0 14px; overflow-x: hidden; flex-shrink: 0; margin-bottom: 4px; }
+  .mockup-wrap .cat { background: #5B4FD9; color: #fff; border-radius: 20px; padding: 3px 10px; font-size: 10px; white-space: nowrap; font-weight: 500; line-height: 1.4; }
+  .mockup-wrap .cat.inactive { background: #fff; color: #555; border: 0.5px solid #e0ddd6; }
+  .mockup-wrap .cards-area { flex: 1; overflow: hidden; padding: 0 14px; display: flex; flex-direction: column; gap: 8px; }
+  .mockup-wrap .ph-card { background: #fff; border-radius: 12px; overflow: hidden; border: 0.5px solid #ede9e0; flex-shrink: 0; }
+  .mockup-wrap .card-img { height: 70px; display: flex; align-items: center; justify-content: center; font-size: 22px; position: relative; }
+  .mockup-wrap .card-img.c1 { background: linear-gradient(135deg, #667eea, #764ba2); }
+  .mockup-wrap .card-img.c2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+  .mockup-wrap .card-img.c3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+  .mockup-wrap .ph-badge { position: absolute; top: 6px; right: 6px; background: rgba(255,255,255,0.25); color: #fff; font-size: 8px; padding: 2px 6px; border-radius: 5px; font-weight: 600; line-height: 1.4; }
+  .mockup-wrap .card-body-m { padding: 6px 10px 8px; }
+  .mockup-wrap .card-body-m h3 { font-size: 12px; font-weight: 600; color: #111; margin: 0 0 2px; line-height: 1.3; }
+  .mockup-wrap .card-body-m .meta { font-size: 10px; color: #888; margin: 0 0 4px; line-height: 1.3; }
+  .mockup-wrap .card-footer-m { display: flex; justify-content: space-between; align-items: center; }
+  .mockup-wrap .m-price { font-size: 13px; font-weight: 700; color: #5B4FD9; }
+  .mockup-wrap .m-stars { font-size: 10px; color: #f59e0b; }
+  .mockup-wrap .bottom-nav { background: #fff; border-top: 0.5px solid #ede9e0; display: flex; justify-content: space-around; padding: 7px 0 9px; flex-shrink: 0; }
+  .mockup-wrap .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .mockup-wrap .nav-icon { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .mockup-wrap .nav-icon.active { background: #ede9ff; }
+  .mockup-wrap .nav-label { font-size: 9px; font-weight: 500; color: #aaa; line-height: 1; }
+  .mockup-wrap .nav-label.active { color: #5B4FD9; }
+  .mockup-wrap .m-section-title { font-size: 12px; font-weight: 600; color: #111; padding: 3px 14px 2px; flex-shrink: 0; line-height: 1.4; }
+  .mockup-wrap .ipad-shell { background: #1a1a1a; border-radius: 24px; padding: 10px; box-shadow: inset 0 0 0 1px #333, 0 8px 32px rgba(0,0,0,0.3); width: 380px; flex-shrink: 0; }
+  .mockup-wrap .ipad-screen { background: #f7f6f2; border-radius: 16px; overflow: hidden; width: 100%; height: 530px; display: flex; flex-direction: column; }
+  .mockup-wrap .ipad-top { display: flex; align-items: center; padding: 10px 16px; gap: 10px; border-bottom: 0.5px solid #ede9e0; flex-shrink: 0; }
+  .mockup-wrap .ipad-top h2 { font-size: 15px; font-weight: 700; color: #111; margin: 0; flex: 1; line-height: 1.3; }
+  .mockup-wrap .ipad-search { flex: 2; background: #fff; border: 0.5px solid #e0ddd6; border-radius: 10px; display: flex; align-items: center; gap: 6px; padding: 6px 10px; }
+  .mockup-wrap .ipad-search span { font-size: 11px; color: #aaa; }
+  .mockup-wrap .ipad-cats { display: flex; gap: 7px; padding: 8px 16px 5px; flex-shrink: 0; }
+  .mockup-wrap .ipad-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; padding: 0 16px 12px; overflow: hidden; flex: 1; align-content: start; }
+  .mockup-wrap .ipad-card { background: #fff; border-radius: 10px; overflow: hidden; border: 0.5px solid #ede9e0; }
+  .mockup-wrap .ipad-card-img { height: 60px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .mockup-wrap .ipad-card-img.c1 { background: linear-gradient(135deg, #667eea, #764ba2); }
+  .mockup-wrap .ipad-card-img.c2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+  .mockup-wrap .ipad-card-img.c3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+  .mockup-wrap .ipad-card-body { padding: 7px 8px; }
+  .mockup-wrap .ipad-card-body h3 { font-size: 11px; font-weight: 600; color: #111; margin: 0 0 2px; line-height: 1.3; }
+  .mockup-wrap .ipad-card-body .m-price { font-size: 11px; font-weight: 700; color: #5B4FD9; }
+  .mockup-wrap .ipad-card-body .meta { font-size: 9px; color: #888; line-height: 1.3; }
+  .mockup-wrap .ipad-bottom-nav { background: #fff; border-top: 0.5px solid #ede9e0; display: flex; justify-content: space-around; padding: 7px 0 9px; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -158,61 +214,6 @@
         Đây là giao diện hoàn chỉnh sinh viên cần xây dựng — hãy dùng làm mục tiêu trong suốt buổi thực hành.
       </div>
       <div class="mockup-wrap">
-
-<style>
-  .mockup-wrap { --phone-w: 260px; --phone-h: 530px; background: #f0eeff; padding: 20px 10px; }
-  .mockup-wrap .phones { display: flex; gap: 20px; align-items: flex-start; justify-content: center; flex-wrap: wrap; padding: 0; }
-  .mockup-wrap .phone-shell { background: #1a1a1a; border-radius: 36px; padding: 10px; box-shadow: inset 0 0 0 1px #333, 0 8px 32px rgba(0,0,0,0.25); width: var(--phone-w); flex-shrink: 0; }
-  .mockup-wrap .phone-screen { background: #f7f6f2; border-radius: 28px; overflow: hidden; width: 100%; height: var(--phone-h); position: relative; display: flex; flex-direction: column; }
-  .mockup-wrap .notch { width: 80px; height: 22px; background: #1a1a1a; border-radius: 0 0 14px 14px; margin: 0 auto; flex-shrink: 0; }
-  .mockup-wrap .label-tag { font-size: 11px; font-weight: 600; color: #5B4FD9; text-align: center; margin-top: 8px; }
-  .mockup-wrap .screen-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-  .mockup-wrap .status-bar { display: flex; justify-content: space-between; padding: 4px 16px; font-size: 10px; font-weight: 500; color: #333; flex-shrink: 0; }
-  .mockup-wrap .top-bar { padding: 6px 14px 4px; flex-shrink: 0; }
-  .mockup-wrap .top-bar h2 { font-size: 17px; font-weight: 600; margin: 0 0 2px; color: #111; }
-  .mockup-wrap .top-bar p { font-size: 11px; color: #888; margin: 0; }
-  .mockup-wrap .m-search-bar { margin: 6px 14px; background: #fff; border: 0.5px solid #e0ddd6; border-radius: 12px; display: flex; align-items: center; gap: 6px; padding: 8px 12px; flex-shrink: 0; }
-  .mockup-wrap .m-search-bar span { font-size: 11px; color: #aaa; }
-  .mockup-wrap .cats { display: flex; gap: 8px; padding: 0 14px; overflow-x: hidden; flex-shrink: 0; margin-bottom: 4px; }
-  .mockup-wrap .cat { background: #5B4FD9; color: #fff; border-radius: 20px; padding: 4px 12px; font-size: 10px; white-space: nowrap; font-weight: 500; }
-  .mockup-wrap .cat.inactive { background: #fff; color: #555; border: 0.5px solid #e0ddd6; }
-  .mockup-wrap .cards-area { flex: 1; overflow: hidden; padding: 0 14px; display: flex; flex-direction: column; gap: 10px; }
-  .mockup-wrap .ph-card { background: #fff; border-radius: 14px; overflow: hidden; border: 0.5px solid #ede9e0; flex-shrink: 0; }
-  .mockup-wrap .card-img { height: 75px; display: flex; align-items: center; justify-content: center; font-size: 22px; position: relative; }
-  .mockup-wrap .card-img.c1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-  .mockup-wrap .card-img.c2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-  .mockup-wrap .card-img.c3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-  .mockup-wrap .ph-badge { position: absolute; top: 6px; right: 6px; background: rgba(255,255,255,0.25); color: #fff; font-size: 8px; padding: 2px 6px; border-radius: 6px; font-weight: 600; }
-  .mockup-wrap .card-body-m { padding: 7px 10px; }
-  .mockup-wrap .card-body-m h3 { font-size: 12px; font-weight: 600; color: #111; margin: 0 0 2px; }
-  .mockup-wrap .card-body-m .meta { font-size: 10px; color: #888; margin: 0 0 4px; }
-  .mockup-wrap .card-footer-m { display: flex; justify-content: space-between; align-items: center; }
-  .mockup-wrap .m-price { font-size: 13px; font-weight: 700; color: #5B4FD9; }
-  .mockup-wrap .m-stars { font-size: 10px; color: #f59e0b; }
-  .mockup-wrap .bottom-nav { background: #fff; border-top: 0.5px solid #ede9e0; display: flex; justify-content: space-around; padding: 8px 0 10px; flex-shrink: 0; }
-  .mockup-wrap .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-  .mockup-wrap .nav-icon { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-  .mockup-wrap .nav-icon.active { background: #ede9ff; }
-  .mockup-wrap .nav-label { font-size: 9px; font-weight: 500; color: #aaa; }
-  .mockup-wrap .nav-label.active { color: #5B4FD9; }
-  .mockup-wrap .ipad-shell { background: #1a1a1a; border-radius: 24px; padding: 10px; box-shadow: inset 0 0 0 1px #333, 0 8px 32px rgba(0,0,0,0.25); width: 380px; flex-shrink: 0; }
-  .mockup-wrap .ipad-screen { background: #f7f6f2; border-radius: 16px; overflow: hidden; width: 100%; height: 530px; position: relative; display: flex; flex-direction: column; }
-  .mockup-wrap .ipad-top { display: flex; align-items: center; padding: 10px 16px; gap: 10px; border-bottom: 0.5px solid #ede9e0; flex-shrink: 0; }
-  .mockup-wrap .ipad-top h2 { font-size: 16px; font-weight: 700; color: #111; margin: 0; flex: 1; }
-  .mockup-wrap .ipad-search { flex: 2; background: #fff; border: 0.5px solid #e0ddd6; border-radius: 10px; display: flex; align-items: center; gap: 6px; padding: 6px 10px; }
-  .mockup-wrap .ipad-search span { font-size: 11px; color: #aaa; }
-  .mockup-wrap .ipad-cats { display: flex; gap: 8px; padding: 10px 16px 6px; flex-shrink: 0; }
-  .mockup-wrap .ipad-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 0 16px; overflow: hidden; flex: 1; }
-  .mockup-wrap .ipad-card { background: #fff; border-radius: 12px; overflow: hidden; border: 0.5px solid #ede9e0; }
-  .mockup-wrap .ipad-card-img { height: 65px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-  .mockup-wrap .ipad-card-body { padding: 8px; }
-  .mockup-wrap .ipad-card-body h3 { font-size: 11px; font-weight: 600; color: #111; margin: 0 0 2px; }
-  .mockup-wrap .ipad-card-body .m-price { font-size: 12px; font-weight: 700; color: #5B4FD9; }
-  .mockup-wrap .ipad-card-body .meta { font-size: 9px; color: #888; }
-  .mockup-wrap .ipad-bottom-nav { background: #fff; border-top: 0.5px solid #ede9e0; display: flex; justify-content: space-around; padding: 8px 0 10px; flex-shrink: 0; }
-  .mockup-wrap .m-section-title { font-size: 12px; font-weight: 600; color: #111; padding: 4px 14px 2px; flex-shrink: 0; }
-</style>
-
         <div class="phones">
 
           <!-- Phone: Home Screen -->
