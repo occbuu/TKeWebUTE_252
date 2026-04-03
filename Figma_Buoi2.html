@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 2 — Thiết Kế UI/UX Mobile App: LearnHub</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; line-height: 1.75; color: #1a1a1a; background: #f7f6f2; }
+
+  /* Layout */
+  .page-header { background: linear-gradient(135deg, #5B4FD9 0%, #764BA2 100%); color: #fff; padding: 48px 40px 36px; }
+  .page-header .badge { display: inline-block; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.35); border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 16px; }
+  .page-header h1 { font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
+  .page-header .subtitle { font-size: 16px; opacity: 0.85; max-width: 680px; }
+  .page-header .meta-row { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+  .page-header .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; opacity: 0.9; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 32px; }
+
+  /* Overview table */
+  .overview-card { background: #fff; border-radius: 16px; border: 1px solid #e8e4db; overflow: hidden; margin-bottom: 40px; }
+  .overview-card .ov-header { background: #5B4FD9; color: #fff; padding: 14px 20px; font-size: 14px; font-weight: 700; letter-spacing: 0.3px; }
+  .overview-card table { width: 100%; border-collapse: collapse; }
+  .overview-card table th { background: #f0eeff; color: #5B4FD9; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 16px; text-align: left; border-bottom: 1px solid #e8e4db; }
+  .overview-card table td { padding: 11px 16px; font-size: 14px; border-bottom: 1px solid #f0ece3; color: #333; }
+  .overview-card table tr:last-child td { border-bottom: none; }
+  .overview-card table tr:hover td { background: #faf8ff; }
+
+  /* Section */
+  .section { margin-bottom: 40px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #ede9e0; }
+  .step-badge { background: #5B4FD9; color: #fff; border-radius: 10px; padding: 6px 14px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+  .section-header h2 { font-size: 20px; font-weight: 700; color: #111; }
+
+  /* Content cards */
+  .card { background: #fff; border-radius: 12px; border: 1px solid #e8e4db; padding: 20px 24px; margin-bottom: 16px; }
+  .card h3 { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .card h3 .icon { font-size: 18px; }
+
+  /* Steps */
+  ol.steps { counter-reset: step; list-style: none; padding: 0; }
+  ol.steps > li { counter-increment: step; display: flex; gap: 14px; margin-bottom: 12px; }
+  ol.steps > li::before { content: counter(step); background: #ede9ff; color: #5B4FD9; font-weight: 700; font-size: 12px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  ol.steps > li p { font-size: 14px; color: #333; line-height: 1.6; }
+  ol.steps > li strong { color: #111; }
+
+  ul.bullets { list-style: none; padding: 0; }
+  ul.bullets li { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 14px; color: #333; }
+  ul.bullets li::before { content: "▸"; color: #5B4FD9; font-size: 11px; margin-top: 3px; flex-shrink: 0; }
+
+  /* Sub-steps */
+  .sub-step { background: #faf8ff; border-left: 3px solid #5B4FD9; border-radius: 0 8px 8px 0; padding: 14px 16px; margin: 10px 0; }
+  .sub-step .sub-title { font-size: 12px; font-weight: 700; color: #5B4FD9; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+
+  /* Tip / Warning boxes */
+  .tip { background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 14px 16px; margin: 12px 0; font-size: 13.5px; color: #166534; }
+  .tip strong { font-weight: 700; }
+  .warn { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 10px; padding: 14px 16px; margin: 12px 0; font-size: 13.5px; color: #92400e; }
+  .warn strong { font-weight: 700; }
+  .info { background: #f0eeff; border: 1px solid #c4b8f5; border-radius: 10px; padding: 14px 16px; margin: 12px 0; font-size: 13.5px; color: #3730a3; }
+  .info strong { font-weight: 700; }
+
+  /* Rule table */
+  .rule-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 10px 0; }
+  .rule-table th { background: #f0eeff; color: #5B4FD9; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 9px 14px; text-align: left; border-bottom: 1px solid #ddd; }
+  .rule-table td { padding: 9px 14px; border-bottom: 1px solid #f0ece3; color: #333; vertical-align: top; }
+  .rule-table tr:last-child td { border-bottom: none; }
+  .rule-table .val { font-weight: 600; color: #5B4FD9; font-family: monospace; }
+
+  /* Code / shortcut */
+  code { background: #f3f0ff; color: #5B4FD9; font-family: 'Consolas', monospace; font-size: 13px; padding: 2px 7px; border-radius: 5px; border: 1px solid #ddd8ff; }
+
+  /* Shortcuts table */
+  .shortcut-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-top: 12px; }
+  .shortcut-item { background: #fff; border: 1px solid #e8e4db; border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; }
+  .shortcut-key { background: #1a1a1a; color: #fff; font-family: monospace; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+  .shortcut-desc { font-size: 13px; color: #444; }
+  .shortcut-star { color: #f59e0b; font-size: 14px; }
+
+  /* Checklist */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f0ece3; font-size: 14px; color: #333; }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li .check-box { width: 18px; height: 18px; border: 2px solid #5B4FD9; border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Comparison table */
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 10px 0; }
+  .compare-table th { background: #5B4FD9; color: #fff; padding: 10px 14px; text-align: left; font-size: 12px; font-weight: 700; letter-spacing: 0.3px; }
+  .compare-table th:first-child { background: #3730a3; }
+  .compare-table td { padding: 10px 14px; border-bottom: 1px solid #f0ece3; color: #333; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: #faf8ff; }
+  .compare-table td:first-child { font-weight: 600; color: #111; background: #faf8ff; }
+
+  /* Footer */
+  .page-footer { background: #1a1a1a; color: rgba(255,255,255,0.7); text-align: center; padding: 24px; font-size: 13px; margin-top: 40px; }
+  .page-footer strong { color: #fff; }
+
+  @media print {
+    body { background: #fff; }
+    .page-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .step-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="badge">BUỔI 2 — UI/UX MOBILE</div>
+  <h1>Thiết Kế App LearnHub<br>trên Figma</h1>
+  <p class="subtitle">Hướng dẫn từng bước xây dựng ứng dụng học trực tuyến hoàn chỉnh: Home Screen, Chi tiết khóa học và phiên bản iPad Responsive.</p>
+  <div class="meta-row">
+    <div class="meta-item">📱 3 màn hình hoàn chỉnh</div>
+    <div class="meta-item">⏱ 100 phút thực hành</div>
+    <div class="meta-item">🎯 Prototype có thể bấm được</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Overview -->
+  <div class="overview-card">
+    <div class="ov-header">🗂 TỔNG QUAN DỰ ÁN — Ứng dụng LearnHub</div>
+    <table>
+      <thead><tr><th>Màn hình</th><th>Nội dung chính</th><th>Thời gian</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Screen 1: Home</strong></td><td>Search bar, Categories cuộn ngang, Danh sách Card khóa học</td><td>45 phút</td></tr>
+        <tr><td><strong>Screen 2: Detail</strong></td><td>Cover ảnh lớn, nội dung bài học, nút Đăng ký CTA</td><td>20 phút</td></tr>
+        <tr><td><strong>Screen 3: iPad</strong></td><td>Copy thành phần + Responsive 3 cột Auto Layout Wrap</td><td>20 phút</td></tr>
+        <tr><td><strong>Prototype</strong></td><td>Nối màn hình, hiệu ứng Move In / Slide In</td><td>15 phút</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Chuẩn bị -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge">CHUẨN BỊ</span>
+      <h2>Trước khi bắt đầu</h2>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🔌</span>Cài đặt Plugin (làm 1 lần duy nhất)</h3>
+      <ol class="steps">
+        <li><p>Vào <strong>Menu → Plugins → Find more plugins</strong></p></li>
+        <li><p>Tìm và cài: <strong>Iconify</strong> — thư viện icon miễn phí, hơn 200.000 icon đa dạng</p></li>
+        <li><p>Tìm và cài: <strong>Unsplash</strong> — ảnh miễn phí chất lượng cao cho cover</p></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3><span class="icon">📁</span>Tạo File Figma mới</h3>
+      <ol class="steps">
+        <li><p>Tại Figma Home, nhấn <strong>New design file</strong></p></li>
+        <li><p>Đặt tên file: <code>LearnHub — [Tên bạn]</code></p></li>
+        <li><p>Vào <strong>View → Rulers</strong> để bật thước đo trực quan</p></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Bước 1 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge">BƯỚC 1</span>
+      <h2>Tạo Frame & Nắm vững Quy tắc 8pt</h2>
+    </div>
+    <div class="card">
+      <h3><span class="icon">📐</span>Tạo Frame iPhone</h3>
+      <ol class="steps">
+        <li><p>Nhấn phím <code>F</code> → Bên phải xuất hiện bảng chọn thiết bị</p></li>
+        <li><p>Chọn <strong>Phone → iPhone 14 &amp; 15 Pro</strong> (kích thước: <strong>393 × 852px</strong>)</p></li>
+        <li><p>Đặt tên frame: <code>Home-Screen</code> (click đúp vào tên trong Layers panel)</p></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3><span class="icon">📏</span>Quy tắc 8pt — Bắt buộc ghi nhớ</h3>
+      <div class="info"><strong>📌 Quy tắc vàng:</strong> Mọi khoảng cách trong thiết kế đều phải chia hết cho 8. Đây là chuẩn quốc tế của Apple (HIG) và Google (Material Design).</div>
+      <table class="rule-table">
+        <thead><tr><th>Dùng cho</th><th>Giá trị hợp lệ</th></tr></thead>
+        <tbody>
+          <tr><td>Padding nhỏ (bên trong nút, icon)</td><td class="val">8px, 16px</td></tr>
+          <tr><td>Khoảng cách giữa các phần tử</td><td class="val">8px, 16px, 24px</td></tr>
+          <tr><td>Padding lớn (cạnh màn hình)</td><td class="val">16px, 24px</td></tr>
+          <tr><td>Khoảng cách giữa các section</td><td class="val">24px, 32px, 40px</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3><span class="icon">👆</span>Quy tắc Touch Target (Vùng bấm)</h3>
+      <ul class="bullets">
+        <li>Icon <strong>nhìn thấy</strong>: 24×24px</li>
+        <li>Icon <strong>vùng bấm thật sự</strong>: tối thiểu <strong>44×44px</strong> (chuẩn Apple HIG)</li>
+        <li>Lý do: ngón tay người lớn rộng ~44px — nếu nhỏ hơn, người dùng bấm nhầm</li>
+      </ul>
+      <div class="tip"><strong>✅ Thực hành:</strong> Vẽ một hình chữ nhật bất kỳ → Kiểm tra W và H → Chỉnh sao cho chia hết cho 8.</div>
+    </div>
+  </div>
+
+  <!-- Bước 2 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge">BƯỚC 2</span>
+      <h2>Thiết kế Header & Search Bar</h2>
+    </div>
+    <div class="card">
+      <h3><span class="icon">✍️</span>Header chào người dùng</h3>
+      <ol class="steps">
+        <li><p>Nhấn <code>T</code> (Text), click vào frame, gõ: <strong>"Xin chào, Minh 👋"</strong><br>Font: Inter | Size: <strong>24px</strong> | Weight: SemiBold | Color: <code>#111111</code> | Vị trí: x=24, y=60</p></li>
+        <li><p>Thêm dòng phụ: <em>"Khám phá khóa học mới hôm nay"</em><br>Size: <strong>14px</strong> | Regular | Color: <code>#888888</code> | Cách dòng trên: 8px</p></li>
+      </ol>
+      <div class="tip"><strong>💡 Đặt tên Layer ngay:</strong> Click đúp vào tên layer bên trái → đổi thành <code>Text/Greeting-Title</code> và <code>Text/Greeting-Sub</code></div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🔍</span>Search Bar</h3>
+      <ol class="steps">
+        <li><p>Nhấn <code>R</code> → Vẽ hình chữ nhật: <strong>W=345px, H=48px</strong></p></li>
+        <li><p>Bảng Design: Corner radius: <strong>12</strong> | Fill: <code>#FFFFFF</code> | Stroke: 1px, màu <code>#E0DDD6</code></p></li>
+        <li><p><strong>Plugins → Iconify</strong> → Tìm "search" → Chọn icon → Size: 20×20px, màu <code>#AAAAAA</code> → Đặt cách cạnh trái <strong>14px</strong></p></li>
+        <li><p>Thêm chữ <em>"Tìm khóa học..."</em> bên cạnh icon | màu <code>#AAAAAA</code> | size <strong>14px</strong></p></li>
+        <li><p>Chọn tất cả 3 thành phần → <code>Shift+A</code> → Auto Layout | Horizontal | gap: 8px | padding: 12px → Đặt tên: <code>Component/Search-Bar</code></p></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Bước 3 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge">BƯỚC 3</span>
+      <h2>Thanh Danh Mục (Categories) — Cuộn ngang</h2>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🏷️</span>Tạo Category Chip</h3>
+      <ol class="steps">
+        <li><p>Vẽ hình chữ nhật: <strong>H=32px</strong>, bo góc <strong>20px</strong>, fill <code>#5B4FD9</code></p></li>
+        <li><p>Text "Tất cả" | màu trắng | 13px | Medium → <code>Shift+A</code> Auto Layout | H-padding 16px, V-padding 6px</p></li>
+        <li><p>Đặt tên: <code>Chip/Category-Active</code></p></li>
+        <li><p><code>Ctrl/Cmd+D</code> nhân bản → thay text "Design" | fill <code>#FFFFFF</code> | Stroke 1px <code>#E0DDD6</code> | chữ <code>#555555</code> → tên: <code>Chip/Category-Inactive</code></p></li>
+        <li><p>Tạo thêm: "Dev", "Marketing", "Data" tương tự</p></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3><span class="icon">↔️</span>Thiết lập Horizontal Scroll</h3>
+      <ol class="steps">
+        <li><p>Chọn tất cả 5 chip → <code>Shift+A</code> → Auto Layout: <strong>Horizontal</strong> | Gap: 8px</p></li>
+        <li><p>Thu nhỏ frame chứa vừa đúng chiều rộng điện thoại (<strong>393px</strong>)</p></li>
+        <li><p>Chọn frame → Tab <strong>Prototype</strong> → <strong>Overflow: Horizontal scrolling</strong> ✅</p></li>
+        <li><p>Đặt tên: <code>Container/Categories-Scroll</code></p></li>
+      </ol>
+      <div class="info"><strong>📌 Lý do:</strong> Frame chứa hẹp hơn nội dung bên trong, Figma sẽ tự tạo thanh cuộn ngang khi preview.</div>
+    </div>
+  </div>
+
+  <!-- Bước 4 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge">BƯỚC 4</span>
+      <h2>Card Khóa Học — Thành phần quan trọng nhất</h2>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🃏</span>Xây dựng Card hoàn chỉnh (5 bước nhỏ)</h3>
+
+      <div class="sub-step">
+        <div class="sub-title">Bước A — Khung ngoài</div>
+        <p style="font-size:14px;color:#333;">Vẽ hình chữ nhật: <strong>W=345px, H=200px</strong> | bo góc <strong>16px</strong> | Fill: <code>#FFFFFF</code> | Stroke: 1px <code>#EDE9E0</code></p>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-title">Bước B — Ảnh bìa (Thumbnail)</div>
+        <p style="font-size:14px;color:#333;">Vẽ hình chữ nhật: <strong>W=345px, H=120px</strong> | Dùng Unsplash plugin hoặc fill tạm <code>#667EEA</code> | Đặt tên: <code>Image/Course-Thumb</code></p>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-title">Bước C — Badge "HOT"</div>
+        <p style="font-size:14px;color:#333;">Hình chữ nhật nhỏ: W=36, H=20 | bo góc 6px | fill <code>rgba(255,255,255,0.25)</code> | Text "HOT" trắng 10px Bold | Đặt góc phải ảnh</p>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-title">Bước D — Nội dung văn bản</div>
+        <ul class="bullets" style="margin-top:4px;">
+          <li>Tên khóa: <strong>"UI/UX Design với Figma"</strong> — 14px SemiBold <code>#111111</code></li>
+          <li>Giảng viên: "Nguyễn Hà · 24 bài học" — 12px Regular <code>#888888</code></li>
+          <li>Giá: "499.000đ" — 16px Bold <code>#5B4FD9</code></li>
+          <li>Đánh giá: "★★★★★ 4.9" — 12px <code>#F59E0B</code></li>
+        </ul>
+      </div>
+
+      <div class="sub-step">
+        <div class="sub-title">Bước E — Gom bằng Auto Layout (nested)</div>
+        <ol class="steps">
+          <li><p>Tên + giảng viên → <code>Shift+A</code> → Vertical, gap 4px → <code>Group/Card-Info</code></p></li>
+          <li><p>Giá + sao → <code>Shift+A</code> → Horizontal, "Fill container" (đẩy 2 bên) → <code>Group/Card-Price</code></p></li>
+          <li><p><code>Card-Info</code> + <code>Card-Price</code> → <code>Shift+A</code> → Vertical, padding 12px → <code>Group/Card-Body</code></p></li>
+          <li><p>Ảnh + Badge + <code>Card-Body</code> → <code>Shift+A</code> → Vertical → <strong><code>Component/Card-Course</code></strong> ✅</p></li>
+        </ol>
+      </div>
+
+      <div class="tip"><strong>✅ Kết quả:</strong> Card dùng Auto Layout nested — khi thay text dài hơn, card tự dãn. Đây là cách làm chuyên nghiệp!</div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">📋</span>Nhân bản để tạo Danh sách</h3>
+      <ol class="steps">
+        <li><p>Chọn card → <code>Ctrl/Cmd+D</code> — tạo thêm 3-4 card</p></li>
+        <li><p>Thay đổi nội dung mỗi card (tên khóa, giá, màu ảnh, tên giảng viên)</p></li>
+        <li><p>Chọn tất cả card → <code>Shift+A</code> → Vertical | gap <strong>16px</strong> → <code>Container/Card-List</code></p></li>
+        <li><p>Kéo dài danh sách dài hơn màn hình → Tab Prototype → Overflow: <strong>Vertical scrolling</strong></p></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Bước 5 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge">BƯỚC 5</span>
+      <h2>Bottom Navigation Bar — Cố định khi cuộn</h2>
+    </div>
+    <div class="card">
+      <h3><span class="icon">⬇️</span>Thiết kế 4 nút điều hướng</h3>
+      <ol class="steps">
+        <li><p>Vẽ nền: <strong>W=393px, H=82px</strong> | Fill: <code>#FFFFFF</code> | Stroke trên cùng: 0.5px <code>#EDE9E0</code></p></li>
+        <li><p>Tạo 4 nav item (Home / Tìm / Khóa học / Hồ sơ) — mỗi item gồm Icon 24×24px + Text 10px bên dưới</p></li>
+        <li><p>Item <strong>active</strong> (Home): icon + text màu <code>#5B4FD9</code>. Item inactive: màu <code>#AAAAAA</code></p></li>
+        <li><p>Chọn 4 item → <code>Shift+A</code> → Horizontal, Space between → <code>Component/Bottom-Nav</code></p></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3><span class="icon">📌</span>Cố định vị trí khi scroll</h3>
+      <ol class="steps">
+        <li><p>Chọn <code>Component/Bottom-Nav</code></p></li>
+        <li><p>Bảng <strong>Design</strong> → mục <strong>Constraints</strong> → chọn <strong>Bottom</strong></p></li>
+        <li><p>Tick vào <strong>"Fix position when scrolling"</strong> ✅</p></li>
+        <li><p>Trong Layers panel: kéo layer <code>Component/Bottom-Nav</code> lên <strong>trên cùng</strong> của danh sách</p></li>
+      </ol>
+      <div class="warn"><strong>⚠️ Lưu ý:</strong> Layer phải nằm trên cùng trong Layers panel để không bị các Card che khuất khi cuộn.</div>
+    </div>
+  </div>
+
+  <!-- Bước 6 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge">BƯỚC 6</span>
+      <h2>Màn hình Chi Tiết Khóa Học</h2>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🖼️</span>Tạo Frame và Hero Image</h3>
+      <ol class="steps">
+        <li><p>Nhấn <code>F</code> → iPhone 14 &amp; 15 Pro → Đặt tên: <code>Detail-Screen</code> | Đặt sang <strong>bên phải</strong> frame Home (cách ~100px)</p></li>
+        <li><p>Vẽ Hero Image: <strong>W=393px, H=280px</strong> | Dùng Unsplash hoặc Gradient <code>#667EEA → #764BA2</code></p></li>
+        <li><p>Thêm overlay tối phía dưới: Linear gradient, đen opacity 0% → 60%</p></li>
+        <li><p>Tên khóa học trên overlay: 22px Bold | Trắng | Căn dưới trái ảnh</p></li>
+        <li><p>Dòng phụ "Design · 24 bài học": 13px | White 70%</p></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3><span class="icon">📄</span>Danh sách bài học</h3>
+      <ol class="steps">
+        <li><p>Thêm row thông tin: Giảng viên (bên trái) + Rating ★ (bên phải)</p></li>
+        <li><p>Tab "Nội dung khóa học": Pill pill, fill <code>#F0EEFF</code>, text <code>#5B4FD9</code>, 13px Bold</p></li>
+        <li><p>Mỗi bài học: Số bài (Bold <code>#5B4FD9</code>) + Tên bài + Thời lượng bên phải | divider line 0.5px phân cách</p></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🔘</span>Nút CTA — Call to Action</h3>
+      <ol class="steps">
+        <li><p>Vẽ nút: <strong>W=345px, H=52px</strong> | bo góc 14px | fill <code>#5B4FD9</code></p></li>
+        <li><p>Text "Đăng ký ngay — 499.000đ" | 16px SemiBold | Màu trắng | Căn giữa</p></li>
+      </ol>
+      <div class="tip"><strong>✅ H=52px ≥ 44px</strong> — đảm bảo Touch Target chuẩn Apple. Đây là vùng bấm quan trọng nhất trên màn hình!</div>
+    </div>
+  </div>
+
+  <!-- Bước 7 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge">BƯỚC 7</span>
+      <h2>Responsive cho iPad — 3 cột</h2>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🖥️</span>Tạo Frame iPad và Copy thành phần</h3>
+      <ol class="steps">
+        <li><p>Nhấn <code>F</code> → <strong>Tablet → iPad Pro 11"</strong> (834 × 1194px) → Đặt tên: <code>Home-iPad</code></p></li>
+        <li><p>Copy <code>Component/Search-Bar</code> từ màn hình mobile → Paste vào iPad → Scale lên phù hợp</p></li>
+        <li><p>Copy <code>Component/Bottom-Nav</code> → Paste → Mở rộng W=834px</p></li>
+      </ol>
+      <div class="info"><strong>💡 Kỹ thuật Adaptability:</strong> Không vẽ lại từ đầu — tái dùng Component đã có. Đây là cách làm chuyên nghiệp tiết kiệm thời gian!</div>
+    </div>
+    <div class="card">
+      <h3><span class="icon">⚙️</span>Đổi thành Layout 3 cột</h3>
+      <ol class="steps">
+        <li><p>Chọn <code>Container/Card-List</code></p></li>
+        <li><p>Trong Auto Layout: đổi <strong>Direction thành "Wrap"</strong> (icon mũi tên quay vòng)</p></li>
+        <li><p>Tăng Width mỗi card lên ~<strong>240px</strong> để vừa 3 cột (834 - 48px padding = 786 ÷ 3 ≈ 246px)</p></li>
+        <li><p>Gap ngang: 16px | Gap dọc: 16px</p></li>
+      </ol>
+    </div>
+    <table class="compare-table" style="margin-top:4px;">
+      <thead><tr><th>Điểm so sánh</th><th>📱 Mobile (iPhone)</th><th>🖥 Tablet (iPad)</th></tr></thead>
+      <tbody>
+        <tr><td>Chiều rộng</td><td>393px</td><td>834px</td></tr>
+        <tr><td>Số cột Card</td><td>1 cột dọc</td><td>3 cột ngang (Wrap)</td></tr>
+        <tr><td>Diện tích hiển thị</td><td>Ít hơn — cuộn nhiều</td><td>Nhiều hơn — cuộn ít</td></tr>
+        <tr><td>Bottom Nav</td><td>Compact</td><td>Rộng hơn, icon to hơn</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bước 8 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge">BƯỚC 8</span>
+      <h2>Kết nối Prototype &amp; Preview</h2>
+    </div>
+    <div class="card">
+      <h3><span class="icon">🔗</span>Nối Home → Detail</h3>
+      <ol class="steps">
+        <li><p>Click tab <strong>Prototype</strong> (góc trên phải, cạnh tab Design)</p></li>
+        <li><p>Hover vào Card trên <code>Home-Screen</code> → Xuất hiện dấu <strong>+</strong> màu xanh ở cạnh phải</p></li>
+        <li><p>Kéo dấu + → <code>Detail-Screen</code></p></li>
+        <li><p>Cài: Trigger: <strong>On Click</strong> | Action: Navigate to | Animation: <strong>Move In ← from Right</strong> | Duration: 300ms</p></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3><span class="icon">↩️</span>Nối Detail → Quay về Home</h3>
+      <ol class="steps">
+        <li><p>Hover vào nút Back (icon ←) trên <code>Detail-Screen</code></p></li>
+        <li><p>Kéo → <code>Home-Screen</code></p></li>
+        <li><p>Animation: <strong>Move Out → to Right</strong> (ngược chiều khi đi vào)</p></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3><span class="icon">📲</span>Preview trên Figma Mirror</h3>
+      <ol class="steps">
+        <li><p>Cài app <strong>Figma Mirror</strong> trên điện thoại (iOS / Android)</p></li>
+        <li><p>Đăng nhập cùng tài khoản Figma với máy tính</p></li>
+        <li><p>Nhấn nút <strong>▶ Play</strong> trên Figma Desktop → Chọn <code>Home-Screen</code> làm màn hình bắt đầu</p></li>
+        <li><p>Mở Figma Mirror → Thiết kế hiện trực tiếp trên điện thoại — bấm thử các nút!</p></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Checklist -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge">✅ CHECK</span>
+      <h2>Checklist Kiểm Tra Cuối Buổi</h2>
+    </div>
+    <div class="card">
+      <ul class="checklist">
+        <li><div class="check-box"></div> Frame đúng tên: <code>Home-Screen</code>, <code>Detail-Screen</code>, <code>Home-iPad</code></li>
+        <li><div class="check-box"></div> Tất cả Layer có tên rõ ràng (không còn "Frame 1", "Rectangle 5")</li>
+        <li><div class="check-box"></div> Search Bar sử dụng Auto Layout</li>
+        <li><div class="check-box"></div> Card sử dụng Auto Layout nested (nhiều lớp)</li>
+        <li><div class="check-box"></div> Categories có Horizontal scrolling trong Prototype tab</li>
+        <li><div class="check-box"></div> Bottom Nav có "Fix position when scrolling" = ON</li>
+        <li><div class="check-box"></div> Bottom Nav nằm trên cùng trong Layers panel</li>
+        <li><div class="check-box"></div> iPad hiển thị đúng 3 cột (Auto Layout Wrap)</li>
+        <li><div class="check-box"></div> Prototype Home → Detail hoạt động (Move In)</li>
+        <li><div class="check-box"></div> Prototype Detail → Home hoạt động (Move Out)</li>
+        <li><div class="check-box"></div> Đã xem Preview trên Figma Mirror</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phím tắt -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge">⌨️ TIP</span>
+      <h2>Phím Tắt Cần Nhớ</h2>
+    </div>
+    <div class="shortcut-grid">
+      <div class="shortcut-item"><span class="shortcut-key">V</span><span class="shortcut-desc">Di chuyển / Con trỏ</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">F</span><span class="shortcut-desc">Tạo Frame mới</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">R</span><span class="shortcut-desc">Vẽ hình chữ nhật</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">T</span><span class="shortcut-desc">Viết chữ (Text)</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Shift + A</span><span class="shortcut-desc">Auto Layout ⭐ Quan trọng nhất</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl/Cmd + D</span><span class="shortcut-desc">Nhân bản đối tượng</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Alt + kéo</span><span class="shortcut-desc">Đo khoảng cách</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl/Cmd + G</span><span class="shortcut-desc">Nhóm đối tượng</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl/Cmd + Z</span><span class="shortcut-desc">Hoàn tác (Undo)</span></div>
+      <div class="shortcut-item"><span class="shortcut-key">Ctrl/Cmd + =</span><span class="shortcut-desc">Phóng to (Zoom in)</span></div>
+    </div>
+  </div>
+
+  <!-- Lời khuyên -->
+  <div class="card">
+    <h3><span class="icon">🎓</span>Lời Khuyên Thực Hành</h3>
+    <ul class="bullets">
+      <li><strong>Làm theo thứ tự:</strong> Xây xong Component rồi mới dùng lại — không vẽ lại từ đầu mỗi lần.</li>
+      <li><strong>Đặt tên Layer kiểu BEM:</strong> <code>Component/Tên</code>, <code>Text/Tên</code>, <code>Icon/Tên</code> — nhìn vào Layer panel là hiểu ngay.</li>
+      <li><strong>Zoom in khi cần chính xác:</strong> <code>Ctrl/Cmd + =</code> khi đặt các phần tử nhỏ như icon hay text.</li>
+      <li><strong>Ctrl+Z thoải mái:</strong> Figma lưu lịch sử rất dài — cứ thử nghiệm, sai thì Undo, không sợ mất dữ liệu.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  <strong>📱 LearnHub — Thiết Kế UI/UX Mobile App với Figma</strong><br>
+  Buổi 2 · Tài liệu hướng dẫn thực hành · help.figma.com
+</div>
+
+</body>
+</html>
