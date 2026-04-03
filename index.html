@@ -3,42 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index - Trang chủ</title>
+    <title>Học phần Thiết kế Web - UTE HK252</title>
+    <meta name="author" content="TS. Lê Ngọc Hiếu">
+    <meta name="description" content="Tài liệu thực hành học phần Thiết kế Web - Khoa Kinh tế, Đại học Công nghệ Kỹ thuật TP.HCM (HCMUTE)">
+    <meta name="keywords" content="Thiết kế Web, Figma, HCMUTE, UTE, Khoa Kinh tế, HK252">
+    <meta name="generator" content="TS. Lê Ngọc Hiếu - Khoa Kinh tế, HCMUTE">
+    <meta property="og:title" content="Học phần Thiết kế Web - UTE HK252">
+    <meta property="og:description" content="Tài liệu thực hành học phần Thiết kế Web - Khoa Kinh tế, HCMUTE">
+    <meta property="og:locale" content="vi_VN">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            color: #333;
-        }
-        ul {
-            list-style-type: none;
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
             padding: 0;
         }
-        li {
-            margin: 15px 0;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+            color: #fff;
         }
-        a {
+
+        /* --- HEADER --- */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeDown 0.7s ease both;
+        }
+
+        .badge {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            padding: 6px 18px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #a78bfa;
+            margin-bottom: 20px;
+            backdrop-filter: blur(8px);
         }
-        a:hover {
-            background-color: #0056b3;
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #fff 0%, #a78bfa 50%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.55);
+            font-weight: 400;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* --- GRID --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* --- CARD --- */
+        .card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 36px 32px;
+            text-decoration: none;
+            color: #fff;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            backdrop-filter: blur(12px);
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--card-glow);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: inherit;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.25);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card--purple { --card-glow: radial-gradient(ellipse at top left, rgba(167,139,250,0.15), transparent 60%); }
+        .card--blue   { --card-glow: radial-gradient(ellipse at top left, rgba(96,165,250,0.15), transparent 60%); }
+        .card--pink   { --card-glow: radial-gradient(ellipse at top left, rgba(244,114,182,0.15), transparent 60%); }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .card--purple .card-icon { background: rgba(167,139,250,0.2); }
+        .card--blue   .card-icon { background: rgba(96,165,250,0.2); }
+        .card--pink   .card-icon { background: rgba(244,114,182,0.2); }
+
+        .card-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .card--purple .card-label { color: #a78bfa; }
+        .card--blue   .card-label { color: #60a5fa; }
+        .card--pink   .card-label { color: #f472b6; }
+
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .card p {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .card-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: gap 0.2s ease;
+        }
+
+        .card--purple .card-arrow { color: #a78bfa; }
+        .card--blue   .card-arrow { color: #60a5fa; }
+        .card--pink   .card-arrow { color: #f472b6; }
+
+        .card:hover .card-arrow { gap: 14px; }
+
+        /* --- FOOTER --- */
+        .footer {
+            margin-top: 64px;
+            text-align: center;
+            color: rgba(255,255,255,0.25);
+            font-size: 0.8rem;
+            animation: fadeUp 0.6s ease 0.5s both;
+        }
+
+        .footer span {
+            color: #a78bfa;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- FLOATING ORBS (decorative) --- */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .orb-1 {
+            width: 400px; height: 400px;
+            background: rgba(167,139,250,0.18);
+            top: -100px; left: -100px;
+        }
+        .orb-2 {
+            width: 350px; height: 350px;
+            background: rgba(96,165,250,0.15);
+            bottom: -80px; right: -80px;
         }
     </style>
 </head>
 <body>
-    <h1>Danh sách các buổi học FIGMA</h1>
-    <ul>
-        <li><a href="Figma_Buoi1.html">Buổi 1 - Figma Basics</a></li>
-        <li><a href="Figma_Buoi2.html">Buổi 2 - Figma Advanced</a></li>
-    </ul>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <header class="header">
+        <div class="badge">UTE &mdash; HK252 &mdash; Thiết kế Web</div>
+        <h1>Bài tập thực hành<br>Figma &amp; Web Design</h1>
+        <p>Tổng hợp các buổi thực hành trong học kỳ. Chọn buổi học bên dưới để xem nội dung chi tiết.</p>
+    </header>
+
+    <main class="grid">
+
+        <a href="Figma_Buoi1.html" class="card card--purple">
+            <div class="card-icon">&#9672;</div>
+            <div class="card-label">Buổi 1</div>
+            <h2>Figma Basics</h2>
+            <p>Làm quen với giao diện Figma, các công cụ cơ bản, frame, shape và typography.</p>
+            <span class="card-arrow">Xem bài &rarr;</span>
+        </a>
+
+        <a href="Figma_Buoi2.html" class="card card--blue">
+            <div class="card-icon">&#9670;</div>
+            <div class="card-label">Buổi 2</div>
+            <h2>Figma Advanced</h2>
+            <p>Components, Auto Layout, Prototype và các kỹ thuật thiết kế nâng cao trong Figma.</p>
+            <span class="card-arrow">Xem bài &rarr;</span>
+        </a>
+
+    </main>
+
+    <footer class="footer">
+        <p>Học phần Thiết kế Web &mdash; Khoa Kinh tế &mdash; <span>UTE</span></p>
+    </footer>
+
 </body>
 </html>
