@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 1: Thiết kế UI/UX Website - EduLearn Landing Page</title>
+<style>
+  :root {
+    --navy: #0F172A;
+    --blue: #0EA5E9;
+    --blue-dk: #0284C7;
+    --purple: #7C3AED;
+    --teal: #0D9488;
+    --gray: #64748B;
+    --gray-lt: #94A3B8;
+    --slate: #1E293B;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --white: #FFFFFF;
+    --text: #1E293B;
+    --text-muted: #64748B;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* PRINT */
+  @media print {
+    .no-print { display: none !important; }
+    body { background: white; }
+    .step-content { display: block !important; }
+    .card { break-inside: avoid; }
+    .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* ── LAYOUT ─────────────────────────────────────────────────── */
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  /* ── HERO HEADER ─────────────────────────────────────────────── */
+  .hero {
+    background: var(--navy);
+    color: white;
+    padding: 48px 40px 40px;
+    border-radius: 16px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #0EA5E920, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: #0EA5E920;
+    border: 1px solid #0EA5E940;
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .hero h1 { font-size: 32px; font-weight: 700; margin-bottom: 10px; line-height: 1.2; }
+  .hero h1 span { color: var(--blue); }
+  .hero p { color: #94A3B8; font-size: 16px; margin-bottom: 20px; }
+  .hero-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+  .hero-meta span {
+    background: #ffffff0d;
+    border: 1px solid #ffffff15;
+    color: #CBD5E1;
+    padding: 5px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+  }
+
+  /* ── PROJECT CARD ─────────────────────────────────────────────── */
+  .project-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--blue);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .project-card h3 { font-size: 16px; color: var(--navy); margin-bottom: 8px; }
+  .project-card p { color: var(--text-muted); font-size: 14px; line-height: 1.65; }
+
+  /* ── SPEC GRID ─────────────────────────────────────────────────── */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .spec-item {
+    background: #F1F5F9;
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .spec-label { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+  .spec-val { font-size: 15px; font-weight: 600; color: var(--navy); font-family: 'Courier New', monospace; }
+
+  /* ── TABS NAV ─────────────────────────────────────────────────── */
+  .tabs-wrap { position: sticky; top: 0; z-index: 100; background: var(--bg); padding: 12px 0 8px; margin-bottom: 8px; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tab {
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: white;
+    color: var(--gray);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+  }
+  .tab:hover { background: #EFF8FF; border-color: #BAE6FD; color: #0369A1; }
+  .tab.active { background: var(--navy); color: white; border-color: var(--navy); }
+
+  /* PROGRESS BAR */
+  .progress-bar { height: 3px; background: #E2E8F0; border-radius: 2px; margin-bottom: 20px; }
+  .progress-fill { height: 100%; background: var(--blue); border-radius: 2px; transition: width 0.35s ease; }
+
+  /* ── STEP CARD ─────────────────────────────────────────────────── */
+  .step-content { display: none; }
+  .step-content.active { display: block; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card-header {
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .card-header h2 { font-size: 16px; font-weight: 600; color: var(--navy); flex: 1; }
+  .time-badge {
+    background: #F1F5F9;
+    color: var(--gray);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .card-body { padding: 22px; }
+  .card-body > p.intro {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.7;
+    padding: 12px 16px;
+    background: #F8FAFC;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 3px solid #E2E8F0;
+  }
+
+  /* ── SUB HEADING ─────────────────────────────────────────────── */
+  .subh {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 22px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .subh::before {
+    content: '';
+    display: block;
+    width: 3px; height: 16px;
+    background: var(--blue);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── TASK LIST ─────────────────────────────────────────────────── */
+  .tasks { list-style: none; margin: 0; }
+  .tasks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #F1F5F9;
+    font-size: 14px;
+    color: #334155;
+    line-height: 1.6;
+  }
+  .tasks li:last-child { border-bottom: none; }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .tasks li strong, .tasks li .bold { font-weight: 600; color: var(--navy); }
+  kbd {
+    background: #F1F5F9;
+    border: 1px solid #CBD5E1;
+    border-bottom: 2px solid #CBD5E1;
+    border-radius: 5px;
+    padding: 1px 7px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+
+  /* ── SHORTCUT GRID ─────────────────────────────────────────────── */
+  .shortcut-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .shortcut {
+    background: #F8FAFC;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .shortcut kbd { font-size: 13px; font-weight: 600; }
+  .shortcut .desc { font-size: 12px; color: var(--gray); }
+
+  /* ── TIP / WARN BOXES ─────────────────────────────────────────── */
+  .tip, .warn, .info {
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    margin: 14px 0;
+  }
+  .tip { background: #ECFDF5; border-left: 4px solid #059669; color: #064E3B; }
+  .warn { background: #FFFBEB; border-left: 4px solid #D97706; color: #78350F; }
+  .info { background: #EFF8FF; border-left: 4px solid var(--blue); color: #0C4A6E; }
+  .tip strong, .warn strong, .info strong { font-weight: 700; }
+
+  /* ── SPEC TABLE ─────────────────────────────────────────────────── */
+  table.spec {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  table.spec th, table.spec td {
+    padding: 9px 14px;
+    border: 1px solid #E2E8F0;
+    text-align: left;
+  }
+  table.spec th { background: var(--navy); color: white; font-weight: 600; font-size: 13px; }
+  table.spec tr:nth-child(even) td { background: #F8FAFC; }
+  table.spec td:first-child { color: var(--gray); }
+  table.spec td:last-child { font-family: 'Courier New', monospace; font-weight: 600; color: var(--navy); }
+
+  /* ── PREVIEW FRAME ─────────────────────────────────────────────── */
+  .preview {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .preview-label {
+    background: #F8FAFC;
+    border-bottom: 1px solid var(--border);
+    padding: 7px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gray);
+  }
+  .preview-body { background: #0F172A; padding: 18px; }
+
+  /* MOCK UI */
+  .mock-nav {
+    background: #1E293B;
+    border-radius: 8px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .mock-logo { color: #fff; font-weight: 700; font-size: 14px; }
+  .mock-menu { display: flex; gap: 18px; }
+  .mock-menu span { color: #94A3B8; font-size: 12px; }
+  .mock-menu span.active { color: #fff; }
+  .mock-cta { background: #0EA5E9; color: #fff; padding: 7px 16px; border-radius: 7px; font-size: 12px; font-weight: 600; }
+  .mock-sign { color: #94A3B8; font-size: 12px; }
+
+  .mock-hero {
+    text-align: center;
+    padding: 28px 20px 20px;
+  }
+  .mock-badge {
+    display: inline-block;
+    background: #0EA5E915;
+    border: 1px solid #0EA5E930;
+    color: #38BDF8;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .mock-hero h2 { color: #fff; font-size: 22px; line-height: 1.25; margin-bottom: 8px; }
+  .mock-hero h2 em { color: #0EA5E9; font-style: normal; }
+  .mock-hero p { color: #94A3B8; font-size: 12px; margin-bottom: 14px; line-height: 1.6; }
+  .mock-btns { display: flex; gap: 10px; justify-content: center; }
+  .btn-primary-mock { background: #0EA5E9; color: #fff; padding: 8px 18px; border-radius: 8px; font-size: 12px; font-weight: 600; }
+  .btn-outline-mock { border: 1px solid #334155; color: #CBD5E1; padding: 8px 18px; border-radius: 8px; font-size: 12px; }
+
+  .mock-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .mock-card {
+    background: #1E293B;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .mock-card.featured { border-color: #0EA5E9; }
+  .mock-icon { width: 28px; height: 28px; background: #0EA5E915; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; margin-bottom: 8px; }
+  .mock-card h4 { color: #E2E8F0; font-size: 12px; font-weight: 600; margin-bottom: 5px; }
+  .mock-card p { color: #64748B; font-size: 11px; line-height: 1.5; }
+
+  /* COMPONENT PREVIEW */
+  .comp-row { display: flex; gap: 10px; flex-wrap: wrap; padding: 16px; }
+  .comp {
+    border: 1.5px dashed #334155;
+    border-radius: 8px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1E293B;
+  }
+  .comp-badge { background: #0EA5E920; color: #7DD3FC; font-size: 10px; padding: 2px 7px; border-radius: 4px; font-weight: 600; }
+
+  /* ── CHECKLIST ─────────────────────────────────────────────────── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid #F1F5F9;
+    font-size: 14px;
+    color: #334155;
+    align-items: flex-start;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-box {
+    width: 18px; height: 18px;
+    border: 2px solid var(--blue);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .check-box.done { background: var(--blue); }
+  .check-box.done::after { content: '✓'; color: white; font-size: 11px; font-weight: 700; }
+
+  /* ── FOOTER NAV ─────────────────────────────────────────────────── */
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    padding: 9px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: white;
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .nav-btn:hover { background: #F1F5F9; }
+  .nav-btn.primary { background: var(--navy); color: white; border-color: var(--navy); }
+  .nav-btn.primary:hover { background: #1E3A5F; }
+  .nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  #step-indicator { font-size: 13px; color: var(--gray); font-weight: 500; }
+
+  /* ── COLOR PALETTE DISPLAY ─────────────────────────────────────── */
+  .palette { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+  .swatch { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .swatch-color { width: 44px; height: 44px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.08); }
+  .swatch span { font-size: 10px; color: var(--gray); font-family: monospace; }
+
+  /* ── SECTION TITLE ─────────────────────────────────────────────── */
+  .section-title { font-size: 22px; font-weight: 700; color: var(--navy); margin: 32px 0 14px; display: flex; align-items: center; gap: 10px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── CELEBRATION ─────────────────────────────────────────────────── */
+  .celebrate {
+    text-align: center;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-top: 20px;
+  }
+  .celebrate .emoji { font-size: 40px; margin-bottom: 8px; }
+  .celebrate h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .celebrate p { color: var(--gray); font-size: 14px; }
+
+  /* ── PRINT BUTTON ─────────────────────────────────────────────────── */
+  .print-btn {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(15,23,42,0.2);
+    font-family: inherit;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 200;
+  }
+  .print-btn:hover { background: #1E3A5F; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">Buổi 1 · Figma UI/UX Design</div>
+    <h1>Thiết kế Landing Page<br><span>EduLearn Platform</span></h1>
+    <p>Hướng dẫn từng bước thực hành Figma — Xây dựng website học trực tuyến hoàn chỉnh</p>
+    <div class="hero-meta">
+      <span>⏱ ~150 phút</span>
+      <span>🛠 Figma Desktop</span>
+      <span>📦 6 Sections</span>
+      <span>🎯 5 Kỹ năng cốt lõi</span>
+    </div>
+  </div>
+
+  <!-- PROJECT CARD -->
+  <div class="project-card">
+    <h3>Dự án: EduLearn — Nền tảng học lập trình trực tuyến</h3>
+    <p>Một startup EdTech cần thiết kế landing page thu hút người dùng mới. Sinh viên sẽ xây dựng từ đầu một website hoàn chỉnh gồm Navigation Bar, Hero Section, Stats, Features, Pricing và Footer — kèm prototype tương tác.</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-wrap no-print">
+    <div class="tabs" id="tabs">
+      <button class="tab active" onclick="showStep(0)">0 · Chuẩn bị</button>
+      <button class="tab" onclick="showStep(1)">1 · Setup & Grid</button>
+      <button class="tab" onclick="showStep(2)">2 · Navigation Bar</button>
+      <button class="tab" onclick="showStep(3)">3 · Hero Section</button>
+      <button class="tab" onclick="showStep(4)">4 · Features & Pricing</button>
+      <button class="tab" onclick="showStep(5)">5 · Component & Proto</button>
+      <button class="tab" onclick="showStep(6)">6 · Kết quả</button>
+    </div>
+  </div>
+  <div class="progress-bar no-print"><div class="progress-fill" id="prog" style="width:14%"></div></div>
+
+  <!-- ─── STEP 0 ─── -->
+  <div class="step-content active" id="s0">
+    <div class="card">
+      <div class="card-header">
+        <div class="step-num" style="background:#EFF8FF;color:#0369A1">0</div>
+        <h2>Chuẩn bị — Tài khoản & Công cụ</h2>
+        <span class="time-badge">⏱ 10 phút</span>
+      </div>
+      <div class="card-body">
+        <p class="intro">Hoàn thành các bước này trước khi vào lớp để không mất thời gian cài đặt trong giờ học.</p>
+
+        <div class="subh">Tài khoản & Phần mềm</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Truy cập <strong>figma.com</strong> → Đăng ký bằng email sinh viên (<strong>@student.edu.vn</strong>) → Xác nhận email → Được dùng gói <strong>Education Pro</strong> miễn phí</li>
+          <li><div class="dot"></div>Tải và cài <strong>Figma Desktop App</strong> tại figma.com/downloads — chạy mượt và ổn định hơn trình duyệt web</li>
+          <li><div class="dot"></div>Cài Plugin <strong>Unsplash</strong>: vào Menu → Plugins → Browse → tìm "Unsplash" → Install</li>
+          <li><div class="dot"></div>Cài Plugin <strong>Font Scale</strong> hoặc <strong>Typescale</strong> để dễ chọn và kiểm tra typography</li>
+          <li><div class="dot"></div>Bookmark sẵn: <strong>coolors.co</strong> (tạo bảng màu) · <strong>fonts.google.com</strong> · <strong>heroicons.com</strong> (icons)</li>
+        </ul>
+
+        <div class="subh">Bảng màu dự án EduLearn</div>
+        <div class="palette">
+          <div class="swatch"><div class="swatch-color" style="background:#0F172A"></div><span>#0F172A</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#0EA5E9"></div><span>#0EA5E9</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#0284C7"></div><span>#0284C7</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#7C3AED"></div><span>#7C3AED</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#1E293B"></div><span>#1E293B</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#94A3B8"></div><span>#94A3B8</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#FFFFFF;border:1px solid #E2E8F0"></div><span>#FFFFFF</span></div>
+        </div>
+
+        <div class="subh">Thông số Typography</div>
+        <div class="spec-grid">
+          <div class="spec-item"><div class="spec-label">Font Heading</div><div class="spec-val">Plus Jakarta Sans</div></div>
+          <div class="spec-item"><div class="spec-label">Font Body</div><div class="spec-val">Inter</div></div>
+          <div class="spec-item"><div class="spec-label">Heading size</div><div class="spec-val">48–72px</div></div>
+          <div class="spec-item"><div class="spec-label">Body size</div><div class="spec-val">14–18px</div></div>
+        </div>
+
+        <div class="tip"><strong>Mẹo:</strong> Tải font Plus Jakarta Sans từ fonts.google.com và cài vào máy tính trước khi vào Figma để font xuất hiện trong danh sách.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP 1 ─── -->
+  <div class="step-content" id="s1">
+    <div class="card">
+      <div class="card-header">
+        <div class="step-num" style="background:#DBEAFE;color:#1D4ED8">1</div>
+        <h2>Tạo File & Thiết lập Layout Grid</h2>
+        <span class="time-badge">⏱ 20 phút</span>
+      </div>
+      <div class="card-body">
+        <p class="intro">Đây là nền tảng cho toàn bộ bản thiết kế. Layout Grid đảm bảo mọi thành phần căn chỉnh đồng nhất và chuyên nghiệp.</p>
+
+        <div class="subh">Bước 1.1 — Tạo Design File mới</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Từ trang chủ Figma → nhấn <strong>+ New design file</strong></li>
+          <li><div class="dot"></div>Đổi tên file: <strong>"EduLearn — Landing Page"</strong> (double-click vào tên file ở thanh top)</li>
+        </ul>
+
+        <div class="subh">Bước 1.2 — Tạo Frame Desktop</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Nhấn phím <kbd>F</kbd> → bảng bên phải chọn <strong>Desktop → 1440 × 1024px</strong></li>
+          <li><div class="dot"></div>Đặt tên Frame: <strong>"EduLearn — Home"</strong> (double-click vào tên trong Layers panel)</li>
+          <li><div class="dot"></div>Đặt màu nền Frame: Fill → Custom → nhập <strong>#0F172A</strong> (Dark Navy)</li>
+        </ul>
+
+        <div class="subh">Bước 1.3 — Thiết lập 12-Column Grid</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Chọn Frame → bảng bên phải → mục <strong>Layout Grid</strong> → nhấn dấu <strong>+</strong></li>
+          <li><div class="dot"></div>Click vào ô vuông màu đỏ để mở tùy chọn → chuyển sang kiểu <strong>Columns</strong></li>
+          <li><div class="dot"></div>Nhập thông số: <strong>Count: 12</strong> | <strong>Margin: 96</strong> | <strong>Gutter: 24</strong></li>
+          <li><div class="dot"></div>Đổi màu Grid: nhấn vào ô màu → nhập <strong>#0EA5E9</strong> → kéo opacity xuống còn <strong>10%</strong></li>
+        </ul>
+
+        <table class="spec">
+          <thead><tr><th>Thông số</th><th>Giá trị</th></tr></thead>
+          <tbody>
+            <tr><td>Columns (số cột)</td><td>12</td></tr>
+            <tr><td>Margin (lề trái &amp; phải)</td><td>96px</td></tr>
+            <tr><td>Gutter (khoảng cách cột)</td><td>24px</td></tr>
+            <tr><td>Chiều rộng Frame</td><td>1440px</td></tr>
+          </tbody>
+        </table>
+
+        <div class="subh">Phím tắt quan trọng</div>
+        <div class="shortcut-grid">
+          <div class="shortcut"><kbd>F</kbd><span class="desc">Tạo Frame mới</span></div>
+          <div class="shortcut"><kbd>Ctrl + Shift + 4</kbd><span class="desc">Bật/tắt Layout Grid</span></div>
+          <div class="shortcut"><kbd>Shift + A</kbd><span class="desc">Tạo Auto Layout</span></div>
+          <div class="shortcut"><kbd>Ctrl + D</kbd><span class="desc">Duplicate element</span></div>
+          <div class="shortcut"><kbd>Ctrl + G</kbd><span class="desc">Group elements</span></div>
+          <div class="shortcut"><kbd>Ctrl + Alt + K</kbd><span class="desc">Tạo Component</span></div>
+          <div class="shortcut"><kbd>T</kbd><span class="desc">Công cụ Text</span></div>
+          <div class="shortcut"><kbd>R</kbd><span class="desc">Công cụ Rectangle</span></div>
+        </div>
+
+        <div class="tip"><strong>Mẹo:</strong> Nhấn <kbd>Ctrl + Shift + 4</kbd> để bật/tắt Layout Grid bất cứ lúc nào. Luôn bật Grid khi đang thiết kế để đảm bảo căn chỉnh chính xác. Tắt khi cần xem tổng thể.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP 2 ─── -->
+  <div class="step-content" id="s2">
+    <div class="card">
+      <div class="card-header">
+        <div class="step-num" style="background:#CCFBF1;color:#0F766E">2</div>
+        <h2>Navigation Bar — Học Auto Layout</h2>
+        <span class="time-badge">⏱ 30 phút</span>
+      </div>
+      <div class="card-body">
+        <p class="intro">Nav bar là thành phần đầu tiên người dùng thấy. Phương pháp: xây từ nhỏ → lớn bằng Auto Layout — từ text đơn lẻ → nhóm nhỏ → thanh nav hoàn chỉnh.</p>
+
+        <div class="subh">Bước 2.1 — Logo & Brand</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Nhấn <kbd>T</kbd> → gõ <strong>"EduLearn"</strong> → Font: <strong>Plus Jakarta Sans Bold</strong> | Size: <strong>22px</strong> | Color: <strong>#FFFFFF</strong></li>
+          <li><div class="dot"></div>Tạo rectangle 8×24px màu <strong>#0EA5E9</strong> (đường xanh bên trái logo) → chọn cả hai → <kbd>Shift+A</kbd> → Spacing: 6px → Align Center dọc</li>
+        </ul>
+
+        <div class="subh">Bước 2.2 — Menu Items</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Gõ 5 text riêng biệt: <strong>Courses</strong> · <strong>About</strong> · <strong>Instructors</strong> · <strong>Pricing</strong> · <strong>Blog</strong></li>
+          <li><div class="dot"></div>Font: Inter Regular | Size: <strong>15px</strong> | Color: <strong>#94A3B8</strong> (xám nhạt — inactive)</li>
+          <li><div class="dot"></div>Chọn tất cả 5 menu → <kbd>Shift+A</kbd> → Direction: Horizontal → Spacing: <strong>32px</strong></li>
+          <li><div class="dot"></div>Đổi màu "Courses" thành <strong>#FFFFFF</strong> (trắng = active state, trang đang xem)</li>
+        </ul>
+
+        <div class="subh">Bước 2.3 — Tạo CTA Buttons</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Gõ <strong>"Sign In"</strong> → Font: Inter 14px | Color: #94A3B8 → <kbd>Shift+A</kbd> → Padding Horizontal: 16px, Vertical: 10px</li>
+          <li><div class="dot"></div>Gõ <strong>"Get Started Free"</strong> → <kbd>Shift+A</kbd> → Fill: <strong>#0EA5E9</strong> | Corner Radius: <strong>8px</strong> | Padding H: 20px V: 10px | Color: #FFFFFF | Font: Bold</li>
+          <li><div class="dot"></div>Chọn cả 2 button → <kbd>Shift+A</kbd> → Horizontal → Spacing: 12px</li>
+        </ul>
+
+        <div class="subh">Bước 2.4 — Ghép Nav Bar hoàn chỉnh</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Chọn: <strong>Logo group + Menu group + Button group</strong> → <kbd>Shift+A</kbd></li>
+          <li><div class="dot"></div>Direction: Horizontal | Align items: Center | Justify content: <strong>Space Between</strong></li>
+          <li><div class="dot"></div>Padding: Left <strong>96</strong> | Right <strong>96</strong> | Top <strong>20</strong> | Bottom <strong>20</strong> | Width: <strong>1440px</strong></li>
+          <li><div class="dot"></div>Thêm Bottom border: màu <strong>#1E293B</strong> | 1px (Stroke → chọn Bottom only)</li>
+        </ul>
+
+        <div class="preview">
+          <div class="preview-label">Preview — Navigation Bar hoàn thành</div>
+          <div class="preview-body">
+            <div class="mock-nav">
+              <div class="mock-logo">▌ EduLearn</div>
+              <div class="mock-menu">
+                <span class="active">Courses</span>
+                <span>About</span>
+                <span>Instructors</span>
+                <span>Pricing</span>
+                <span>Blog</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px">
+                <span class="mock-sign">Sign In</span>
+                <div class="mock-cta">Get Started Free</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="warn"><strong>Lỗi thường gặp:</strong> Quên chọn tất cả elements trước khi nhấn <kbd>Shift+A</kbd> → Auto Layout chỉ áp dụng cho một phần. Kiểm tra bảng Layers bên trái xem đã chọn đúng chưa trước khi thao tác.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP 3 ─── -->
+  <div class="step-content" id="s3">
+    <div class="card">
+      <div class="card-header">
+        <div class="step-num" style="background:#DBEAFE;color:#1D4ED8">3</div>
+        <h2>Hero Section — Trung tâm thu hút người dùng</h2>
+        <span class="time-badge">⏱ 35 phút</span>
+      </div>
+      <div class="card-body">
+        <p class="intro">Hero Section là "bộ mặt" của website. Mục tiêu: truyền đạt giá trị cốt lõi trong 5 giây đầu. Nguyên tắc Visual Hierarchy: Headline to → Sub nhỏ hơn → CTA → Ảnh minh họa.</p>
+
+        <div class="subh">Bước 3.1 — Badge trên cùng</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Nhấn <kbd>T</kbd> → gõ: <strong>"🎓 Join 50,000+ learners worldwide"</strong> | Font: Inter | 13px | Color: <strong>#0EA5E9</strong></li>
+          <li><div class="dot"></div><kbd>Shift+A</kbd> → Fill: <strong>#0EA5E926</strong> (blue 15%) | Border: 1px <strong>#0EA5E950</strong> | Radius: <strong>20px</strong> | Padding H:14 V:6</li>
+        </ul>
+
+        <div class="subh">Bước 3.2 — Headline chính (Visual Hierarchy)</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Dòng 1: <strong>"Learn to Code."</strong> — Font: Plus Jakarta Sans ExtraBold | Size: <strong>72px</strong> | Color: <strong>#FFFFFF</strong></li>
+          <li><div class="dot"></div>Dòng 2: <strong>"Build Real Projects."</strong> — cùng style, đổi Color: <strong>#0EA5E9</strong> (xanh accent = điểm nhấn)</li>
+          <li><div class="dot"></div>Dòng 3: <strong>"Get Hired Faster."</strong> — Color: <strong>#FFFFFF</strong></li>
+          <li><div class="dot"></div>Line Height: <strong>1.1</strong> (tight — tạo cảm giác mạnh mẽ, quyết đoán)</li>
+        </ul>
+
+        <div class="subh">Bước 3.3 — Sub-headline</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Gõ: <em>"Master in-demand skills with project-based courses taught by industry experts. Learn at your own pace, get certified, and land your dream tech job."</em></li>
+          <li><div class="dot"></div>Font: Inter Regular | Size: <strong>18px</strong> | Color: <strong>#94A3B8</strong> | Width: 560px | Line Height: 1.7</li>
+        </ul>
+
+        <div class="subh">Bước 3.4 — CTA Group & Social Proof</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Button 1: <strong>"Start Learning Free →"</strong> | Fill: #0EA5E9 | Radius: 10px | Padding H:24 V:14 | 16px Bold</li>
+          <li><div class="dot"></div>Button 2: <strong>"▶ Watch Demo"</strong> | Fill: transparent | Border: 1px #334155 | Color: #E2E8F0 | cùng padding</li>
+          <li><div class="dot"></div>Group 2 button → <kbd>Shift+A</kbd> | Horizontal | Spacing: 12px</li>
+          <li><div class="dot"></div>Social Proof text: <strong>"⭐ 4.9/5 rating  ·  No credit card required  ·  Cancel anytime"</strong> | 13px | #64748B</li>
+        </ul>
+
+        <div class="subh">Bước 3.5 — Hình ảnh Hero</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Tạo Rectangle: <strong>600×520px</strong> | Radius: 16px → Plugins → Unsplash → search <strong>"coding laptop dark"</strong></li>
+          <li><div class="dot"></div>Thêm hiệu ứng glow: chọn ảnh → Add Effect → <strong>Drop Shadow</strong> | Color: #0EA5E9 | opacity: 20% | Blur: 40px | X: 0 Y: 0</li>
+          <li><div class="dot"></div><strong>Constraints:</strong> chọn ảnh → bảng phải → Constraints → Horizontal: <strong>Right</strong> | Vertical: <strong>Center</strong></li>
+        </ul>
+
+        <div class="subh">Bước 3.6 — Ghép Hero Section</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Chọn toàn bộ elements trái (Badge + Headline + Sub + CTA + Social Proof) → <kbd>Shift+A</kbd> | Vertical | Spacing: 28px | Align: Left</li>
+          <li><div class="dot"></div>Tạo Frame Hero: <kbd>F</kbd> → vẽ Frame <strong>1440×680px</strong>, đặt tên <strong>"Hero Section"</strong></li>
+          <li><div class="dot"></div>Đặt Left column (content) + Right column (ảnh) → <kbd>Shift+A</kbd> | Justify: Space Between | Padding: 80px | Align: Center</li>
+        </ul>
+
+        <div class="preview">
+          <div class="preview-label">Preview — Hero Section</div>
+          <div class="preview-body">
+            <div class="mock-hero">
+              <div class="mock-badge">🎓 Join 50,000+ learners worldwide</div>
+              <h2>Learn to Code.<br><em>Build Real Projects.</em><br>Get Hired Faster.</h2>
+              <p>Master in-demand skills with project-based courses taught by industry experts.<br>Get certified and land your dream tech job.</p>
+              <div class="mock-btns">
+                <div class="btn-primary-mock">Start Learning Free →</div>
+                <div class="btn-outline-mock">▶ Watch Demo</div>
+              </div>
+              <p style="margin-top:12px;font-size:11px;color:#475569">⭐ 4.9/5 rating · No credit card required · Cancel anytime</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info"><strong>Visual Hierarchy là gì?</strong> Mắt người đọc luôn đi theo thứ tự: lớn nhất → nhỏ hơn → nhỏ nhất. Trong Hero Section này: Headline 72px → Sub 18px → CTA button → Social proof 13px. Màu sắc tăng cường thêm: Trắng (quan trọng nhất) → Xanh accent → Xám (thông tin phụ). Đây là nguyên tắc cốt lõi của UI/UX.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP 4 ─── -->
+  <div class="step-content" id="s4">
+    <div class="card">
+      <div class="card-header">
+        <div class="step-num" style="background:#EDE9FE;color:#6D28D9">4</div>
+        <h2>Features & Pricing Section</h2>
+        <span class="time-badge">⏱ 35 phút</span>
+      </div>
+      <div class="card-body">
+        <p class="intro">Xây dựng tiếp 3 sections còn lại: Stats (số liệu ấn tượng), Features (lợi ích sản phẩm), và Pricing (bảng giá). Tái sử dụng pattern để tiết kiệm thời gian.</p>
+
+        <div class="subh">Bước 4.1 — Section Header (dùng chung cho mọi section)</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Pattern tái dùng: Tag nhỏ → Headline lớn → Sub-text → <kbd>Shift+A</kbd> Vertical | Spacing: 16px | Align: Center</li>
+          <li><div class="dot"></div>Tag ví dụ: <strong>"✨ Why Choose EduLearn"</strong> | Color: #7C3AED | bg: #7C3AED15 | Radius: 20px | Padding H:14 V:6</li>
+          <li><div class="dot"></div>Headline: <strong>"Everything you need to succeed"</strong> | 48px ExtraBold | White | Text Align: Center</li>
+          <li><div class="dot"></div>Sub: <em>"Join thousands of students building real skills..."</em> | 18px | #94A3B8 | Center</li>
+        </ul>
+
+        <div class="subh">Bước 4.2 — Feature Cards (3 cards)</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Tạo 1 card: Frame <strong>360×200px</strong> | Fill: <strong>#1E293B</strong> | Radius: <strong>16px</strong> | Border: 1px #334155</li>
+          <li><div class="dot"></div>Trong card: Icon 40×40 (Radius 10 | bg #0EA5E920) → Title 18px Bold White → Body 14px #94A3B8 → <kbd>Shift+A</kbd> Vertical Spacing: 12</li>
+          <li><div class="dot"></div>Card 1: <strong>"🎯 Expert Instructors"</strong> — Kỹ sư senior từ các công ty hàng đầu</li>
+          <li><div class="dot"></div>Card 2: <strong>"⚡ Learn by Doing"</strong> — Xây dự án thật, thêm vào portfolio</li>
+          <li><div class="dot"></div>Card 3: <strong>"🏆 Career Support"</strong> — Review CV, phỏng vấn giả, hỗ trợ xin việc</li>
+          <li><div class="dot"></div>Chọn 3 cards → <kbd>Shift+A</kbd> | Horizontal | Spacing: <strong>24px</strong></li>
+        </ul>
+
+        <div class="preview">
+          <div class="preview-label">Preview — Feature Cards</div>
+          <div class="preview-body">
+            <div class="mock-cards">
+              <div class="mock-card">
+                <div class="mock-icon">🎯</div>
+                <h4>Expert Instructors</h4>
+                <p>Learn from senior engineers at top tech companies worldwide.</p>
+              </div>
+              <div class="mock-card featured">
+                <div class="mock-icon" style="background:#0EA5E930">⚡</div>
+                <h4>Learn by Doing</h4>
+                <p>Build real projects and add them directly to your portfolio.</p>
+              </div>
+              <div class="mock-card">
+                <div class="mock-icon" style="background:#7C3AED20">🏆</div>
+                <h4>Career Support</h4>
+                <p>Resume review, mock interviews, and job placement assistance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subh">Bước 4.3 — Pricing Section (3 gói)</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Tạo 3 Pricing Cards: <strong>Free / Pro / Team</strong> | Width: 340px | chiều cao tự co giãn</li>
+          <li><div class="dot"></div>Mỗi card gồm (Vertical Auto Layout): Plan name → Price (40px Bold) → Description → Divider → Feature list → CTA Button</li>
+          <li><div class="dot"></div>Card <strong>"Pro"</strong> (highlighted): Fill <strong>#0EA5E9</strong> thay vì #1E293B | thêm tag <strong>"Most Popular"</strong> phía trên card</li>
+          <li><div class="dot"></div>Feature list: dùng <strong>"✓"</strong> màu xanh + text 14px | Auto Layout Vertical Spacing: 12px</li>
+          <li><div class="dot"></div>Card Pro cao hơn 2 cards còn lại khoảng 20px để tạo visual emphasis</li>
+        </ul>
+
+        <div class="subh">Bước 4.4 — Stats Section (số liệu ấn tượng)</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Tạo 4 stat items: <strong>"50K+ Students"</strong> · <strong>"200+ Courses"</strong> · <strong>"95% Job Rate"</strong> · <strong>"4.9★ Rating"</strong></li>
+          <li><div class="dot"></div>Mỗi stat: Number (48px ExtraBold | White) → Label (14px | #94A3B8) | Auto Layout Vertical | Align Center</li>
+          <li><div class="dot"></div>4 stats → Auto Layout Horizontal | Justify: Space Between</li>
+          <li><div class="dot"></div>Thêm đường kẻ dọc #1E293B giữa mỗi stat (Rectangle 1px × 40px)</li>
+        </ul>
+
+        <div class="tip"><strong>Kỹ năng chuyên nghiệp — Design System:</strong> Luôn tái sử dụng pattern. Section Header (tag + headline + sub) dùng y chang ở tất cả sections. Spacing nhất quán: <strong>80–100px</strong> giữa các sections lớn | <strong>24px</strong> giữa cards | <strong>16px</strong> bên trong card. Đây là cách designer chuyên nghiệp làm việc — nhất quán và có hệ thống.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP 5 ─── -->
+  <div class="step-content" id="s5">
+    <div class="card">
+      <div class="card-header">
+        <div class="step-num" style="background:#FEF3C7;color:#B45309">5</div>
+        <h2>Component, Variant & Prototyping</h2>
+        <span class="time-badge">⏱ 25 phút</span>
+      </div>
+      <div class="card-body">
+        <p class="intro">Đây là bước phân biệt designer nghiệp dư và chuyên nghiệp. Components giúp thay đổi 1 chỗ, áp dụng toàn bộ. Prototyping biến thiết kế tĩnh thành trải nghiệm có thể tương tác.</p>
+
+        <div class="subh">Bước 5.1 — Tạo Button Component</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Chọn Button <strong>"Get Started Free"</strong> đã tạo ở Bước 2</li>
+          <li><div class="dot"></div>Nhấn biểu tượng <strong>◈</strong> trên toolbar (Create Component) hoặc <kbd>Ctrl+Alt+K</kbd></li>
+          <li><div class="dot"></div>Button xuất hiện viền tím → đã được lưu vào Assets panel bên trái</li>
+          <li><div class="dot"></div>Đặt tên theo naming convention: <strong>"Button/Primary/Default"</strong></li>
+        </ul>
+
+        <div class="subh">Bước 5.2 — Tạo Variants (3 trạng thái)</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Chọn Component → bảng bên phải → nhấn <strong>"+ Add variant"</strong></li>
+          <li><div class="dot"></div><strong>Variant 1 (Default):</strong> Fill <strong>#0EA5E9</strong> | text White | không có hiệu ứng thêm</li>
+          <li><div class="dot"></div><strong>Variant 2 (Hover):</strong> Fill <strong>#0284C7</strong> (đậm hơn) | thêm Drop Shadow: Color #0EA5E9 | opacity 30% | Blur 16px</li>
+          <li><div class="dot"></div><strong>Variant 3 (Disabled):</strong> Fill <strong>#334155</strong> | text #64748B | opacity toàn bộ: 60%</li>
+          <li><div class="dot"></div>Đặt tên Property cho từng variant: <strong>State = Default / Hover / Disabled</strong></li>
+        </ul>
+
+        <div class="preview">
+          <div class="preview-label">Preview — Button Component Variants</div>
+          <div class="preview-body">
+            <div class="comp-row">
+              <div class="comp"><span class="comp-badge">Default</span><div style="background:#0EA5E9;border-radius:7px;padding:8px 18px;font-size:13px;color:#fff;font-weight:600">Get Started Free</div></div>
+              <div class="comp"><span class="comp-badge">Hover</span><div style="background:#0284C7;border-radius:7px;padding:8px 18px;font-size:13px;color:#fff;font-weight:600;box-shadow:0 4px 16px #0EA5E940">Get Started Free</div></div>
+              <div class="comp"><span class="comp-badge">Disabled</span><div style="background:#334155;border-radius:7px;padding:8px 18px;font-size:13px;color:#64748B;font-weight:600;opacity:0.6">Get Started Free</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subh">Bước 5.3 — Prototyping Hover Effect</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Chuyển sang tab <strong>Prototype</strong> (bảng bên phải, bên cạnh Design)</li>
+          <li><div class="dot"></div>Chọn Button Default → kéo mũi tên xanh → Button Hover</li>
+          <li><div class="dot"></div>Trigger: <strong>While hovering</strong> | Animation: <strong>Smart Animate</strong> | Duration: <strong>200ms</strong> | Easing: Ease Out</li>
+          <li><div class="dot"></div>Kéo mũi tên ngược: Hover → Default | Trigger: <strong>Mouse leave</strong> | Smart Animate</li>
+        </ul>
+
+        <div class="subh">Bước 5.4 — Prototyping Page Navigation</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Tạo Frame thứ 2: <strong>"EduLearn — Courses Page"</strong> (<kbd>Ctrl+D</kbd> Frame Home → chỉnh nội dung chính)</li>
+          <li><div class="dot"></div>Tab Prototype: chọn chữ <strong>"Courses"</strong> trong Nav → kéo đến Frame Courses</li>
+          <li><div class="dot"></div>Trigger: <strong>On click</strong> | Animation: <strong>Push → Left</strong> | Duration: 300ms | Easing: Ease In Out</li>
+          <li><div class="dot"></div>Preview: nhấn <kbd>Ctrl+Shift+Enter</kbd> → mở Prototype viewer, click thử</li>
+        </ul>
+
+        <div class="subh">Bước 5.5 — Footer (hoàn thiện website)</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Tạo Frame Footer: <strong>1440×280px</strong> | Fill: <strong>#020617</strong> (tối hơn body, tạo chiều sâu)</li>
+          <li><div class="dot"></div>4 cột: <strong>Logo + tagline</strong> | <strong>Courses</strong> (links) | <strong>Company</strong> (links) | <strong>Connect</strong> (social icons)</li>
+          <li><div class="dot"></div>Bottom bar: đường kẻ ngang #1E293B + copyright text | Auto Layout Space Between</li>
+        </ul>
+
+        <div class="info"><strong>Smart Animate hoạt động như thế nào?</strong> Figma tự động detect các element có cùng tên giữa 2 Frame và tạo animation mượt mà cho sự chuyển đổi. <strong>Điều kiện quan trọng:</strong> elements phải có cùng tên trong Layers panel. Đây là lý do tại sao naming convention (đặt tên nhất quán) lại quan trọng từ đầu dự án.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP 6 ─── -->
+  <div class="step-content" id="s6">
+    <div class="card">
+      <div class="card-header">
+        <div class="step-num" style="background:#DCFCE7;color:#166534">✓</div>
+        <h2>Checklist Kết quả & Nộp bài</h2>
+        <span class="time-badge">⏱ 10 phút</span>
+      </div>
+      <div class="card-body">
+        <p class="intro">Kiểm tra lại toàn bộ thiết kế trước khi nộp. Đánh dấu vào mỗi ô khi hoàn thành.</p>
+
+        <div class="subh">Checklist Website EduLearn</div>
+        <ul class="checklist">
+          <li><div class="check-box done"></div>Frame Desktop 1440px với 12-column Grid đúng thông số (Count:12 | Margin:96 | Gutter:24)</li>
+          <li><div class="check-box done"></div>Navigation Bar dùng Auto Layout | Logo + 5 Menu items + 2 Buttons (Sign In + Get Started Free)</li>
+          <li><div class="check-box done"></div>Hero Section đầy đủ: Badge · Headline 72px · Sub 18px · CTA Group · Social Proof · Hero Image với Constraints</li>
+          <li><div class="check-box done"></div>Stats Section: 4 số liệu (50K+ Students · 200+ Courses · 95% Job Rate · 4.9★ Rating)</li>
+          <li><div class="check-box done"></div>Features Section: Section Header + 3 Feature Cards Auto Layout</li>
+          <li><div class="check-box done"></div>Pricing Section: 3 plans (Free/Pro/Team), card Pro được highlight bằng màu xanh</li>
+          <li><div class="check-box done"></div>Footer hoàn chỉnh: 4 cột + bottom bar với copyright</li>
+          <li><div class="check-box done"></div>Button Component với 3 Variants (Default / Hover / Disabled)</li>
+          <li><div class="check-box done"></div>Prototype Hover effect trên button (Smart Animate While hovering)</li>
+          <li><div class="check-box done"></div>Prototype Page Navigation từ Nav → Courses Page (Push animation)</li>
+          <li><div class="check-box done"></div>Layers panel: tất cả elements được đặt tên rõ ràng, nhóm theo từng Section</li>
+        </ul>
+
+        <div class="subh">Cách nộp bài</div>
+        <ul class="tasks">
+          <li><div class="dot"></div>Nhấn nút <strong>Share</strong> (góc trên phải Figma) → <strong>Anyone with the link</strong> → <strong>Can view</strong> → Copy link</li>
+          <li><div class="dot"></div>Nộp link Figma lên hệ thống LMS hoặc gửi email giảng viên trước deadline</li>
+          <li><div class="dot"></div>Kèm theo: chụp màn hình toàn bộ page (Figma → Export Frame → PNG @2x)</li>
+        </ul>
+
+        <div class="tip"><strong>Bài tập nâng cao (nếu hoàn thành sớm):</strong><br>
+          ① Thêm Testimonials section — 3 review cards với avatar và rating stars<br>
+          ② Tạo Mobile Frame 390px và responsive lại Nav Bar thành Hamburger menu<br>
+          ③ Thêm Loading animation giả lập cho nút "Start Learning"<br>
+          ④ Tạo Dark/Light mode toggle bằng Variant + Prototype</div>
+
+        <div class="warn"><strong>Chuẩn bị Buổi 2 — Thiết kế Mobile App (iOS & Android):</strong><br>
+          Ôn lại: Auto Layout, Components, Variants của hôm nay vì sẽ dùng nhiều hơn.<br>
+          Tìm hiểu trước: iOS Human Interface Guidelines · Material Design 3 · Safe Area concept.<br>
+          Tải Figma Mirror App trên điện thoại để xem thiết kế mobile trực tiếp.</div>
+
+        <div class="celebrate">
+          <div class="emoji">🎉</div>
+          <h3>Chúc mừng hoàn thành Buổi 1!</h3>
+          <p>Bạn đã thiết kế một landing page chuyên nghiệp hoàn chỉnh bằng Figma — đây là kỹ năng mà hầu hết các UI/UX Designer đều phải thành thạo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV FOOTER -->
+  <div class="nav-footer no-print">
+    <button class="nav-btn" id="prevBtn" onclick="navigate(-1)" disabled>← Bước trước</button>
+    <span id="step-indicator">Bước 0 / 6 — Chuẩn bị</span>
+    <button class="nav-btn primary" id="nextBtn" onclick="navigate(1)">Bước tiếp →</button>
+  </div>
+
+</div>
+
+<!-- PRINT BUTTON -->
+<button class="print-btn no-print" onclick="printAll()">🖨 In / Lưu PDF</button>
+
+<script>
+let cur = 0;
+const total = 6;
+const steps = ['Chuẩn bị','Setup & Grid','Navigation Bar','Hero Section','Features & Pricing','Component & Proto','Kết quả cuối'];
+const prog = [14,28,42,57,71,85,100];
+
+function showStep(i) {
+  document.querySelectorAll('.step-content').forEach((el, idx) => el.classList.toggle('active', idx === i));
+  document.querySelectorAll('.tab').forEach((el, idx) => el.classList.toggle('active', idx === i));
+  document.getElementById('prog').style.width = prog[i] + '%';
+  document.getElementById('step-indicator').textContent = `Bước ${i} / ${total} — ${steps[i]}`;
+  document.getElementById('prevBtn').disabled = i === 0;
+  document.getElementById('nextBtn').textContent = i === total ? '✓ Hoàn thành' : 'Bước tiếp →';
+  document.getElementById('nextBtn').disabled = false;
+  if (i === total) document.getElementById('nextBtn').disabled = true;
+  cur = i;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function navigate(dir) {
+  const n = cur + dir;
+  if (n >= 0 && n <= total) showStep(n);
+}
+
+function printAll() {
+  // Show all steps before printing
+  document.querySelectorAll('.step-content').forEach(el => el.style.display = 'block');
+  window.print();
+  // Restore after print
+  setTimeout(() => {
+    document.querySelectorAll('.step-content').forEach((el, i) => {
+      el.style.display = '';
+      el.classList.toggle('active', i === cur);
+    });
+  }, 1000);
+}
+</script>
+</body>
+</html>
