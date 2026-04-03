@@ -502,6 +502,249 @@
     <p>Một startup EdTech cần thiết kế landing page thu hút người dùng mới. Sinh viên sẽ xây dựng từ đầu một website hoàn chỉnh gồm Navigation Bar, Hero Section, Stats, Features, Pricing và Footer — kèm prototype tương tác.</p>
   </div>
 
+  <!-- MOCKUP THAM KHẢO -->
+  <div style="margin-bottom:28px;">
+    <div style="background:white;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+      <div style="padding:12px 22px;background:#F8FAFC;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+        <div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;flex-shrink:0;"></div>
+        <div style="width:10px;height:10px;border-radius:50%;background:#FEBC2E;flex-shrink:0;"></div>
+        <div style="width:10px;height:10px;border-radius:50%;background:#28C840;flex-shrink:0;"></div>
+        <div style="flex:1;background:#E2E8F0;border-radius:6px;padding:4px 12px;font-size:12px;color:#64748B;text-align:center;max-width:320px;margin:0 auto;">figma.com/proto/edulearn-landing</div>
+        <div style="font-size:12px;font-weight:600;color:#5B4FD9;margin-left:auto;">🎯 Sản phẩm cuối cần đạt được</div>
+      </div>
+
+      <div class="edu-mockup">
+
+<style>
+  /* ── EduLearn Desktop Mockup ── */
+  .edu-mockup { font-family: 'Segoe UI', sans-serif; background: #fff; overflow: hidden; }
+
+  /* NAV */
+  .em-nav { background: #0F172A; padding: 0 32px; height: 44px; display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+  .em-logo { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: -0.3px; white-space: nowrap; }
+  .em-logo span { color: #0EA5E9; }
+  .em-nav-links { display: flex; gap: 16px; flex: 1; }
+  .em-nav-links a { font-size: 11px; color: #94A3B8; text-decoration: none; white-space: nowrap; }
+  .em-nav-links a:hover { color: #fff; }
+  .em-nav-btns { display: flex; gap: 8px; }
+  .em-btn-ghost { font-size: 10px; font-weight: 600; color: #94A3B8; padding: 4px 10px; border: 1px solid #334155; border-radius: 6px; white-space: nowrap; }
+  .em-btn-primary { font-size: 10px; font-weight: 600; color: #fff; background: #0EA5E9; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+
+  /* HERO */
+  .em-hero { background: linear-gradient(160deg, #0F172A 0%, #1E293B 100%); padding: 28px 32px 24px; display: flex; gap: 24px; align-items: center; }
+  .em-hero-text { flex: 1; min-width: 0; }
+  .em-hero-badge { display: inline-block; background: rgba(14,165,233,0.15); border: 1px solid rgba(14,165,233,0.3); color: #38BDF8; font-size: 9px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .em-hero h1 { font-size: 22px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 8px; }
+  .em-hero h1 span { color: #0EA5E9; }
+  .em-hero p { font-size: 11px; color: #94A3B8; line-height: 1.6; margin-bottom: 14px; max-width: 340px; }
+  .em-cta-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .em-cta-primary { background: #0EA5E9; color: #fff; font-size: 11px; font-weight: 700; padding: 7px 16px; border-radius: 8px; white-space: nowrap; }
+  .em-cta-secondary { background: transparent; border: 1px solid #334155; color: #CBD5E1; font-size: 11px; font-weight: 600; padding: 7px 14px; border-radius: 8px; white-space: nowrap; }
+  .em-social-proof { margin-top: 14px; display: flex; align-items: center; gap: 8px; }
+  .em-avatars { display: flex; }
+  .em-av { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #0F172A; margin-left: -6px; font-size: 9px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; }
+  .em-social-proof p { font-size: 10px; color: #64748B; }
+  .em-social-proof strong { color: #94A3B8; }
+
+  /* HERO IMAGE */
+  .em-hero-img { width: 220px; flex-shrink: 0; background: #1E293B; border-radius: 10px; border: 1px solid #334155; overflow: hidden; }
+  .em-browser-bar { background: #0F172A; padding: 5px 8px; display: flex; gap: 4px; align-items: center; }
+  .em-browser-bar .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .em-screen-preview { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .em-preview-row { height: 8px; background: #334155; border-radius: 4px; }
+  .em-preview-row.w80 { width: 80%; }
+  .em-preview-row.w60 { width: 60%; }
+  .em-preview-row.w40 { width: 40%; }
+  .em-preview-card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 4px; }
+  .em-preview-card { background: #334155; border-radius: 5px; height: 40px; }
+
+  /* STATS */
+  .em-stats { background: #0EA5E9; padding: 14px 32px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 8px; }
+  .em-stat { text-align: center; }
+  .em-stat-num { font-size: 16px; font-weight: 800; color: #fff; }
+  .em-stat-label { font-size: 9px; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* FEATURES */
+  .em-features { padding: 24px 32px; background: #F8FAFC; }
+  .em-section-header { text-align: center; margin-bottom: 16px; }
+  .em-section-header h2 { font-size: 15px; font-weight: 700; color: #0F172A; }
+  .em-section-header p { font-size: 11px; color: #64748B; margin-top: 4px; }
+  .em-feat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .em-feat-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 10px; padding: 14px; }
+  .em-feat-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 8px; }
+  .em-feat-card h3 { font-size: 12px; font-weight: 700; color: #0F172A; margin-bottom: 4px; }
+  .em-feat-card p { font-size: 10px; color: #64748B; line-height: 1.5; }
+
+  /* PRICING */
+  .em-pricing { padding: 24px 32px; background: #fff; }
+  .em-pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .em-plan { border: 1px solid #E2E8F0; border-radius: 10px; padding: 14px; text-align: center; }
+  .em-plan.featured { background: #0F172A; border-color: #0EA5E9; }
+  .em-plan-name { font-size: 11px; font-weight: 700; color: #0F172A; margin-bottom: 4px; }
+  .em-plan.featured .em-plan-name { color: #fff; }
+  .em-plan-price { font-size: 20px; font-weight: 800; color: #0EA5E9; }
+  .em-plan-price span { font-size: 11px; font-weight: 400; color: #94A3B8; }
+  .em-plan-free { font-size: 20px; font-weight: 800; color: #64748B; }
+  .em-plan-features { list-style: none; padding: 0; margin: 8px 0 12px; display: flex; flex-direction: column; gap: 4px; }
+  .em-plan-features li { font-size: 10px; color: #64748B; }
+  .em-plan.featured .em-plan-features li { color: #94A3B8; }
+  .em-plan-features li::before { content: "✓ "; color: #22C55E; font-weight: 700; }
+  .em-plan-btn { font-size: 10px; font-weight: 600; padding: 6px 14px; border-radius: 6px; display: inline-block; }
+  .em-plan-btn.outline { border: 1px solid #E2E8F0; color: #0F172A; }
+  .em-plan-btn.solid { background: #0EA5E9; color: #fff; }
+
+  /* FOOTER */
+  .em-footer { background: #0F172A; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .em-footer-logo { font-size: 13px; font-weight: 700; color: #fff; }
+  .em-footer-logo span { color: #0EA5E9; }
+  .em-footer-links { display: flex; gap: 14px; }
+  .em-footer-links a { font-size: 10px; color: #475569; text-decoration: none; }
+  .em-footer-copy { font-size: 10px; color: #475569; }
+</style>
+
+        <!-- NAV -->
+        <div class="em-nav">
+          <div class="em-logo">Edu<span>Learn</span></div>
+          <div class="em-nav-links">
+            <a href="#">Courses</a>
+            <a href="#">Pricing</a>
+            <a href="#">Blog</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+          </div>
+          <div class="em-nav-btns">
+            <div class="em-btn-ghost">Sign In</div>
+            <div class="em-btn-primary">Get Started Free</div>
+          </div>
+        </div>
+
+        <!-- HERO -->
+        <div class="em-hero">
+          <div class="em-hero-text">
+            <div class="em-hero-badge">&#9733; #1 Online Learning Platform</div>
+            <h1>Learn to Code.<br>Build Your <span>Future</span>.</h1>
+            <p>Join 50,000+ students mastering web development, UI/UX design and data science with expert-led courses.</p>
+            <div class="em-cta-row">
+              <div class="em-cta-primary">Start Learning Free &rarr;</div>
+              <div class="em-cta-secondary">&#9654; Watch Demo</div>
+            </div>
+            <div class="em-social-proof">
+              <div class="em-avatars">
+                <div class="em-av" style="background:#7C3AED;margin-left:0">A</div>
+                <div class="em-av" style="background:#0EA5E9">B</div>
+                <div class="em-av" style="background:#0D9488">C</div>
+                <div class="em-av" style="background:#F59E0B">D</div>
+              </div>
+              <p><strong>50,000+</strong> students đang học ngay hôm nay</p>
+            </div>
+          </div>
+          <div class="em-hero-img">
+            <div class="em-browser-bar">
+              <div class="dot" style="background:#FF5F57"></div>
+              <div class="dot" style="background:#FEBC2E"></div>
+              <div class="dot" style="background:#28C840"></div>
+            </div>
+            <div class="em-screen-preview">
+              <div class="em-preview-row w80"></div>
+              <div class="em-preview-row w60"></div>
+              <div class="em-preview-row w40"></div>
+              <div class="em-preview-card-row">
+                <div class="em-preview-card" style="background:linear-gradient(135deg,#667eea,#764ba2)"></div>
+                <div class="em-preview-card" style="background:linear-gradient(135deg,#0EA5E9,#0D9488)"></div>
+                <div class="em-preview-card" style="background:linear-gradient(135deg,#F59E0B,#EF4444)"></div>
+                <div class="em-preview-card" style="background:linear-gradient(135deg,#22C55E,#0EA5E9)"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="em-stats">
+          <div class="em-stat"><div class="em-stat-num">50K+</div><div class="em-stat-label">Students</div></div>
+          <div class="em-stat"><div class="em-stat-num">200+</div><div class="em-stat-label">Courses</div></div>
+          <div class="em-stat"><div class="em-stat-num">95%</div><div class="em-stat-label">Job Rate</div></div>
+          <div class="em-stat"><div class="em-stat-num">4.9&#9733;</div><div class="em-stat-label">Rating</div></div>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="em-features">
+          <div class="em-section-header">
+            <h2>Tại sao chọn EduLearn?</h2>
+            <p>Chương trình học được thiết kế bởi chuyên gia từ các công ty hàng đầu</p>
+          </div>
+          <div class="em-feat-grid">
+            <div class="em-feat-card">
+              <div class="em-feat-icon" style="background:#EFF8FF;">&#128218;</div>
+              <h3>Expert Instructors</h3>
+              <p>Giảng viên từ Google, Meta, Apple với 10+ năm kinh nghiệm thực tiễn</p>
+            </div>
+            <div class="em-feat-card" style="border-color:#0EA5E9;box-shadow:0 0 0 1px #BAE6FD;">
+              <div class="em-feat-icon" style="background:#EFF8FF;">&#127919;</div>
+              <h3>Project-Based Learning</h3>
+              <p>Học qua dự án thực tế — xây dựng portfolio ngay trong quá trình học</p>
+            </div>
+            <div class="em-feat-card">
+              <div class="em-feat-icon" style="background:#F3F0FF;">&#127942;</div>
+              <h3>Job Guarantee</h3>
+              <p>Cam kết việc làm sau 6 tháng hoàn thành chương trình học toàn phần</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRICING -->
+        <div class="em-pricing">
+          <div class="em-section-header">
+            <h2>Chọn gói phù hợp với bạn</h2>
+            <p>Bắt đầu miễn phí, nâng cấp khi sẵn sàng</p>
+          </div>
+          <div class="em-pricing-grid">
+            <div class="em-plan">
+              <div class="em-plan-name">Free</div>
+              <div class="em-plan-free">$0</div>
+              <ul class="em-plan-features">
+                <li>5 khóa học miễn phí</li>
+                <li>Community forum</li>
+                <li>Mobile app</li>
+              </ul>
+              <div class="em-plan-btn outline">Get Started</div>
+            </div>
+            <div class="em-plan featured">
+              <div style="font-size:9px;background:#0EA5E9;color:#fff;border-radius:10px;padding:2px 8px;display:inline-block;margin-bottom:4px;">MOST POPULAR</div>
+              <div class="em-plan-name">Pro</div>
+              <div class="em-plan-price">$29<span>/tháng</span></div>
+              <ul class="em-plan-features">
+                <li>Toàn bộ 200+ khóa học</li>
+                <li>Certificate chính thức</li>
+                <li>1-on-1 mentoring</li>
+              </ul>
+              <div class="em-plan-btn solid">Get Pro Now</div>
+            </div>
+            <div class="em-plan">
+              <div class="em-plan-name">Team</div>
+              <div class="em-plan-price">$99<span>/tháng</span></div>
+              <ul class="em-plan-features">
+                <li>Tối đa 10 thành viên</li>
+                <li>Admin dashboard</li>
+                <li>Custom learning path</li>
+              </ul>
+              <div class="em-plan-btn outline">Contact Sales</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="em-footer">
+          <div class="em-footer-logo">Edu<span>Learn</span></div>
+          <div class="em-footer-links">
+            <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help</a><a href="#">Careers</a>
+          </div>
+          <div class="em-footer-copy">&copy; 2025 EduLearn Inc. All rights reserved.</div>
+        </div>
+
+      </div><!-- /.edu-mockup -->
+    </div><!-- /.browser card -->
+  </div><!-- /.mockup section -->
+
   <!-- TABS -->
   <div class="tabs-wrap no-print">
     <div class="tabs" id="tabs">

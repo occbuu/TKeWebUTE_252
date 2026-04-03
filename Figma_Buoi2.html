@@ -147,6 +147,196 @@
     </table>
   </div>
 
+  <!-- MOCKUP THAM KHẢO -->
+  <div class="section">
+    <div class="section-header">
+      <span class="step-badge" style="background:#111111;">🎯 KẾT QUẢ</span>
+      <h2>Sản phẩm cuối cần đạt được</h2>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div style="padding:12px 20px;background:#faf8ff;border-bottom:1px solid #e8e4db;font-size:13px;color:#5B4FD9;font-weight:600;">
+        Đây là giao diện hoàn chỉnh sinh viên cần xây dựng — hãy dùng làm mục tiêu trong suốt buổi thực hành.
+      </div>
+      <div class="mockup-wrap">
+
+<style>
+  .mockup-wrap { --phone-w: 260px; --phone-h: 530px; background: #f0eeff; padding: 20px 10px; }
+  .mockup-wrap .phones { display: flex; gap: 20px; align-items: flex-start; justify-content: center; flex-wrap: wrap; padding: 0; }
+  .mockup-wrap .phone-shell { background: #1a1a1a; border-radius: 36px; padding: 10px; box-shadow: inset 0 0 0 1px #333, 0 8px 32px rgba(0,0,0,0.25); width: var(--phone-w); flex-shrink: 0; }
+  .mockup-wrap .phone-screen { background: #f7f6f2; border-radius: 28px; overflow: hidden; width: 100%; height: var(--phone-h); position: relative; display: flex; flex-direction: column; }
+  .mockup-wrap .notch { width: 80px; height: 22px; background: #1a1a1a; border-radius: 0 0 14px 14px; margin: 0 auto; flex-shrink: 0; }
+  .mockup-wrap .label-tag { font-size: 11px; font-weight: 600; color: #5B4FD9; text-align: center; margin-top: 8px; }
+  .mockup-wrap .screen-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+  .mockup-wrap .status-bar { display: flex; justify-content: space-between; padding: 4px 16px; font-size: 10px; font-weight: 500; color: #333; flex-shrink: 0; }
+  .mockup-wrap .top-bar { padding: 6px 14px 4px; flex-shrink: 0; }
+  .mockup-wrap .top-bar h2 { font-size: 17px; font-weight: 600; margin: 0 0 2px; color: #111; }
+  .mockup-wrap .top-bar p { font-size: 11px; color: #888; margin: 0; }
+  .mockup-wrap .m-search-bar { margin: 6px 14px; background: #fff; border: 0.5px solid #e0ddd6; border-radius: 12px; display: flex; align-items: center; gap: 6px; padding: 8px 12px; flex-shrink: 0; }
+  .mockup-wrap .m-search-bar span { font-size: 11px; color: #aaa; }
+  .mockup-wrap .cats { display: flex; gap: 8px; padding: 0 14px; overflow-x: hidden; flex-shrink: 0; margin-bottom: 4px; }
+  .mockup-wrap .cat { background: #5B4FD9; color: #fff; border-radius: 20px; padding: 4px 12px; font-size: 10px; white-space: nowrap; font-weight: 500; }
+  .mockup-wrap .cat.inactive { background: #fff; color: #555; border: 0.5px solid #e0ddd6; }
+  .mockup-wrap .cards-area { flex: 1; overflow: hidden; padding: 0 14px; display: flex; flex-direction: column; gap: 10px; }
+  .mockup-wrap .ph-card { background: #fff; border-radius: 14px; overflow: hidden; border: 0.5px solid #ede9e0; flex-shrink: 0; }
+  .mockup-wrap .card-img { height: 75px; display: flex; align-items: center; justify-content: center; font-size: 22px; position: relative; }
+  .mockup-wrap .card-img.c1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+  .mockup-wrap .card-img.c2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+  .mockup-wrap .card-img.c3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+  .mockup-wrap .ph-badge { position: absolute; top: 6px; right: 6px; background: rgba(255,255,255,0.25); color: #fff; font-size: 8px; padding: 2px 6px; border-radius: 6px; font-weight: 600; }
+  .mockup-wrap .card-body-m { padding: 7px 10px; }
+  .mockup-wrap .card-body-m h3 { font-size: 12px; font-weight: 600; color: #111; margin: 0 0 2px; }
+  .mockup-wrap .card-body-m .meta { font-size: 10px; color: #888; margin: 0 0 4px; }
+  .mockup-wrap .card-footer-m { display: flex; justify-content: space-between; align-items: center; }
+  .mockup-wrap .m-price { font-size: 13px; font-weight: 700; color: #5B4FD9; }
+  .mockup-wrap .m-stars { font-size: 10px; color: #f59e0b; }
+  .mockup-wrap .bottom-nav { background: #fff; border-top: 0.5px solid #ede9e0; display: flex; justify-content: space-around; padding: 8px 0 10px; flex-shrink: 0; }
+  .mockup-wrap .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .mockup-wrap .nav-icon { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .mockup-wrap .nav-icon.active { background: #ede9ff; }
+  .mockup-wrap .nav-label { font-size: 9px; font-weight: 500; color: #aaa; }
+  .mockup-wrap .nav-label.active { color: #5B4FD9; }
+  .mockup-wrap .ipad-shell { background: #1a1a1a; border-radius: 24px; padding: 10px; box-shadow: inset 0 0 0 1px #333, 0 8px 32px rgba(0,0,0,0.25); width: 380px; flex-shrink: 0; }
+  .mockup-wrap .ipad-screen { background: #f7f6f2; border-radius: 16px; overflow: hidden; width: 100%; height: 530px; position: relative; display: flex; flex-direction: column; }
+  .mockup-wrap .ipad-top { display: flex; align-items: center; padding: 10px 16px; gap: 10px; border-bottom: 0.5px solid #ede9e0; flex-shrink: 0; }
+  .mockup-wrap .ipad-top h2 { font-size: 16px; font-weight: 700; color: #111; margin: 0; flex: 1; }
+  .mockup-wrap .ipad-search { flex: 2; background: #fff; border: 0.5px solid #e0ddd6; border-radius: 10px; display: flex; align-items: center; gap: 6px; padding: 6px 10px; }
+  .mockup-wrap .ipad-search span { font-size: 11px; color: #aaa; }
+  .mockup-wrap .ipad-cats { display: flex; gap: 8px; padding: 10px 16px 6px; flex-shrink: 0; }
+  .mockup-wrap .ipad-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 0 16px; overflow: hidden; flex: 1; }
+  .mockup-wrap .ipad-card { background: #fff; border-radius: 12px; overflow: hidden; border: 0.5px solid #ede9e0; }
+  .mockup-wrap .ipad-card-img { height: 65px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .mockup-wrap .ipad-card-body { padding: 8px; }
+  .mockup-wrap .ipad-card-body h3 { font-size: 11px; font-weight: 600; color: #111; margin: 0 0 2px; }
+  .mockup-wrap .ipad-card-body .m-price { font-size: 12px; font-weight: 700; color: #5B4FD9; }
+  .mockup-wrap .ipad-card-body .meta { font-size: 9px; color: #888; }
+  .mockup-wrap .ipad-bottom-nav { background: #fff; border-top: 0.5px solid #ede9e0; display: flex; justify-content: space-around; padding: 8px 0 10px; flex-shrink: 0; }
+  .mockup-wrap .m-section-title { font-size: 12px; font-weight: 600; color: #111; padding: 4px 14px 2px; flex-shrink: 0; }
+</style>
+
+        <div class="phones">
+
+          <!-- Phone: Home Screen -->
+          <div>
+            <div class="phone-shell">
+              <div class="phone-screen">
+                <div class="notch"></div>
+                <div class="screen-content">
+                  <div class="status-bar"><span>9:41</span><span>●●● 100%</span></div>
+                  <div class="top-bar"><h2>Xin chào, Minh 👋</h2><p>Khám phá khóa học mới hôm nay</p></div>
+                  <div class="m-search-bar">🔍 <span>Tìm khóa học...</span></div>
+                  <div class="cats">
+                    <div class="cat">Tất cả</div>
+                    <div class="cat inactive">Design</div>
+                    <div class="cat inactive">Dev</div>
+                    <div class="cat inactive">Marketing</div>
+                  </div>
+                  <div class="m-section-title">Phổ biến nhất</div>
+                  <div class="cards-area">
+                    <div class="ph-card">
+                      <div class="card-img c1">🎨<div class="ph-badge">HOT</div></div>
+                      <div class="card-body-m">
+                        <h3>UI/UX Design với Figma</h3>
+                        <div class="meta">Nguyễn Hà · 24 bài học</div>
+                        <div class="card-footer-m"><span class="m-price">499k</span><span class="m-stars">★★★★★ 4.9</span></div>
+                      </div>
+                    </div>
+                    <div class="ph-card">
+                      <div class="card-img c2">⚛️<div class="ph-badge">MỚI</div></div>
+                      <div class="card-body-m">
+                        <h3>React Native Nâng Cao</h3>
+                        <div class="meta">Trần Khoa · 36 bài học</div>
+                        <div class="card-footer-m"><span class="m-price">799k</span><span class="m-stars">★★★★☆ 4.7</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bottom-nav">
+                    <div class="nav-item"><div class="nav-icon active">🏠</div><div class="nav-label active">Home</div></div>
+                    <div class="nav-item"><div class="nav-icon">🔍</div><div class="nav-label">Tìm</div></div>
+                    <div class="nav-item"><div class="nav-icon">📚</div><div class="nav-label">Của tôi</div></div>
+                    <div class="nav-item"><div class="nav-icon">👤</div><div class="nav-label">Hồ sơ</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="label-tag">📱 iPhone — Home Screen</div>
+          </div>
+
+          <!-- Phone: Detail Screen -->
+          <div>
+            <div class="phone-shell">
+              <div class="phone-screen">
+                <div class="notch"></div>
+                <div class="screen-content">
+                  <div class="status-bar"><span>9:41</span><span>●●● 100%</span></div>
+                  <div style="height:105px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;flex-direction:column;justify-content:flex-end;padding:10px 14px;flex-shrink:0;">
+                    <div style="font-size:10px;color:rgba(255,255,255,0.7);margin-bottom:2px;">Design · 24 bài học</div>
+                    <div style="font-size:14px;font-weight:700;color:#fff;">UI/UX Design với Figma</div>
+                  </div>
+                  <div style="padding:10px 14px;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:8px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                      <div><div style="font-size:11px;color:#888;">Giảng viên</div><div style="font-size:12px;font-weight:600;color:#111;">Nguyễn Hà</div></div>
+                      <div style="text-align:right;"><div style="font-size:11px;color:#888;">Đánh giá</div><div style="font-size:12px;font-weight:600;color:#f59e0b;">★ 4.9 (1.2k)</div></div>
+                    </div>
+                    <div style="background:#f0eeff;border-radius:10px;padding:8px 10px;font-size:11px;color:#5B4FD9;font-weight:500;">🎓 Nội dung khóa học</div>
+                    <div style="display:flex;flex-direction:column;gap:4px;">
+                      <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid #ede9e0;"><span style="font-size:11px;color:#5B4FD9;font-weight:600;">01</span><span style="font-size:11px;color:#333;flex:1;">Giới thiệu Figma & Workspace</span><span style="font-size:10px;color:#aaa;">5:20</span></div>
+                      <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid #ede9e0;"><span style="font-size:11px;color:#5B4FD9;font-weight:600;">02</span><span style="font-size:11px;color:#333;flex:1;">Auto Layout & Component</span><span style="font-size:10px;color:#aaa;">12:45</span></div>
+                      <div style="display:flex;align-items:center;gap:8px;padding:6px 0;"><span style="font-size:11px;color:#5B4FD9;font-weight:600;">03</span><span style="font-size:11px;color:#333;flex:1;">Thiết kế Mobile App</span><span style="font-size:10px;color:#aaa;">18:30</span></div>
+                    </div>
+                    <div style="margin-top:auto;background:#5B4FD9;color:#fff;border-radius:12px;padding:10px;text-align:center;font-size:12px;font-weight:600;">Đăng ký ngay — 499.000đ</div>
+                  </div>
+                  <div class="bottom-nav">
+                    <div class="nav-item"><div class="nav-icon">🏠</div><div class="nav-label">Home</div></div>
+                    <div class="nav-item"><div class="nav-icon">🔍</div><div class="nav-label">Tìm</div></div>
+                    <div class="nav-item"><div class="nav-icon active">📚</div><div class="nav-label active">Của tôi</div></div>
+                    <div class="nav-item"><div class="nav-icon">👤</div><div class="nav-label">Hồ sơ</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="label-tag">📱 iPhone — Chi tiết khóa học</div>
+          </div>
+
+          <!-- iPad -->
+          <div>
+            <div class="ipad-shell">
+              <div class="ipad-screen">
+                <div class="ipad-top">
+                  <h2>LearnHub 🎓</h2>
+                  <div class="ipad-search">🔍 <span>Tìm khóa học...</span></div>
+                </div>
+                <div class="ipad-cats">
+                  <div class="cat">Tất cả</div>
+                  <div class="cat inactive">Design</div>
+                  <div class="cat inactive">Dev</div>
+                  <div class="cat inactive">Marketing</div>
+                  <div class="cat inactive">Data</div>
+                </div>
+                <div style="font-size:12px;font-weight:600;color:#111;padding:4px 16px 6px;flex-shrink:0;">Khóa học nổi bật</div>
+                <div class="ipad-grid">
+                  <div class="ipad-card"><div class="ipad-card-img c1">🎨</div><div class="ipad-card-body"><h3>UI/UX với Figma</h3><div class="meta">24 bài · ★4.9</div><div class="m-price">499k</div></div></div>
+                  <div class="ipad-card"><div class="ipad-card-img c2">⚛️</div><div class="ipad-card-body"><h3>React Native</h3><div class="meta">36 bài · ★4.7</div><div class="m-price">799k</div></div></div>
+                  <div class="ipad-card"><div class="ipad-card-img c3">🐍</div><div class="ipad-card-body"><h3>Python Data</h3><div class="meta">28 bài · ★4.8</div><div class="m-price">649k</div></div></div>
+                  <div class="ipad-card"><div class="ipad-card-img" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">📊</div><div class="ipad-card-body"><h3>Excel Nâng Cao</h3><div class="meta">20 bài · ★4.6</div><div class="m-price">299k</div></div></div>
+                  <div class="ipad-card"><div class="ipad-card-img" style="background:linear-gradient(135deg,#f7971e,#ffd200)">🎬</div><div class="ipad-card-body"><h3>Video Editing</h3><div class="meta">18 bài · ★4.5</div><div class="m-price">399k</div></div></div>
+                  <div class="ipad-card"><div class="ipad-card-img" style="background:linear-gradient(135deg,#f953c6,#b91d73)">📱</div><div class="ipad-card-body"><h3>iOS Swift</h3><div class="meta">40 bài · ★4.9</div><div class="m-price">999k</div></div></div>
+                </div>
+                <div class="ipad-bottom-nav">
+                  <div class="nav-item"><div class="nav-icon active">🏠</div><div class="nav-label active">Home</div></div>
+                  <div class="nav-item"><div class="nav-icon">🔍</div><div class="nav-label">Tìm kiếm</div></div>
+                  <div class="nav-item"><div class="nav-icon">📚</div><div class="nav-label">Khóa học</div></div>
+                  <div class="nav-item"><div class="nav-icon">👤</div><div class="nav-label">Hồ sơ</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="label-tag">🖥 iPad — 3 cột Responsive</div>
+          </div>
+
+        </div><!-- /.phones -->
+      </div><!-- /.mockup-wrap -->
+    </div><!-- /.card -->
+  </div><!-- /.section -->
+
   <!-- Chuẩn bị -->
   <div class="section">
     <div class="section-header">
