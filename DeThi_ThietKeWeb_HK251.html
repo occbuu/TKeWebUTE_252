@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đề Thi Kết Thúc Học Phần – Thiết Kế Web | HCMUTE HK1 2025-2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+  :root {
+    --navy: #1F3864;
+    --navy-light: #2D5297;
+    --accent: #E8650A;
+    --bg: #F8F9FC;
+    --surface: #FFFFFF;
+    --border: #E2E8F0;
+    --text: #1A202C;
+    --muted: #64748B;
+    --tag-bg: #EFF6FF;
+    --tag-text: #1D4ED8;
+    --success-bg: #F0FDF4;
+    --success-border: #86EFAC;
+    --warn-bg: #FFFBEB;
+    --warn-border: #FCD34D;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* TOP BANNER */
+  .top-banner {
+    background: var(--navy);
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--surface);
+    border-bottom: 3px solid var(--navy);
+    padding: 1.5rem 0;
+  }
+  .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .logo-box {
+    width: 72px;
+    height: 72px;
+    background: var(--navy);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-box svg { width: 44px; height: 44px; }
+  .header-text h1 {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .header-text h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+  .header-meta {
+    margin-top: 8px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .meta-chip {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+  }
+
+  /* INFO CARDS */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.125rem 1.25rem;
+  }
+  .info-card .label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .info-card .value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .info-card .sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ALERT BOXES */
+  .alert {
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+    line-height: 1.65;
+    display: flex;
+    gap: 12px;
+  }
+  .alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .alert-warn { background: var(--warn-bg); border: 1px solid var(--warn-border); }
+  .alert-info { background: var(--tag-bg); border: 1px solid #BFDBFE; }
+  .alert-success { background: var(--success-bg); border: 1px solid var(--success-border); }
+
+  /* SECTIONS */
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .section-header {
+    background: var(--navy);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-num {
+    width: 30px;
+    height: 30px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .section-body { padding: 1.5rem; }
+
+  .subsection { margin-bottom: 1.75rem; }
+  .subsection:last-child { margin-bottom: 0; }
+  .sub-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sub-title .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* TABLES */
+  .tbl-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  table thead { background: var(--navy); color: white; }
+  table thead th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  table thead th:last-child { text-align: center; }
+  table tbody tr { border-bottom: 1px solid var(--border); }
+  table tbody tr:last-child { border-bottom: none; }
+  table tbody tr:nth-child(even) { background: #F8FAFF; }
+  table tbody td {
+    padding: 0.75rem 1rem;
+    vertical-align: top;
+    color: var(--text);
+  }
+  table tbody td:first-child { color: var(--muted); font-size: 12px; font-weight: 600; }
+  .td-bold { font-weight: 600; color: var(--navy) !important; }
+  .td-center { text-align: center; font-weight: 700; color: var(--navy); }
+  .td-score { text-align: center; font-weight: 700; color: var(--accent); font-size: 15px; }
+  .td-italic { font-style: italic; color: var(--muted) !important; }
+  .tbl-total { background: var(--navy) !important; }
+  .tbl-total td { color: white !important; font-weight: 700; }
+
+  /* LISTS */
+  ul.req-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  ul.req-list li {
+    padding: 0.625rem 1rem;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 3px solid var(--navy);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  ul.req-list li strong { color: var(--navy); }
+
+  ol.steps { padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; counter-reset: steps; }
+  ol.steps li {
+    counter-increment: steps;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  ol.steps li::before {
+    content: counter(steps);
+    min-width: 26px;
+    height: 26px;
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* TOPICS GRID */
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 10px;
+    margin-top: 0.75rem;
+  }
+  .topic-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.875rem 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .topic-card:hover { border-color: var(--navy); box-shadow: 0 2px 8px rgba(31,56,100,0.1); }
+  .topic-card .num { font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+  .topic-card .name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .topic-card .type { font-size: 11px; color: var(--tag-text); background: var(--tag-bg); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 6px; }
+  .topic-card .note { font-size: 12px; color: var(--muted); font-style: italic; }
+
+  /* GRADE TABLE */
+  .grade-total { background: var(--navy) !important; }
+  .grade-total td { color: white !important; font-weight: 700 !important; font-size: 15px; }
+
+  /* BONUS LIST */
+  .bonus-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 0.75rem;
+  }
+  .bonus-item {
+    background: var(--success-bg);
+    border: 1px solid var(--success-border);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 13px;
+  }
+  .bonus-item .pts { font-weight: 700; color: #15803D; font-size: 15px; display: block; margin-bottom: 4px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 2rem;
+    font-size: 13px;
+    margin-top: 3rem;
+  }
+  footer strong { color: white; }
+
+  /* CODE */
+  code {
+    background: #EFF6FF;
+    color: #1D4ED8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: white; }
+    .section { break-inside: avoid; }
+    footer { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; text-align: center; }
+    .header-meta { justify-content: center; }
+    .info-grid { grid-template-columns: 1fr 1fr; }
+    main { padding: 1.5rem 1rem; }
+    .section-body { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-banner">
+  TRƯỜNG ĐẠI HỌC SƯ PHẠM KỸ THUẬT TP.HCM (HCMUTE) &nbsp;|&nbsp; KHOA CÔNG NGHỆ THÔNG TIN
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-box">
+      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="8" width="36" height="26" rx="3" stroke="white" stroke-width="2"/>
+        <line x1="4" y1="16" x2="40" y2="16" stroke="white" stroke-width="2"/>
+        <rect x="10" y="20" width="7" height="6" rx="1" fill="white" opacity="0.6"/>
+        <rect x="20" y="20" width="14" height="2" rx="1" fill="white" opacity="0.4"/>
+        <rect x="20" y="24" width="10" height="2" rx="1" fill="white" opacity="0.4"/>
+        <line x1="22" y1="34" x2="22" y2="40" stroke="white" stroke-width="2"/>
+        <line x1="14" y1="40" x2="30" y2="40" stroke="white" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>Đề thi kết thúc học phần</h1>
+      <h2>Thiết Kế Web<br><span style="font-size:15px;font-weight:500;color:var(--muted);">WEBD230401 – 3 Tín chỉ &nbsp;·&nbsp; Hình thức: Đồ án nhóm</span></h2>
+      <div class="header-meta">
+        <span class="meta-chip">Mã đề: 2511</span>
+        <span class="meta-chip">Nhóm 11</span>
+        <span class="meta-chip">HK1 · 2025–2026</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Info Cards -->
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="label">Ngày phát đề</div>
+      <div class="value">31/10/2025</div>
+    </div>
+    <div class="info-card">
+      <div class="label">Thời gian nộp bài</div>
+      <div class="value">21 ngày</div>
+      <div class="sub">kể từ ngày phát đề</div>
+    </div>
+    <div class="info-card">
+      <div class="label">Vấn đáp</div>
+      <div class="value">Cập nhật sau</div>
+      <div class="sub">Thông báo qua LMS</div>
+    </div>
+    <div class="info-card">
+      <div class="label">Số thành viên</div>
+      <div class="value">2 – 4 sinh viên</div>
+      <div class="sub">Đăng ký nhóm trên LMS</div>
+    </div>
+  </div>
+
+  <!-- Alert: Lưu ý chung -->
+  <div class="alert alert-warn">
+    <span class="alert-icon">⚠️</span>
+    <div>
+      <strong>Lưu ý quan trọng:</strong> Mỗi chủ đề chỉ được <strong>một nhóm</strong> trong lớp chọn. Đăng ký theo thứ tự ưu tiên với giảng viên. Nộp đầy đủ tất cả file theo yêu cầu – thiếu bất kỳ file nào sẽ bị trừ điểm theo hạng mục tương ứng.
+    </div>
+  </div>
+
+  <!-- Phần nộp bài -->
+  <div class="alert alert-info">
+    <span class="alert-icon">📦</span>
+    <div>
+      <strong>Cách nộp bài:</strong> Nén toàn bộ thành file <code>Nhom_MaLopHP.zip</code> và nộp lên LMS tại <a href="https://utexlms.hcmute.edu.vn/" style="color:var(--tag-text);">utexlms.hcmute.edu.vn</a>. File nén bao gồm: source code, file Word báo cáo, file PowerPoint, và link (Figma, GitHub, GitHub Pages, YouTube).
+    </div>
+  </div>
+
+  <!-- PHẦN 1 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Chủ đề, Thương hiệu và Thiết kế Figma</div>
+    </div>
+    <div class="section-body">
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>1.1 Chọn chủ đề website</div>
+        <p style="font-size:14px;margin-bottom:12px;">Nhóm chọn <strong>một</strong> trong 12 chủ đề dưới đây. Mỗi chủ đề chỉ dành cho một nhóm duy nhất trong lớp.</p>
+        <div class="topics-grid">
+          <div class="topic-card">
+            <div class="num">Chủ đề 01</div>
+            <div class="name">Mỹ phẩm trang điểm</div>
+            <div class="type">E-commerce · Beauty</div>
+            <div class="note">Tính năng thử màu ảo (tùy chọn)</div>
+          </div>
+          <div class="topic-card">
+            <div class="num">Chủ đề 02</div>
+            <div class="name">Du lịch / Booking</div>
+            <div class="type">Booking platform</div>
+            <div class="note">Lịch đặt phòng / tour</div>
+          </div>
+          <div class="topic-card">
+            <div class="num">Chủ đề 03</div>
+            <div class="name">Sản phẩm cận date</div>
+            <div class="type">Flash sale · FMCG</div>
+            <div class="note">Đồng hồ đếm ngược</div>
+          </div>
+          <div class="topic-card">
+            <div class="num">Chủ đề 04</div>
+            <div class="name">Cho thuê lễ phục</div>
+            <div class="type">Rental service</div>
+            <div class="note">Lịch thuê theo ngày</div>
+          </div>
+          <div class="topic-card">
+            <div class="num">Chủ đề 05</div>
+            <div class="name">Rent4U – Thuê quần áo</div>
+            <div class="type">Rental platform</div>
+            <div class="note">Kết nối người thuê – cho thuê</div>
+          </div>
+          <div class="topic-card">
+            <div class="num">Chủ đề 06</div>
+            <div class="name">Văn phòng phẩm</div>
+            <div class="type">B2C E-commerce</div>
+            <div class="note">Đặt hàng số lượng lớn</div>
+          </div>
+          <div class="topic-card">
+            <div class="num">Chủ đề 07</div>
+            <div class="name">Thiết bị y tế</div>
+            <div class="type">B2C · B2B</div>
+            <div class="note">Thông tin sản phẩm chi tiết</div>
+          </div>
+          <div class="topic-card">
+            <div class="num">Chủ đề 08</div>
+            <div class="name">Nước hoa</div>
+            <div class="type">Luxury E-commerce</div>
+            <div class="note">Giao diện sang trọng, tinh tế</div>
+          </div>
+          <div class="topic-card">
+            <div class="num">Chủ đề 09</div>
+            <div class="name">Nội thất</div>
+            <div class="type">Furniture E-com</div>
+            <div class="note">Xem phòng 3D / AR (tùy chọn)</div>
+          </div>
+          <div class="topic-card">
+            <div class="num">Chủ đề 10</div>
+            <div class="name">Bán sách</div>
+            <div class="type">Books · Education</div>
+            <div class="note">Đọc thử / preview nội dung</div>
+          </div>
+          <div class="topic-card">
+            <div class="num">Chủ đề 11</div>
+            <div class="name">Bán nón lá</div>
+            <div class="type">Craft · Local brand</div>
+            <div class="note">Câu chuyện thương hiệu</div>
+          </div>
+          <div class="topic-card">
+            <div class="num">Chủ đề 12</div>
+            <div class="name">Đặt món ăn theo nhóm</div>
+            <div class="type">Food ordering</div>
+            <div class="note">Gộp đơn nhiều người cùng bàn</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>1.2 Xây dựng thương hiệu</div>
+        <ul class="req-list">
+          <li><strong>Tên thương hiệu:</strong> tiếng Anh hoặc tiếng Việt, ngắn gọn, dễ nhớ.</li>
+          <li><strong>Logo:</strong> thiết kế bằng Figma / Canva, đơn giản nhưng nhận diện được.</li>
+          <li><strong>Bộ màu:</strong> tối thiểu 2 màu chủ đạo + 1 màu nhấn (accent).</li>
+          <li><strong>Font chữ:</strong> 1 font heading + 1 font body, áp dụng nhất quán toàn site.</li>
+          <li><strong>Tagline / slogan:</strong> 1 câu ngắn mô tả giá trị thương hiệu.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>1.3 Thiết kế Figma (bắt buộc)</div>
+        <ul class="req-list">
+          <li><strong>Wireframe</strong> cho tất cả trang thành phần (khung bố cục, chưa cần màu sắc).</li>
+          <li><strong>Mockup màu đầy đủ</strong> cho tất cả trang, áp dụng bộ màu và font thương hiệu.</li>
+          <li><strong>Responsive:</strong> thiết kế cho 3 breakpoint – Mobile (375px) · Tablet (768px) · Desktop (1280px).</li>
+          <li><strong>Component library:</strong> button, card, input field, navbar, footer, badge… đồng nhất toàn bộ.</li>
+          <li>Nộp link Figma (view-only) trong file <code>README.md</code> của repository.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PHẦN 2 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Xây dựng Website với NextJS và Tailwind CSS</div>
+    </div>
+    <div class="section-body">
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>2.1 Yêu cầu kỹ thuật</div>
+        <ul class="req-list">
+          <li><strong>Framework:</strong> NextJS 14+ với App Router.</li>
+          <li><strong>Styling:</strong> Tailwind CSS. Cho phép dùng thêm shadcn/ui, Headless UI hoặc Radix UI.</li>
+          <li><strong>Animation:</strong> Framer Motion hoặc Tailwind transitions – tối thiểu 3 hiệu ứng chuyển động.</li>
+          <li><strong>State management:</strong> Zustand hoặc React Context (giỏ hàng, auth state…).</li>
+          <li><strong>Dữ liệu:</strong> JSON tĩnh hoặc mock API (json-server, mockAPI.io). Không bắt buộc backend thật.</li>
+          <li><strong>Hình ảnh:</strong> dùng <code>next/image</code>, ảnh chất lượng cao từ Unsplash / Pexels.</li>
+          <li><strong>Code quality:</strong> ESLint không lỗi, cấu trúc thư mục rõ ràng (<code>components/</code>, <code>app/</code>, <code>lib/</code>, <code>hooks/</code>).</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>2.2 Các trang thành phần bắt buộc (tối thiểu 10 trang)</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:42px;">#</th>
+                <th>Tên trang</th>
+                <th>Yêu cầu chức năng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-center">1</td>
+                <td class="td-bold">Trang chủ (Home)</td>
+                <td>Banner / hero section, sản phẩm nổi bật, danh mục, khuyến mãi.</td>
+              </tr>
+              <tr>
+                <td class="td-center">2</td>
+                <td class="td-bold">Danh sách sản phẩm</td>
+                <td>Lọc theo danh mục / giá / đánh giá, sắp xếp, phân trang hoặc infinite scroll.</td>
+              </tr>
+              <tr>
+                <td class="td-center">3</td>
+                <td class="td-bold">Chi tiết sản phẩm</td>
+                <td>Gallery ảnh, mô tả, thông số kỹ thuật, đánh giá người dùng, sản phẩm liên quan.</td>
+              </tr>
+              <tr>
+                <td class="td-center">4</td>
+                <td class="td-bold">Giỏ hàng</td>
+                <td>Thêm / xoá / cập nhật số lượng, tính tổng tiền, áp mã giảm giá.</td>
+              </tr>
+              <tr>
+                <td class="td-center">5</td>
+                <td class="td-bold">Thanh toán (Checkout)</td>
+                <td>Form địa chỉ giao hàng, chọn phương thức thanh toán, tóm tắt đơn hàng.</td>
+              </tr>
+              <tr>
+                <td class="td-center">6</td>
+                <td class="td-bold">Đăng nhập / Đăng ký</td>
+                <td>Form validation, thông báo lỗi rõ ràng, tính năng remember me.</td>
+              </tr>
+              <tr>
+                <td class="td-center">7</td>
+                <td class="td-bold">Tìm kiếm</td>
+                <td>Tìm kiếm theo từ khoá, highlight kết quả, gợi ý tìm kiếm (autocomplete).</td>
+              </tr>
+              <tr>
+                <td class="td-center">8</td>
+                <td class="td-bold">Liên hệ (Contact)</td>
+                <td>Form liên hệ có validation, bản đồ nhúng (Google Maps hoặc Leaflet).</td>
+              </tr>
+              <tr>
+                <td class="td-center">9</td>
+                <td class="td-bold">About / Giới thiệu nhóm</td>
+                <td>Ảnh + thông tin từng thành viên, MSSV, vai trò, link GitHub cá nhân.</td>
+              </tr>
+              <tr>
+                <td class="td-center">10</td>
+                <td class="td-bold">404 Not Found</td>
+                <td>Trang lỗi thân thiện, có nút điều hướng quay lại trang chủ.</td>
+              </tr>
+              <tr style="background:#F0FDF4;">
+                <td class="td-center" style="color:#15803D;font-weight:700;">11+</td>
+                <td class="td-bold" style="color:#15803D;">Trang đặc trưng theo chủ đề</td>
+                <td>Blog / FAQ / Chính sách / Dashboard người dùng / Lịch sử đơn hàng… <em>(tùy chọn, cộng điểm)</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>2.3 Yêu cầu UX / UI</div>
+        <ul class="req-list">
+          <li><strong>Header:</strong> logo, navigation menu, icon giỏ hàng (hiển thị số lượng), nút đăng nhập.</li>
+          <li><strong>Footer:</strong> link các trang, thông tin liên hệ, icon mạng xã hội.</li>
+          <li><strong>Loading state:</strong> skeleton loader hoặc spinner khi fetch dữ liệu.</li>
+          <li><strong>Toast notification:</strong> thông báo khi thêm vào giỏ hàng, gửi form thành công / thất bại.</li>
+          <li><strong>Breadcrumb:</strong> điều hướng tại trang danh sách và chi tiết sản phẩm.</li>
+          <li><strong>Dark mode</strong> (tùy chọn nâng cao – cộng điểm thưởng).</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PHẦN 3 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">Deploy và Quản lý Repository GitHub</div>
+    </div>
+    <div class="section-body">
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>3.1 Cấu hình GitHub Repository</div>
+        <ul class="req-list">
+          <li><strong>Tên repo:</strong> format <code>nhomXX_tenchude</code> (ví dụ: <code>nhom05_cosmetics</code>) – để chế độ <strong>Public</strong>.</li>
+          <li>Mỗi thành viên có <strong>ít nhất 5 commits</strong> có ý nghĩa (không tính merge commit).</li>
+          <li>Sử dụng <strong>GitHub Issues</strong> để quản lý công việc – ít nhất 10 issues đã đóng.</li>
+          <li>Có ít nhất <strong>1 Pull Request</strong> được review và merge trong quá trình phát triển.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>3.2 Deploy lên GitHub Pages (bắt buộc để giảng viên chấm)</div>
+        <ol class="steps">
+          <li>Thêm <code>output: 'export'</code> và <code>basePath: '/ten-repo'</code> vào <code>next.config.js</code>. Thêm <code>images: &#123; unoptimized: true &#125;</code>.</li>
+          <li>Tạo file <code>.github/workflows/deploy.yml</code> với GitHub Actions: build → upload artifact → deploy to Pages.</li>
+          <li>Vào <strong>Settings → Pages → Source</strong>: chọn <strong>GitHub Actions</strong>.</li>
+          <li>Sau deploy, URL có dạng: <code>https://username.github.io/ten-repo/</code></li>
+          <li>Dán URL này vào <code>README.md</code> và file báo cáo Word.</li>
+        </ol>
+        <div class="alert alert-warn" style="margin-top:1rem;margin-bottom:0;">
+          <span class="alert-icon">⚠️</span>
+          <div><strong>Lưu ý kỹ thuật:</strong> NextJS App Router với <code>output: 'export'</code> <strong>không hỗ trợ</strong> API Routes và dynamic routes cần server-side rendering. Chuyển toàn bộ fetch dữ liệu sang client-side hoặc dùng Static Generation (<code>generateStaticParams</code>).</div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>3.3 Nội dung README.md bắt buộc</div>
+        <ul class="req-list">
+          <li>Tên nhóm, danh sách thành viên (Họ tên đầy đủ + MSSV + vai trò trong dự án).</li>
+          <li>Mô tả dự án: chủ đề, tên thương hiệu, tính năng nổi bật.</li>
+          <li>🔗 Link Figma (view-only) &nbsp;·&nbsp; 🔗 Link GitHub Pages &nbsp;·&nbsp; 🔗 Link video YouTube (nếu có).</li>
+          <li>Hướng dẫn chạy local: <code>npm install</code> → <code>npm run dev</code>.</li>
+          <li>Ảnh chụp màn hình giao diện (tối thiểu 3 ảnh các trang chính).</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PHẦN 4 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">Báo cáo và Thuyết trình</div>
+    </div>
+    <div class="section-body">
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>4.1 Cấu trúc báo cáo Word</div>
+        <ol class="steps">
+          <li>Lời mở đầu – giới thiệu nhóm và bảng phân công công việc.</li>
+          <li>Giới thiệu chủ đề: lý do chọn, đối tượng người dùng mục tiêu, phân tích đối thủ cạnh tranh.</li>
+          <li>Thiết kế Figma: quyết định về màu sắc / font / layout, ảnh chụp màn hình Figma.</li>
+          <li>Kiến trúc kỹ thuật: sơ đồ thư mục, danh sách component chính, luồng dữ liệu.</li>
+          <li>Tính năng nổi bật: mô tả và giải thích code các tính năng phức tạp nhất.</li>
+          <li>Hướng dẫn deploy: các bước cấu hình GitHub Actions, các lỗi gặp và cách xử lý.</li>
+          <li>Kết luận và hướng phát triển tiếp theo.</li>
+          <li>Tài liệu tham khảo (≥10 nguồn, theo chuẩn APA).</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>4.2 Buổi vấn đáp</div>
+        <ul class="req-list">
+          <li><strong>Demo live</strong> trên GitHub Pages – không được demo trên localhost.</li>
+          <li>Mỗi thành viên trình bày <strong>phần mình phụ trách</strong> và giải thích code tương ứng.</li>
+          <li>Giảng viên có thể yêu cầu <strong>sửa đổi nhỏ trực tiếp</strong> trên code trong buổi vấn đáp.</li>
+          <li>Thời gian mỗi nhóm: <strong>15–20 phút</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <div class="sub-title"><span class="dot"></span>4.3 Video YouTube (không bắt buộc nếu vấn đáp offline)</div>
+        <ul class="req-list">
+          <li>Thời lượng: 5–10 phút. Chế độ: Public.</li>
+          <li>Nội dung: demo các tính năng chính, giải thích kỹ thuật và phân công nhóm.</li>
+          <li>Tất cả thành viên phải xuất hiện trong video và có phần thuyết trình của riêng mình.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PHẦN 5 - Thang điểm -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">Thang điểm đánh giá (10 điểm)</div>
+    </div>
+    <div class="section-body">
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Hạng mục đánh giá</th>
+              <th>Tiêu chí chi tiết</th>
+              <th style="text-align:center;width:70px;">Điểm</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-bold">Figma / Thiết kế (20%)</td>
+              <td>Wireframe + Mockup đầy đủ, nhất quán bộ nhận diện thương hiệu, responsive 3 breakpoint, component library.</td>
+              <td class="td-score">2.0</td>
+            </tr>
+            <tr>
+              <td class="td-bold">Giao diện & UI (20%)</td>
+              <td>Đẹp, sáng tạo, đồng nhất, không lỗi layout ở cả 3 breakpoint, hình ảnh chất lượng cao, nội dung thực tế.</td>
+              <td class="td-score">2.0</td>
+            </tr>
+            <tr>
+              <td class="td-bold">Trang thành phần (20%)</td>
+              <td>Đủ ≥10 trang, nội dung phù hợp chủ đề, trang About đầy đủ thông tin thành viên, không dùng Lorem Ipsum.</td>
+              <td class="td-score">2.0</td>
+            </tr>
+            <tr>
+              <td class="td-bold">Chức năng kỹ thuật (20%)</td>
+              <td>Tìm kiếm, lọc, giỏ hàng, form validation hoạt động đúng; animation mượt; loading state; toast notification.</td>
+              <td class="td-score">2.0</td>
+            </tr>
+            <tr>
+              <td class="td-bold">Code & Deploy (10%)</td>
+              <td>Code sạch (ESLint không lỗi), cấu trúc thư mục rõ ràng, commit đều từ tất cả thành viên, GitHub Pages chạy ổn định.</td>
+              <td class="td-score">1.0</td>
+            </tr>
+            <tr>
+              <td class="td-bold">Báo cáo Word (5%)</td>
+              <td>Đầy đủ cấu trúc tiểu luận, mô tả kỹ thuật rõ ràng, tài liệu tham khảo ≥10 nguồn theo chuẩn APA.</td>
+              <td class="td-score">0.5</td>
+            </tr>
+            <tr>
+              <td class="td-bold">Thuyết trình / Vấn đáp (5%)</td>
+              <td>Demo live thành công, mỗi thành viên giải thích được phần mình làm, phân công công việc rõ ràng.</td>
+              <td class="td-score">0.5</td>
+            </tr>
+            <tr class="grade-total">
+              <td colspan="2" style="font-weight:700;font-size:15px;color:white;">Tổng cộng</td>
+              <td style="text-align:center;font-weight:700;font-size:16px;color:white;">10.0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:1.5rem;">
+        <div class="sub-title"><span class="dot"></span>Điểm thưởng (cộng thêm, không vượt quá 10 điểm)</div>
+        <div class="bonus-list">
+          <div class="bonus-item">
+            <span class="pts">+0.3 điểm</span>
+            Dark mode hoàn chỉnh (toggle sáng / tối, lưu preference)
+          </div>
+          <div class="bonus-item">
+            <span class="pts">+0.2 điểm</span>
+            Animation / micro-interaction đặc biệt sáng tạo
+          </div>
+          <div class="bonus-item">
+            <span class="pts">+0.5 điểm</span>
+            Tính năng nâng cao đặc trưng theo chủ đề (thử màu ảo, lịch đặt, gộp đơn nhóm…)
+          </div>
+          <div class="bonus-item">
+            <span class="pts">+0.3 điểm</span>
+            Lighthouse score ≥ 90 (Performance + Accessibility)
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AI Usage note -->
+  <div class="alert alert-success">
+    <span class="alert-icon">🤖</span>
+    <div>
+      <strong>Về việc sử dụng AI:</strong> Nhóm được phép dùng ChatGPT, GitHub Copilot… để hỗ trợ viết code và tài liệu. Tuy nhiên, mỗi thành viên <strong>phải hiểu rõ</strong> mọi đoạn code được tạo ra và có thể giải thích khi được hỏi trong buổi vấn đáp. Không giải thích được → trừ điểm hoặc 0 điểm phần đó.
+    </div>
+  </div>
+
+  <!-- End marker -->
+  <div style="text-align:center;padding:2rem 0 0;border-top:2px solid var(--navy);margin-top:1.5rem;">
+    <p style="font-style:italic;font-weight:600;color:var(--navy);margin-bottom:0.5rem;">--- Hết ---</p>
+    <p style="color:var(--muted);font-size:13px;">TP. Hồ Chí Minh, tháng 10 năm 2025 &nbsp;|&nbsp; Giảng viên phụ trách</p>
+  </div>
+
+</main>
+
+<footer>
+  <strong>Trường Đại học Sư phạm Kỹ thuật TP.HCM (HCMUTE)</strong><br>
+  Khoa Công nghệ Thông tin &nbsp;·&nbsp; Bộ môn Thiết kế Web<br>
+  <span style="margin-top:8px;display:block;font-size:12px;opacity:0.6;">Đề thi này chỉ sử dụng cho mục đích học tập nội bộ.</span>
+</footer>
+
+</body>
+</html>
