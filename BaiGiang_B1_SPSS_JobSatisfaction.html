@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buổi 1 – Phân tích Sự hài lòng công việc bằng SPSS</title>
+<style>
+  :root {
+    --blue-50: #E6F1FB; --blue-100: #B5D4F4; --blue-200: #85B7EB;
+    --blue-400: #378ADD; --blue-600: #185FA5; --blue-800: #0C447C; --blue-900: #042C53;
+    --teal-50: #E1F5EE; --teal-100: #9FE1CB; --teal-200: #5DCAA5;
+    --teal-400: #1D9E75; --teal-600: #0F6E56; --teal-800: #085041;
+    --amber-50: #FAEEDA; --amber-100: #FAC775; --amber-200: #EF9F27;
+    --amber-400: #BA7517; --amber-600: #854F0B; --amber-800: #633806;
+    --coral-50: #FAECE7; --coral-100: #F5C4B3; --coral-200: #F0997B;
+    --coral-400: #D85A30; --coral-600: #993C1D; --coral-800: #712B13;
+    --gray-50: #F1EFE8; --gray-100: #D3D1C7; --gray-200: #B4B2A9;
+    --gray-400: #888780; --gray-600: #5F5E5A; --gray-800: #444441;
+    --green-50: #EAF3DE; --green-100: #C0DD97; --green-400: #639922; --green-600: #3B6D11;
+    --purple-50: #EEEDFE; --purple-100: #CECBF6; --purple-400: #7F77DD; --purple-600: #534AB7; --purple-800: #3C3489;
+    --red-50: #FCEBEB; --red-400: #E24B4A; --red-600: #A32D2D;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #f7f6f2;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    background: var(--blue-900);
+    color: white;
+    padding: 2.5rem 2rem 2rem;
+    border-bottom: 4px solid var(--teal-400);
+  }
+  .page-header .meta {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue-100);
+    margin-bottom: 0.5rem;
+  }
+  .page-header h1 {
+    font-size: 26px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+  .page-header .subtitle {
+    font-size: 14px;
+    color: var(--blue-200);
+  }
+
+  /* ── Nav tabs ── */
+  .tab-nav {
+    background: var(--blue-800);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--blue-600);
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue-200);
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-btn:hover { color: white; }
+  .tab-btn.active { color: var(--teal-100); border-bottom-color: var(--teal-400); }
+
+  /* ── Main layout ── */
+  .content-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.25rem; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── Cards ── */
+  .card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e0ddd4;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--blue-800);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  /* ── Section heading ── */
+  .sec-heading {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-600);
+    font-weight: 600;
+    margin: 1.75rem 0 0.75rem;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e8e6df;
+  }
+  .sec-heading:first-child { margin-top: 0; }
+
+  /* ── Data table ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .data-table th {
+    background: var(--gray-50);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--gray-800);
+    border-bottom: 1px solid #e0ddd4;
+  }
+  .data-table td {
+    padding: 7px 12px;
+    border-bottom: 1px solid #f0ede6;
+    vertical-align: top;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--gray-50); }
+
+  /* ── Badges / pills ── */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .badge-scale { background: var(--teal-50); color: var(--teal-600); }
+  .badge-nominal { background: var(--blue-50); color: var(--blue-600); }
+  .badge-ordinal { background: var(--amber-50); color: var(--amber-600); }
+  .badge-dv { background: var(--coral-50); color: var(--coral-600); }
+  .badge-ok { background: var(--green-50); color: var(--green-600); }
+  .badge-warn { background: var(--amber-50); color: var(--amber-600); }
+  .badge-missing { background: var(--red-50); color: var(--red-600); }
+
+  /* ── Step boxes (how-to) ── */
+  .steps { counter-reset: step; }
+  .step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .step-num {
+    counter-increment: step;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--blue-50);
+    color: var(--blue-800);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body { flex: 1; font-size: 14px; }
+  .step-body strong { font-weight: 600; color: var(--blue-900); }
+
+  /* ── Code / path ── */
+  .spss-path {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    background: var(--gray-50);
+    border: 1px solid #e0ddd4;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: var(--blue-900);
+    margin: 6px 0;
+  }
+  .spss-path .arrow { color: var(--gray-400); }
+  .spss-path .menu { font-weight: 600; color: var(--blue-700, #185FA5); }
+
+  code {
+    background: var(--gray-50);
+    border: 1px solid #e0ddd4;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12.5px;
+    color: var(--coral-600);
+  }
+
+  /* ── Exercise list ── */
+  .ex-list { list-style: none; }
+  .ex-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 9px 0;
+    border-bottom: 1px solid #f0ede6;
+    font-size: 13.5px;
+  }
+  .ex-item:last-child { border-bottom: none; }
+  .ex-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--blue-50);
+    color: var(--blue-800);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ex-text { flex: 1; line-height: 1.55; }
+  .ex-text .hint {
+    font-size: 12px;
+    color: var(--gray-600);
+    margin-top: 2px;
+  }
+  .ex-text .hint strong { color: var(--teal-600); font-weight: 600; }
+
+  /* ── Stat grid ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  .stat-card {
+    background: var(--gray-50);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border: 1px solid #e0ddd4;
+  }
+  .stat-card .val {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--blue-800);
+    line-height: 1.2;
+  }
+  .stat-card .lbl {
+    font-size: 11px;
+    color: var(--gray-600);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Alert boxes ── */
+  .alert {
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 13.5px;
+    margin: 0.75rem 0;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .alert-warn { background: var(--amber-50); border: 1px solid var(--amber-100); color: var(--amber-800); }
+  .alert-info { background: var(--blue-50); border: 1px solid var(--blue-100); color: var(--blue-800); }
+  .alert-tip { background: var(--teal-50); border: 1px solid var(--teal-100); color: var(--teal-800); }
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Chart vis ── */
+  .mini-bar-wrap { margin: 0.5rem 0; }
+  .mini-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .mini-bar-label { width: 110px; color: var(--gray-600); flex-shrink: 0; text-align: right; }
+  .mini-bar-track { flex: 1; background: var(--gray-100); border-radius: 3px; height: 14px; overflow: hidden; }
+  .mini-bar-fill { height: 100%; border-radius: 3px; }
+  .mini-bar-val { width: 50px; font-weight: 600; color: var(--blue-900); font-size: 12px; }
+
+  /* ── Section group headers ── */
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 1.5rem 0 0.75rem;
+  }
+  .group-header .group-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--blue-900);
+  }
+  .group-header .group-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--teal-50);
+    color: var(--teal-600);
+  }
+
+  /* ── Progress tracker ── */
+  .progress-bar-outer {
+    width: 100%;
+    height: 8px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+  .progress-bar-inner {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--teal-400);
+  }
+
+  ul.bullet-list {
+    margin: 0.5rem 0 0.5rem 1.25rem;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  ul.bullet-list li { margin-bottom: 2px; }
+
+  p.body-text { font-size: 14px; line-height: 1.75; color: #2a2a2a; margin-bottom: 0.5rem; }
+
+  @media print {
+    .tab-nav { display: none; }
+    .section { display: block !important; page-break-before: always; }
+    .section:first-child { page-break-before: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="meta">Môn: Công cụ phân tích và trực quan dữ liệu (25TV25) · Buổi 1</div>
+  <h1>Phân tích Sự hài lòng công việc (Job Satisfaction) bằng SPSS</h1>
+  <div class="subtitle">Nghiên cứu khoa học định lượng · Bộ dữ liệu: 218 quan sát · 29 biến</div>
+</div>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('overview')">📊 Tổng quan dữ liệu</button>
+  <button class="tab-btn" onclick="showTab('part1')">① Phần 1: Chuẩn bị</button>
+  <button class="tab-btn" onclick="showTab('part2a')">② Làm sạch DL</button>
+  <button class="tab-btn" onclick="showTab('part2b')">③ Thống kê mô tả</button>
+  <button class="tab-btn" onclick="showTab('part2c')">④ Biểu đồ</button>
+  <button class="tab-btn" onclick="showTab('part2d')">⑤ Biến đổi DL</button>
+  <button class="tab-btn" onclick="showTab('part2e')">⑥ Bảng chéo & Lọc</button>
+  <button class="tab-btn" onclick="showTab('guide')">📖 Hướng dẫn SPSS</button>
+</nav>
+
+<!-- ===================== TAB: TỔNG QUAN ===================== -->
+<div id="tab-overview" class="section active">
+<div class="content-wrap">
+
+  <div class="sec-heading">Mô tả bộ dữ liệu</div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="val">218</div><div class="lbl">Quan sát (N)</div></div>
+    <div class="stat-card"><div class="val">29</div><div class="lbl">Biến số</div></div>
+    <div class="stat-card"><div class="val">3</div><div class="lbl">Missing (Age)</div></div>
+    <div class="stat-card"><div class="val">8</div><div class="lbl">Missing (Yeas#)</div></div>
+    <div class="stat-card"><div class="val">66,16</div><div class="lbl">Satisfaction TB</div></div>
+    <div class="stat-card"><div class="val">21,57</div><div class="lbl">Burnout TB</div></div>
+  </div>
+
+  <div class="sec-heading">Cơ cấu mẫu (thực tế từ dữ liệu)</div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--blue-50);color:var(--blue-600)">♂♀</div>Giới tính (Gender)</div>
+    <div class="mini-bar-wrap">
+      <div class="mini-bar-row">
+        <div class="mini-bar-label">Nam (1)</div>
+        <div class="mini-bar-track"><div class="mini-bar-fill" style="width:83.5%;background:var(--blue-400)"></div></div>
+        <div class="mini-bar-val">182 (83,5%)</div>
+      </div>
+      <div class="mini-bar-row">
+        <div class="mini-bar-label">Nữ (0)</div>
+        <div class="mini-bar-track"><div class="mini-bar-fill" style="width:16.5%;background:var(--teal-400)"></div></div>
+        <div class="mini-bar-val">36 (16,5%)</div>
+      </div>
+    </div>
+    <div class="alert alert-warn"><span class="alert-icon">⚠</span>Mẫu <strong>không cân bằng giới tính</strong> – cần lưu ý khi so sánh Nam vs Nữ. Kết quả phân tích theo giới tính có thể kém tin cậy do nhóm Nữ nhỏ (N=36).</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--teal-50);color:var(--teal-600)">📍</div>Khu vực (Location)</div>
+    <div class="mini-bar-wrap">
+      <div class="mini-bar-row">
+        <div class="mini-bar-label">Miền Nam (3)</div>
+        <div class="mini-bar-track"><div class="mini-bar-fill" style="width:47.7%;background:var(--teal-400)"></div></div>
+        <div class="mini-bar-val">104 (47,7%)</div>
+      </div>
+      <div class="mini-bar-row">
+        <div class="mini-bar-label">Miền Trung (2)</div>
+        <div class="mini-bar-track"><div class="mini-bar-fill" style="width:28%;background:var(--blue-400)"></div></div>
+        <div class="mini-bar-val">61 (28%)</div>
+      </div>
+      <div class="mini-bar-row">
+        <div class="mini-bar-label">Miền Bắc (1)</div>
+        <div class="mini-bar-track"><div class="mini-bar-fill" style="width:23.9%;background:var(--amber-400)"></div></div>
+        <div class="mini-bar-val">52 (23,9%)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--amber-50);color:var(--amber-600)">🎓</div>Trình độ học vấn (Education)</div>
+    <div class="mini-bar-wrap">
+      <div class="mini-bar-row">
+        <div class="mini-bar-label">THPT (1)</div>
+        <div class="mini-bar-track"><div class="mini-bar-fill" style="width:82.6%;background:var(--amber-400)"></div></div>
+        <div class="mini-bar-val">180 (82,6%)</div>
+      </div>
+      <div class="mini-bar-row">
+        <div class="mini-bar-label">Đại học (2)</div>
+        <div class="mini-bar-track"><div class="mini-bar-fill" style="width:14.7%;background:var(--blue-400)"></div></div>
+        <div class="mini-bar-val">32 (14,7%)</div>
+      </div>
+      <div class="mini-bar-row">
+        <div class="mini-bar-label">Sau ĐH (3)</div>
+        <div class="mini-bar-track"><div class="mini-bar-fill" style="width:2.8%;background:var(--teal-400)"></div></div>
+        <div class="mini-bar-val">6 (2,8%)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-heading">Thống kê mô tả các biến chính (Scale)</div>
+  <div class="card" style="overflow-x:auto">
+    <table class="data-table">
+      <thead><tr>
+        <th>Biến số</th><th>Ý nghĩa</th><th>N</th><th>Min</th><th>Max</th><th>Mean</th><th>Std</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>Age</strong></td><td>Tuổi</td><td>215</td><td>22</td><td>62</td><td>35,93</td><td>9,26</td></tr>
+        <tr><td><strong>Satisfaction</strong> <span class="badge badge-dv">Biến PT</span></td><td>Hài lòng chung</td><td>218</td><td>39</td><td>85</td><td>66,16</td><td>8,83</td></tr>
+        <tr><td><strong>Burnout</strong></td><td>Kiệt sức</td><td>218</td><td>8</td><td>49</td><td>21,57</td><td>6,30</td></tr>
+        <tr><td><strong>Turnover</strong></td><td>Ý định nghỉ việc</td><td>218</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td><strong>Colleague</strong></td><td>Hài lòng đồng nghiệp</td><td>218</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td><strong>Supervision</strong></td><td>Hài lòng giám sát</td><td>214</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td><strong>Salary</strong></td><td>Hài lòng lương</td><td>218</td><td>4</td><td>35</td><td>18,01</td><td>5,62</td></tr>
+        <tr><td><strong>Promotion</strong></td><td>Thăng tiến</td><td>218</td><td>12</td><td>48</td><td>30,20</td><td>7,51</td></tr>
+        <tr><td><strong>Autonomy</strong></td><td>Tự chủ</td><td>218</td><td>6</td><td>22</td><td>13,57</td><td>2,78</td></tr>
+        <tr><td><strong>WorkLoad</strong></td><td>Khối lượng công việc</td><td>218</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td><strong>RoleConflict</strong></td><td>Xung đột vai trò</td><td>218</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert alert-tip"><span class="alert-icon">💡</span><div><strong>Lưu ý sư phạm:</strong> Trước khi chạy bất kỳ phân tích nào trên SPSS, sinh viên phải hiểu rõ ý nghĩa từng biến – đây là bước "đọc metadata" (Variable View) quan trọng nhất, tránh phân tích máy móc không hiểu ngữ nghĩa.</div></div>
+
+</div>
+</div>
+
+<!-- ===================== TAB: PHẦN 1 – CHUẨN BỊ ===================== -->
+<div id="tab-part1" class="section">
+<div class="content-wrap">
+
+  <div class="sec-heading">Mô tả biến số (Variable View)</div>
+  <p class="body-text">Trước khi nhập liệu vào SPSS, sinh viên cần nắm rõ ý nghĩa và đặc điểm của từng biến. Bảng dưới đây tóm tắt toàn bộ biến trong bộ dữ liệu <em>job_satisfaction.xlsx</em>.</p>
+
+  <div class="card" style="overflow-x:auto">
+    <table class="data-table">
+      <thead><tr>
+        <th>Tên biến</th><th>Thang đo</th><th>Ý nghĩa</th><th>Ghi chú / Mã hóa</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>Gender</strong></td><td><span class="badge badge-nominal">Nominal</span></td><td>Giới tính</td><td>0 = Nữ (Female), 1 = Nam (Male)</td></tr>
+        <tr><td><strong>Age</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Tuổi (năm)</td><td>Min=22, Max=62, <strong>Missing=3</strong></td></tr>
+        <tr><td><strong>MStatus</strong></td><td><span class="badge badge-nominal">Nominal</span></td><td>Tình trạng hôn nhân</td><td>1=Độc thân, 2=Kết hôn, 3=Khác (3 nhóm)</td></tr>
+        <tr><td><strong>Children#</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Số con</td><td>Biến đếm nguyên</td></tr>
+        <tr><td><strong>Education</strong></td><td><span class="badge badge-ordinal">Ordinal</span></td><td>Trình độ học vấn</td><td>1=THPT, 2=Đại học, 3=Sau ĐH (có thứ bậc)</td></tr>
+        <tr><td><strong>Ethnicity</strong></td><td><span class="badge badge-nominal">Nominal</span></td><td>Dân tộc</td><td>Missing=1</td></tr>
+        <tr><td><strong>Yeas#</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Số năm kinh nghiệm</td><td>Lỗi chính tả gốc (nên đổi → Years_Exp). <strong>Missing=8</strong></td></tr>
+        <tr><td><strong>Location</strong></td><td><span class="badge badge-nominal">Nominal</span></td><td>Khu vực làm việc</td><td>1=Bắc, 2=Trung, 3=Nam. Missing=1</td></tr>
+        <tr><td><strong>Satisfaction</strong></td><td><span class="badge badge-scale">Scale</span> <span class="badge badge-dv">Biến PT</span></td><td>Điểm hài lòng chung</td><td>Biến phụ thuộc chính. Không có missing.</td></tr>
+        <tr><td><strong>Burnout</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Kiệt sức nghề nghiệp</td><td>Thang điểm: 8–49</td></tr>
+        <tr><td><strong>Turnover</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Ý định nghỉ việc</td><td></td></tr>
+        <tr><td><strong>Colleague</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Hài lòng với đồng nghiệp</td><td>Thành phần của Satisfaction</td></tr>
+        <tr><td><strong>Supervision</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Hài lòng với giám sát</td><td>Missing=4</td></tr>
+        <tr><td><strong>Salary</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Hài lòng về lương</td><td>Thang: 4–35</td></tr>
+        <tr><td><strong>Promotion</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Cơ hội thăng tiến</td><td>Thang: 12–48</td></tr>
+        <tr><td><strong>Autonomy</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Tính tự chủ</td><td>Thang: 6–22</td></tr>
+        <tr><td><strong>RoleConflict</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Xung đột vai trò</td><td></td></tr>
+        <tr><td><strong>Comfort</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Sự thoải mái</td><td></td></tr>
+        <tr><td><strong>WorkLoad</strong></td><td><span class="badge badge-scale">Scale</span></td><td>Khối lượng công việc</td><td></td></tr>
+        <tr><td><strong>AnyChild</strong></td><td><span class="badge badge-nominal">Nominal</span></td><td>Có con hay không</td><td>0 = Không, 1 = Có</td></tr>
+        <tr><td><strong>North / Center / South</strong></td><td><span class="badge badge-nominal">Nominal</span></td><td>Biến giả (Dummy)</td><td>0 = Không, 1 = Có. Dùng cho hồi quy</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-heading">Quy trình chuẩn bị dữ liệu (trước SPSS)</div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--amber-50);color:var(--amber-600)">⚙</div>Bước 1 – Xử lý sơ bộ trên Excel</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body">Mở file <code>job_satisfaction.xlsx</code> trong Excel.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Dấu thập phân:</strong> File gốc có thể dùng dấu phẩy (,) thay dấu chấm (.). Dùng <strong>Ctrl+H</strong> → Find: <code>,</code> → Replace: <code>.</code> (chỉ thực hiện nếu máy cài Region = US).</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Đổi tên biến lỗi:</strong> <code>Yeas#</code> → <code>Years_Exp</code> để dễ dùng trong SPSS.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body">Xóa dấu ngoặc kép <code>"</code> trong các ô số liệu nếu có (do chuyển từ CSV).</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body">Lưu file dưới dạng <code>.xlsx</code>.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--blue-50);color:var(--blue-600)">📥</div>Bước 2 – Nhập liệu vào SPSS</div>
+    <div class="spss-path">
+      <span class="menu">File</span><span class="arrow">→</span>
+      <span class="menu">Import Data</span><span class="arrow">→</span>
+      <span class="menu">Excel</span>
+    </div>
+    <p class="body-text" style="margin-top:8px">Tích chọn: <code>Read variable names from the first row of data</code> → OK.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--teal-50);color:var(--teal-600)">⚙</div>Bước 3 – Thiết lập Variable View</div>
+    <p class="body-text">Sau khi nhập, vào thẻ <strong>Variable View</strong> để khai báo:</p>
+    <ul class="bullet-list">
+      <li><strong>Measure (Thang đo):</strong> Biến phân loại → Nominal; Education → Ordinal; Biến điểm số → Scale.</li>
+      <li><strong>Values (Gán nhãn):</strong> Gender: 0=Female, 1=Male; Location: 1=North, 2=Center, 3=South.</li>
+      <li><strong>Missing:</strong> Khai báo mã missing nếu dữ liệu dùng mã đặc biệt (ví dụ 99).</li>
+    </ul>
+    <div class="alert alert-tip"><span class="alert-icon">💡</span>Gán nhãn giúp bảng kết quả SPSS hiển thị "Male/Female" thay vì "0/1" – rất quan trọng khi báo cáo.</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ===================== TAB: LÀM SẠCH DỮ LIỆU ===================== -->
+<div id="tab-part2a" class="section">
+<div class="content-wrap">
+
+  <div class="group-header">
+    <div class="group-label">Phần A: Kiểm tra và Làm sạch dữ liệu</div>
+    <div class="group-badge">Câu 1–10</div>
+  </div>
+
+  <div class="alert alert-info"><span class="alert-icon">ℹ</span><div>Làm sạch dữ liệu là bước BẮT BUỘC trước mọi phân tích. Dữ liệu "bẩn" (lỗi, thiếu, ngoại lệ) sẽ cho kết quả sai dù phương pháp thống kê đúng.</div></div>
+
+  <ul class="ex-list">
+
+    <li class="ex-item">
+      <div class="ex-num">1</div>
+      <div class="ex-text">Có bao nhiêu quan sát trong bộ dữ liệu?
+        <div class="hint">💡 <strong>Đáp án thực tế: N = 218</strong>. Xem số thứ tự dòng cuối cùng trong Data View.</div>
+      </div>
+    </li>
+
+    <li class="ex-item">
+      <div class="ex-num">2</div>
+      <div class="ex-text">Biến Age có bao nhiêu giá trị bị khuyết?
+        <div class="hint">💡 <strong>Đáp án: 3 missing</strong>. Đường dẫn: <code>Analyze → Descriptive Statistics → Frequencies</code>, chọn biến Age, xem dòng <em>Missing</em> trong bảng Statistics.</div>
+      </div>
+    </li>
+
+    <li class="ex-item">
+      <div class="ex-num">3</div>
+      <div class="ex-text">Biến Years_Exp (Yeas#) có bao nhiêu giá trị bị khuyết?
+        <div class="hint">💡 <strong>Đáp án: 8 missing</strong> – nhiều nhất trong bộ dữ liệu. Cần xử lý trước khi phân tích liên quan đến kinh nghiệm.</div>
+      </div>
+    </li>
+
+    <li class="ex-item">
+      <div class="ex-num">4</div>
+      <div class="ex-text">Tìm Min, Max của biến Age. Có Outlier không?
+        <div class="hint">💡 <strong>Min=22, Max=62</strong>. Không có giá trị bất thường (tuổi đi làm). Đường dẫn: <code>Analyze → Descriptives → Statistics → Minimum & Maximum</code>.</div>
+      </div>
+    </li>
+
+    <li class="ex-item">
+      <div class="ex-num">5</div>
+      <div class="ex-text">Gán nhãn (Value Labels) cho biến Gender: 0=Female, 1=Male.
+        <div class="hint">💡 Variable View → cột <strong>Values</strong> → click dấu 3 chấm → nhập từng cặp giá trị-nhãn → Add → OK.</div>
+      </div>
+    </li>
+
+    <li class="ex-item">
+      <div class="ex-num">6</div>
+      <div class="ex-text">Gán nhãn cho biến Location: 1=North, 2=Center, 3=South.
+        <div class="hint">💡 Tương tự câu 5. Dựa vào các biến Dummy (North, Center, South) có sẵn để kiểm tra chéo.</div>
+      </div>
+    </li>
+
+    <li class="ex-item">
+      <div class="ex-num">7</div>
+      <div class="ex-text">Chuyển thang đo của biến Education sang Ordinal.
+        <div class="hint">💡 Variable View → dòng Education → cột <strong>Measure</strong> → đổi thành <em>Ordinal</em>. Lý do: học vấn có thứ bậc (THPT &lt; ĐH &lt; Sau ĐH) nhưng không phải biến liên tục.</div>
+      </div>
+    </li>
+
+    <li class="ex-item">
+      <div class="ex-num">8</div>
+      <div class="ex-text">Biến MStatus có bao nhiêu nhóm tình trạng hôn nhân?
+        <div class="hint">💡 <strong>Đáp án: 3 nhóm</strong> (1=Độc thân: 141, 2=Kết hôn: 47, 3=Khác: 30). Dùng <code>Frequencies</code> để đọc bảng tần số.</div>
+      </div>
+    </li>
+
+    <li class="ex-item">
+      <div class="ex-num">9</div>
+      <div class="ex-text">Thay thế giá trị khuyết của Age bằng giá trị trung bình.
+        <div class="hint">💡 <code>Transform → Replace Missing Values</code> → đưa Age vào → phương pháp <em>Series mean</em> → OK. SPSS tạo biến mới <code>Age_1</code>. <strong>Lưu ý:</strong> Không ghi đè biến gốc – luôn tạo biến mới!</div>
+      </div>
+    </li>
+
+    <li class="ex-item">
+      <div class="ex-num">10</div>
+      <div class="ex-text">Loại bỏ bản ghi có giá trị khuyết ở biến Satisfaction.
+        <div class="hint">💡 <code>Data → Select Cases → If condition is satisfied</code> → Nhập: <code>NOT MISSING(Satisfaction)</code> → chọn <em>Filter out</em> (tạm thời, an toàn hơn Delete). <strong>Đáp án: Satisfaction không có missing → không cần xóa.</strong></div>
+      </div>
+    </li>
+
+  </ul>
+
+</div>
+</div>
+
+<!-- ===================== TAB: THỐNG KÊ MÔ TẢ ===================== -->
+<div id="tab-part2b" class="section">
+<div class="content-wrap">
+
+  <div class="group-header">
+    <div class="group-label">Phần B: Thống kê mô tả</div>
+    <div class="group-badge">Câu 11–25</div>
+  </div>
+
+  <div class="sec-heading">B1. Tần số cho biến định tính (Câu 11–15)</div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--blue-50);color:var(--blue-600)">📋</div>Lệnh dùng: Frequencies</div>
+    <div class="spss-path">
+      <span class="menu">Analyze</span><span class="arrow">→</span>
+      <span class="menu">Descriptive Statistics</span><span class="arrow">→</span>
+      <span class="menu">Frequencies</span>
+    </div>
+    <p class="body-text" style="margin-top:8px">Đưa biến vào → OK. Đọc cột <strong>Frequency</strong> (số lượng) và <strong>Valid Percent</strong> (tỷ lệ %).</p>
+  </div>
+
+  <ul class="ex-list">
+    <li class="ex-item"><div class="ex-num">11</div><div class="ex-text">Số Nam / Nữ và tỷ lệ? <div class="hint">💡 <strong>Nam (1): 182 (83,5%) — Nữ (0): 36 (16,5%)</strong>. Mẫu nghiêng mạnh về Nam.</div></div></li>
+    <li class="ex-item"><div class="ex-num">12</div><div class="ex-text">Khu vực nào đông nhân viên nhất? <div class="hint">💡 <strong>Miền Nam (3): 104 người (47,7%)</strong> – đông nhất. Miền Trung: 61, Miền Bắc: 52.</div></div></li>
+    <li class="ex-item"><div class="ex-num">13</div><div class="ex-text">Tần số trình độ học vấn. Nhóm nào chiếm đa số? <div class="hint">💡 <strong>THPT (1): 180 người (82,6%)</strong> chiếm đa số áp đảo. ĐH: 32, Sau ĐH: 6.</div></div></li>
+    <li class="ex-item"><div class="ex-num">14</div><div class="ex-text">Tỷ lệ nhân viên có con? <div class="hint">💡 Dùng biến <code>AnyChild</code>: 0=Không có con, 1=Có con. Chạy Frequencies để đọc tỷ lệ.</div></div></li>
+    <li class="ex-item"><div class="ex-num">15</div><div class="ex-text">Số nhân viên theo từng dân tộc (Ethnicity). <div class="hint">💡 Chạy Frequencies cho biến Ethnicity. Có 1 missing cần chú ý. Đọc bảng tần số phân theo nhóm.</div></div></li>
+  </ul>
+
+  <div class="sec-heading">B2. Thống kê mô tả cho biến định lượng (Câu 16–20)</div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--teal-50);color:var(--teal-600)">📊</div>Lệnh dùng: Descriptives</div>
+    <div class="spss-path">
+      <span class="menu">Analyze</span><span class="arrow">→</span>
+      <span class="menu">Descriptive Statistics</span><span class="arrow">→</span>
+      <span class="menu">Descriptives</span>
+    </div>
+    <p class="body-text" style="margin-top:8px">Trong <strong>Options</strong>, tích chọn: Mean, Std. Deviation, Minimum, Maximum, Range, Skewness, Kurtosis.</p>
+    <div class="alert alert-tip" style="margin-top:8px"><span class="alert-icon">💡</span>Để xem <strong>Median</strong> (Trung vị): dùng Frequencies → Statistics → tích Median. Descriptives không có Median.</div>
+  </div>
+
+  <ul class="ex-list">
+    <li class="ex-item"><div class="ex-num">16</div><div class="ex-text">Mean, Median, Std của biến Age. <div class="hint">💡 Mean≈35,93, Std≈9,26. Median: dùng Frequencies → Statistics. N=215 (do 3 missing).</div></div></li>
+    <li class="ex-item"><div class="ex-num">17</div><div class="ex-text">Mức hài lòng trung bình (Satisfaction). <div class="hint">💡 <strong>Mean = 66,16</strong>, Std = 8,83. Thang điểm 39–85. Cần ghi nhớ con số này cho câu 38.</div></div></li>
+    <li class="ex-item"><div class="ex-num">18</div><div class="ex-text">Biến thành phần nào có độ lệch chuẩn cao nhất trong {Colleague, Supervision, Salary, Promotion}? <div class="hint">💡 So sánh Std. Deviation. <strong>Promotion (Std≈7,51)</strong> cao nhất → ý kiến nhân viên về thăng tiến chênh lệch nhiều nhất. Salary Std≈5,62, Autonomy Std≈2,78.</div></div></li>
+    <li class="ex-item"><div class="ex-num">19</div><div class="ex-text">Khoảng biến thiên (Range) của biến Salary. <div class="hint">💡 Range = Max − Min = 35 − 4 = <strong>31 điểm</strong>. Phân tán khá lớn so với độ lớn thang đo.</div></div></li>
+    <li class="ex-item"><div class="ex-num">20</div><div class="ex-text">So sánh trung bình Burnout và Satisfaction. <div class="hint">💡 Burnout Mean≈21,57 (thang 8–49); Satisfaction Mean≈66,16 (thang 39–85). Hai thang đo khác nhau → cần chuẩn hóa để so sánh thực sự (z-score hoặc phần trăm thang đo).</div></div></li>
+  </ul>
+
+  <div class="sec-heading">B3. Khám phá dữ liệu – Explore (Câu 21–25)</div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--amber-50);color:var(--amber-600)">🔍</div>Lệnh dùng: Explore</div>
+    <div class="spss-path">
+      <span class="menu">Analyze</span><span class="arrow">→</span>
+      <span class="menu">Descriptive Statistics</span><span class="arrow">→</span>
+      <span class="menu">Explore</span>
+    </div>
+    <ul class="bullet-list" style="margin-top:8px">
+      <li><strong>Dependent List:</strong> Biến cần khám phá (Satisfaction, Turnover...)</li>
+      <li><strong>Factor List:</strong> Biến phân nhóm (Gender) – dùng cho câu 24</li>
+      <li><strong>Plots:</strong> Tích <em>Normality plots with tests</em>, <em>Histogram</em></li>
+    </ul>
+  </div>
+
+  <ul class="ex-list">
+    <li class="ex-item"><div class="ex-num">21</div><div class="ex-text">Boxplot Satisfaction – có Outlier không? <div class="hint">💡 Nhìn biểu đồ hộp: dấu tròn (○) ngoài râu = mild outlier, dấu sao (*) = extreme outlier. Báo cáo vị trí (số dòng) của các outlier.</div></div></li>
+    <li class="ex-item"><div class="ex-num">22</div><div class="ex-text">Kiểm tra tính chuẩn của Satisfaction qua Skewness & Kurtosis. <div class="hint">💡 Skewness gần 0 = phân phối đối xứng; |Skewness| &lt; 2 là chấp nhận được. Kurtosis gần 0 = phân phối chuẩn. Xem bảng <em>Tests of Normality</em>: Sig &gt; 0,05 → phân phối chuẩn.</div></div></li>
+    <li class="ex-item"><div class="ex-num">23</div><div class="ex-text">Kiểm tra tính chuẩn Turnover bằng Histogram. <div class="hint">💡 Tích <em>Normality plots with tests</em> trong Explore → Plots. Nhìn hình dạng Histogram: hình chuông cân đối = phân phối chuẩn.</div></div></li>
+    <li class="ex-item"><div class="ex-num">24</div><div class="ex-text">Trung bình Satisfaction theo Gender – nhóm nào hài lòng hơn? <div class="hint">💡 Đưa Gender vào <em>Factor List</em>. So sánh Mean Satisfaction của nam (1) và nữ (0) trong bảng Descriptives của output.</div></div></li>
+    <li class="ex-item"><div class="ex-num">25</div><div class="ex-text">Khoảng tin cậy 95% cho trung bình WorkLoad. <div class="hint">💡 Trong bảng Descriptives của Explore, tìm dòng <em>95% Confidence Interval for Mean</em> → đọc giá trị Lower Bound và Upper Bound.</div></div></li>
+  </ul>
+
+</div>
+</div>
+
+<!-- ===================== TAB: BIỂU ĐỒ ===================== -->
+<div id="tab-part2c" class="section">
+<div class="content-wrap">
+
+  <div class="group-header">
+    <div class="group-label">Phần C: Vẽ biểu đồ</div>
+    <div class="group-badge">Câu 26–35</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--purple-50);color:var(--purple-600)">📈</div>Hai cách vẽ biểu đồ trong SPSS</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+      <div style="background:var(--gray-50);border-radius:8px;padding:12px;border:1px solid #e0ddd4">
+        <div style="font-weight:600;font-size:13px;color:var(--blue-800);margin-bottom:6px">Cách 1: Legacy Dialogs</div>
+        <div class="spss-path" style="font-size:11px;margin:0">Graphs → Legacy Dialogs → [Loại biểu đồ]</div>
+        <p style="font-size:12px;color:var(--gray-600);margin-top:6px">Đơn giản, nhanh, phù hợp sinh viên mới.</p>
+      </div>
+      <div style="background:var(--gray-50);border-radius:8px;padding:12px;border:1px solid #e0ddd4">
+        <div style="font-weight:600;font-size:13px;color:var(--blue-800);margin-bottom:6px">Cách 2: Chart Builder</div>
+        <div class="spss-path" style="font-size:11px;margin:0">Graphs → Chart Builder</div>
+        <p style="font-size:12px;color:var(--gray-600);margin-top:6px">Kéo thả, linh hoạt hơn. Kéo biến vào trục X/Y.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-heading">Loại biểu đồ và bài tập</div>
+
+  <ul class="ex-list">
+    <li class="ex-item">
+      <div class="ex-num">26</div>
+      <div class="ex-text"><strong>Pie Chart</strong> – Cơ cấu giới tính (Gender)
+        <div class="hint">💡 <code>Graphs → Legacy Dialogs → Pie → Summaries for groups of cases</code> → Define Slices by: <strong>Gender</strong>. Pie chart tốt cho tỷ lệ, nhưng nếu có &gt;5 nhóm nên dùng Bar.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">27</div>
+      <div class="ex-text"><strong>Bar Chart (Simple)</strong> – Nhân viên theo khu vực (Location)
+        <div class="hint">💡 <code>Graphs → Legacy Dialogs → Bar → Simple</code> → Category Axis: <strong>Location</strong>. Đọc nhãn tên khu vực sau khi gán Value Labels.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">28</div>
+      <div class="ex-text"><strong>Histogram + Normal Curve</strong> – Phân phối tuổi (Age)
+        <div class="hint">💡 <code>Graphs → Legacy Dialogs → Histogram</code> → Variable: <strong>Age</strong> → Tích <em>Display normal curve</em>. Quan sát hình dạng phân phối so với đường cong chuẩn.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">29</div>
+      <div class="ex-text"><strong>Stacked Bar Chart</strong> – Location × Education
+        <div class="hint">💡 <code>Bar → Stacked</code> → Category Axis: <strong>Location</strong> → Define Stacks by: <strong>Education</strong>. Cho thấy cơ cấu học vấn trong từng khu vực.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">30</div>
+      <div class="ex-text"><strong>Clustered Bar</strong> – So sánh Satisfaction trung bình theo Gender
+        <div class="hint">💡 <code>Bar → Simple → Other statistic (mean)</code> → Variable: <strong>Satisfaction</strong> → Category Axis: <strong>Gender</strong>. Đây là so sánh mean, không phải đếm tần số.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">31</div>
+      <div class="ex-text"><strong>Scatter Plot</strong> – Age vs Yeas# (kinh nghiệm)
+        <div class="hint">💡 <code>Graphs → Scatter/Dot → Simple Scatter</code> → Y: <strong>Age</strong>, X: <strong>Yeas#</strong>. Kỳ vọng tương quan dương: người lớn tuổi thường có nhiều kinh nghiệm hơn.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">32</div>
+      <div class="ex-text"><strong>Scatter Plot</strong> – Burnout vs Satisfaction
+        <div class="hint">💡 Y: <strong>Burnout</strong>, X: <strong>Satisfaction</strong>. Kỳ vọng tương quan âm: kiệt sức cao → hài lòng thấp. Kiểm tra bằng mắt trước khi tính hệ số tương quan.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">33</div>
+      <div class="ex-text"><strong>Boxplot</strong> – Salary theo Location
+        <div class="hint">💡 <code>Graphs → Boxplot → Simple</code> → Variable: <strong>Salary</strong>, Category: <strong>Location</strong>. Hộp dài = biến động nhiều. So sánh IQR và whiskers 3 khu vực.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">34</div>
+      <div class="ex-text"><strong>Boxplot</strong> – Turnover theo MStatus
+        <div class="hint">💡 Variable: <strong>Turnover</strong>, Category: <strong>MStatus</strong>. Xem nhóm hôn nhân nào có ý định nghỉ việc cao và biến động nhiều nhất.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">35</div>
+      <div class="ex-text"><strong>Matrix Scatter Plot</strong> – Satisfaction × Burnout × Turnover
+        <div class="hint">💡 <code>Scatter/Dot → Matrix Scatter</code> → Matrix Variables: đưa cả 3 biến vào. Cho thấy tương quan đôi một giữa 3 biến trong một lưới ô. Rất hữu ích để khám phá quan hệ tổng thể.</div>
+      </div>
+    </li>
+  </ul>
+
+</div>
+</div>
+
+<!-- ===================== TAB: BIẾN ĐỔI DỮ LIỆU ===================== -->
+<div id="tab-part2d" class="section">
+<div class="content-wrap">
+
+  <div class="group-header">
+    <div class="group-label">Phần D: Biến đổi dữ liệu</div>
+    <div class="group-badge">Câu 36–45</div>
+  </div>
+
+  <div class="sec-heading">D1. Mã hóa lại biến – Recode (Câu 36–40)</div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--coral-50);color:var(--coral-600)">🔄</div>Lệnh: Recode into Different Variables</div>
+    <div class="spss-path">
+      <span class="menu">Transform</span><span class="arrow">→</span>
+      <span class="menu">Recode into Different Variables</span>
+    </div>
+    <div class="alert alert-warn" style="margin-top:8px"><span class="alert-icon">⚠</span>Luôn dùng <strong>"Recode into Different Variables"</strong> (tạo biến mới), KHÔNG dùng "Recode into Same Variables" (ghi đè biến gốc). Biến gốc cần giữ lại để kiểm tra.</div>
+  </div>
+
+  <ul class="ex-list">
+    <li class="ex-item">
+      <div class="ex-num">36</div>
+      <div class="ex-text">Tạo biến <code>Age_Group</code> từ Age (3 nhóm tuổi)
+        <div class="hint">💡 Input: <strong>Age</strong> → Output: <strong>Age_Group</strong> → Old and New Values:<br>
+        • Lowest thru 29 → 1 (Young)<br>
+        • 30 thru 45 → 2 (Middle)<br>
+        • 46 thru Highest → 3 (Senior)<br>
+        Sau đó gán nhãn cho Age_Group trong Variable View.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">37</div>
+      <div class="ex-text">Tạo biến <code>Exp_Group</code> từ Yeas# (3 nhóm kinh nghiệm)
+        <div class="hint">💡 0–5 → 1 (Mới); 6–10 → 2 (Trung bình); 11 thru Highest → 3 (Lâu năm).</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">38</div>
+      <div class="ex-text">Tạo biến <code>Sat_Level</code> từ Satisfaction (2 nhóm dựa trên Mean)
+        <div class="hint">💡 Bước 1: Xem Mean Satisfaction = <strong>66,16</strong> (câu 17). Bước 2: Recode → Lowest thru 66.15 → 0 (Low); 66.16 thru Highest → 1 (High).</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">39</div>
+      <div class="ex-text">Tạo biến <code>Has_Children</code> từ Children# rồi so sánh với AnyChild
+        <div class="hint">💡 Children#=0 → 0 (No); 1 thru Highest → 1 (Yes). Sau đó <code>Crosstabs(Has_Children × AnyChild)</code> → nếu 100% khớp thì hai cách mã hóa nhất quán.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">40</div>
+      <div class="ex-text">Tạo biến <code>Wellbeing</code> bằng cách đảo ngược Burnout
+        <div class="hint">💡 Cần dùng <strong>Compute</strong> (không phải Recode). Công thức: <code>Wellbeing = 100 − Burnout</code> (nếu Max=100) hoặc kiểm tra Max thực tế (Max Burnout=49). Đảo ngược thang để Wellbeing cao = sức khỏe tốt.</div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="sec-heading">D2. Tính biến mới – Compute (Câu 41–45)</div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--green-50);color:var(--green-600)">🔢</div>Lệnh: Compute Variable</div>
+    <div class="spss-path">
+      <span class="menu">Transform</span><span class="arrow">→</span>
+      <span class="menu">Compute Variable</span>
+    </div>
+    <p class="body-text" style="margin-top:8px">Target Variable: tên biến mới. Numeric Expression: công thức tính.</p>
+  </div>
+
+  <ul class="ex-list">
+    <li class="ex-item">
+      <div class="ex-num">41</div>
+      <div class="ex-text">Tạo <code>Total_Score</code> = tổng 5 thành phần Satisfaction
+        <div class="hint">💡 Expression: <code>Colleague + Supervision + Salary + Promotion + Autonomy</code>. Giả định mô hình tổng hợp tuyến tính.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">42</div>
+      <div class="ex-text">Tạo <code>Social_Factor</code> = trung bình của {Colleague, Supervision, Comfort}
+        <div class="hint">💡 Expression: <code>MEAN(Colleague, Supervision, Comfort)</code>. Hàm MEAN của SPSS bỏ qua missing → tốt hơn tính tay.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">43</div>
+      <div class="ex-text">Tạo <code>Work_Pressure</code> = WorkLoad × RoleConflict
+        <div class="hint">💡 Expression: <code>WorkLoad * RoleConflict</code>. Biến tích tương tác (interaction term) hay dùng trong hồi quy để kiểm định hiệu ứng điều tiết.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">44</div>
+      <div class="ex-text">Tạo <code>Log_Salary</code> = Logarit cơ số 10 của Salary
+        <div class="hint">💡 Expression: <code>LG10(Salary)</code>. Dùng để chuẩn hóa dữ liệu lệch phải. Kiểm tra: Salary &gt; 0 (Min=4, OK). Sau transform nhìn Histogram Log_Salary sẽ chuẩn hơn.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">45</div>
+      <div class="ex-text">Tạo <code>Age_Sq</code> = Bình phương Age
+        <div class="hint">💡 Expression: <code>Age * Age</code> hoặc <code>Age ** 2</code>. Dùng để kiểm tra quan hệ phi tuyến (U-shape) giữa tuổi và hài lòng trong hồi quy bậc 2.</div>
+      </div>
+    </li>
+  </ul>
+
+</div>
+</div>
+
+<!-- ===================== TAB: BẢNG CHÉO & LỌC ===================== -->
+<div id="tab-part2e" class="section">
+<div class="content-wrap">
+
+  <div class="group-header">
+    <div class="group-label">Phần E: Bảng chéo & Lọc dữ liệu</div>
+    <div class="group-badge">Câu 46–50</div>
+  </div>
+
+  <ul class="ex-list">
+    <li class="ex-item">
+      <div class="ex-num">46</div>
+      <div class="ex-text"><strong>Crosstabs</strong> – Gender × Education (kèm Chi-square)
+        <div class="hint">💡 <code>Analyze → Descriptive Statistics → Crosstabs</code> → Row: <strong>Gender</strong>, Column: <strong>Education</strong> → Statistics: tích <em>Chi-square</em> → Cells: Observed.<br>
+        Đọc kết quả: Sig &lt; 0,05 → có mối liên hệ có ý nghĩa thống kê giữa giới tính và trình độ học vấn.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">47</div>
+      <div class="ex-text"><strong>Crosstabs</strong> – Location × Age_Group, tỷ lệ % theo cột
+        <div class="hint">💡 Row: <strong>Location</strong>, Column: <strong>Age_Group</strong> → Cells: tích <em>Column</em> trong Percentages. Cho thấy cơ cấu tuổi trong từng khu vực.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">48</div>
+      <div class="ex-text"><strong>Split File</strong> – Tính trung bình Satisfaction theo từng khu vực
+        <div class="hint">💡 <strong>Bước 1:</strong> <code>Data → Split File → Compare groups</code> → đưa <strong>Location</strong> vào → OK.<br>
+        <strong>Bước 2:</strong> Chạy Descriptives cho Satisfaction (kết quả xuất 3 bảng riêng).<br>
+        <strong>Bước 3:</strong> <span style="color:var(--red-600);font-weight:600">TẮT Split File!</span> → <code>Data → Split File → Analyze all cases</code>. Nếu quên tắt, tất cả phân tích sau đều bị chia nhóm!</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">49</div>
+      <div class="ex-text"><strong>Select Cases</strong> – Lọc nhân viên Nữ + Đại học, tính trung bình Salary
+        <div class="hint">💡 <code>Data → Select Cases → If condition is satisfied → If...</code><br>
+        Nhập: <code>Gender = 0 AND Education >= 2</code> → OK (Filter out).<br>
+        Sau đó chạy Descriptives cho biến Salary. Nhớ reset Select Cases (All cases) sau khi xong.</div>
+      </div>
+    </li>
+    <li class="ex-item">
+      <div class="ex-num">50</div>
+      <div class="ex-text"><strong>Select Cases + Histogram</strong> – Nhân viên có kinh nghiệm &gt;10 năm
+        <div class="hint">💡 <code>If condition</code>: <code>Yeas# > 10</code> (chú ý tên biến có dấu # trong SPSS). Sau khi lọc, vẽ Histogram cho Satisfaction như câu 28. Biểu đồ chỉ thể hiện nhóm &gt;10 năm kinh nghiệm.</div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="alert alert-warn" style="margin-top:1rem"><span class="alert-icon">⚠</span><div><strong>Lỗi phổ biến với Select Cases & Split File:</strong> Sinh viên hay quên tắt các lệnh này. Kiểm tra: thanh trạng thái góc dưới phải SPSS sẽ hiện "Filter On" hoặc "Split File On" nếu vẫn còn hoạt động.</div></div>
+
+</div>
+</div>
+
+<!-- ===================== TAB: HƯỚNG DẪN SPSS ===================== -->
+<div id="tab-guide" class="section">
+<div class="content-wrap">
+
+  <div class="sec-heading">Tổng hợp đường dẫn lệnh SPSS</div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--blue-50);color:var(--blue-600)">📋</div>Nhóm 1 – Thống kê mô tả</div>
+    <table class="data-table">
+      <thead><tr><th>Mục đích</th><th>Đường dẫn SPSS</th><th>Dùng khi</th></tr></thead>
+      <tbody>
+        <tr><td>Tần số, % theo nhóm</td><td><code>Analyze → Descriptive Statistics → Frequencies</code></td><td>Biến định tính (Nominal, Ordinal)</td></tr>
+        <tr><td>Mean, Std, Min, Max</td><td><code>Analyze → Descriptive Statistics → Descriptives</code></td><td>Biến định lượng (Scale)</td></tr>
+        <tr><td>Boxplot, Normality, CI</td><td><code>Analyze → Descriptive Statistics → Explore</code></td><td>Khám phá, kiểm tra phân phối</td></tr>
+        <tr><td>Bảng chéo, Chi-square</td><td><code>Analyze → Descriptive Statistics → Crosstabs</code></td><td>Hai biến định tính</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--teal-50);color:var(--teal-600)">📊</div>Nhóm 2 – Biểu đồ</div>
+    <table class="data-table">
+      <thead><tr><th>Loại biểu đồ</th><th>Đường dẫn SPSS</th></tr></thead>
+      <tbody>
+        <tr><td>Pie Chart</td><td><code>Graphs → Legacy Dialogs → Pie</code></td></tr>
+        <tr><td>Bar Chart</td><td><code>Graphs → Legacy Dialogs → Bar</code></td></tr>
+        <tr><td>Histogram</td><td><code>Graphs → Legacy Dialogs → Histogram</code></td></tr>
+        <tr><td>Scatter Plot</td><td><code>Graphs → Legacy Dialogs → Scatter/Dot</code></td></tr>
+        <tr><td>Boxplot</td><td><code>Graphs → Legacy Dialogs → Boxplot</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--amber-50);color:var(--amber-600)">🔄</div>Nhóm 3 – Biến đổi dữ liệu</div>
+    <table class="data-table">
+      <thead><tr><th>Mục đích</th><th>Đường dẫn SPSS</th><th>Ghi chú</th></tr></thead>
+      <tbody>
+        <tr><td>Mã hóa lại (phân nhóm)</td><td><code>Transform → Recode into Different Variables</code></td><td>Luôn tạo biến mới!</td></tr>
+        <tr><td>Tính biến mới</td><td><code>Transform → Compute Variable</code></td><td>Nhập công thức toán</td></tr>
+        <tr><td>Thay thế Missing</td><td><code>Transform → Replace Missing Values</code></td><td>Phương pháp: Series mean</td></tr>
+        <tr><td>Chia nhóm phân tích</td><td><code>Data → Split File</code></td><td>Nhớ tắt sau khi dùng</td></tr>
+        <tr><td>Lọc quan sát</td><td><code>Data → Select Cases</code></td><td>Nhớ reset sau khi dùng</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-heading">Hàm thường dùng trong Compute Variable</div>
+
+  <div class="card" style="overflow-x:auto">
+    <table class="data-table">
+      <thead><tr><th>Hàm</th><th>Ý nghĩa</th><th>Ví dụ</th></tr></thead>
+      <tbody>
+        <tr><td><code>MEAN(v1, v2, ...)</code></td><td>Trung bình, bỏ qua missing</td><td><code>MEAN(Colleague, Supervision, Comfort)</code></td></tr>
+        <tr><td><code>SUM(v1, v2, ...)</code></td><td>Tổng cộng</td><td><code>SUM(Colleague, Supervision, Salary, Promotion, Autonomy)</code></td></tr>
+        <tr><td><code>LG10(x)</code></td><td>Logarit cơ số 10</td><td><code>LG10(Salary)</code></td></tr>
+        <tr><td><code>LN(x)</code></td><td>Logarit tự nhiên (ln)</td><td><code>LN(Age)</code></td></tr>
+        <tr><td><code>SQRT(x)</code></td><td>Căn bậc hai</td><td><code>SQRT(Supervision)</code></td></tr>
+        <tr><td><code>x ** 2</code></td><td>Bình phương</td><td><code>Age ** 2</code></td></tr>
+        <tr><td><code>ABS(x)</code></td><td>Giá trị tuyệt đối</td><td><code>ABS(Skewness_val)</code></td></tr>
+        <tr><td><code>NOT MISSING(x)</code></td><td>Kiểm tra không missing</td><td>Dùng trong Select Cases</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-heading">Đọc kết quả SPSS – Những chỉ số quan trọng</div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon" style="background:var(--purple-50);color:var(--purple-600)">📖</div>Hướng dẫn đọc output</div>
+    <table class="data-table">
+      <thead><tr><th>Chỉ số</th><th>Ý nghĩa</th><th>Ngưỡng tham chiếu</th></tr></thead>
+      <tbody>
+        <tr><td><strong>N (Valid)</strong></td><td>Số quan sát hợp lệ</td><td>Chú ý nếu N &lt; tổng mẫu (có missing)</td></tr>
+        <tr><td><strong>Mean</strong></td><td>Giá trị trung bình</td><td>Nhạy với outlier</td></tr>
+        <tr><td><strong>Median</strong></td><td>Trung vị (giá trị giữa)</td><td>Bền vững hơn Mean khi có outlier</td></tr>
+        <tr><td><strong>Std. Deviation</strong></td><td>Độ phân tán quanh Mean</td><td>Càng lớn → ý kiến càng phân tán</td></tr>
+        <tr><td><strong>Skewness</strong></td><td>Độ nghiêng phân phối</td><td>|Skewness| &lt; 2: chấp nhận được</td></tr>
+        <tr><td><strong>Kurtosis</strong></td><td>Độ nhọn phân phối</td><td>|Kurtosis| &lt; 7: chấp nhận được</td></tr>
+        <tr><td><strong>Sig. (Chi-square)</strong></td><td>Mức ý nghĩa kiểm định</td><td>&lt; 0,05: có ý nghĩa thống kê</td></tr>
+        <tr><td><strong>95% CI</strong></td><td>Khoảng tin cậy 95%</td><td>Giải thích: 95% khả năng Mean thật nằm trong khoảng này</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert alert-tip" style="margin-top:1rem"><span class="alert-icon">💡</span><div><strong>Lời khuyên quan trọng:</strong> SPSS cho ra rất nhiều bảng trong Output. Sinh viên không cần đọc hết – hãy xác định rõ câu hỏi nghiên cứu trước, sau đó tìm đúng bảng cần đọc. Kỹ năng "biết mình cần xem cái gì" quan trọng hơn "đọc hết tất cả".</div></div>
+
+</div>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  const btns = document.querySelectorAll('.tab-btn');
+  const map = {
+    overview: 0, part1: 1, part2a: 2, part2b: 3, part2c: 4, part2d: 5, part2e: 6, guide: 7
+  };
+  btns[map[id]].classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+
+</body>
+</html>
