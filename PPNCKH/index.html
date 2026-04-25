@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PPNCKH – Phương pháp nghiên cứu</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:    #c0392b;
+      --red-dk: #922b21;
+      --bg:     #f4efe6;
+      --card:   #ffffff;
+      --text:   #222;
+      --muted:  #777;
+      --border: #ddd5c5;
+      --radius: 10px;
+      --shadow: 0 3px 16px rgba(0,0,0,.12);
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── Header ─── */
+    header {
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-dk) 100%);
+      color: #fff;
+      padding: 20px 36px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 3px 10px rgba(0,0,0,.25);
+    }
+    .hdr-icon { font-size: 42px; line-height: 1; }
+    .hdr-text h1 { font-size: 1.55rem; font-weight: 700; }
+    .hdr-text p  { font-size: .86rem; opacity: .82; margin-top: 3px; }
+    .hdr-badge {
+      margin-left: auto;
+      border: 1px solid rgba(255,255,255,.4);
+      background: rgba(255,255,255,.15);
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: .82rem;
+    }
+
+    /* ─── Tab nav ─── */
+    nav {
+      background: #fff;
+      border-bottom: 2px solid var(--border);
+      padding: 0 36px;
+      display: flex;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 6px rgba(0,0,0,.07);
+    }
+    nav button {
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      padding: 13px 20px;
+      font-size: .92rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: color .15s, border-color .15s;
+    }
+    nav button:hover  { color: var(--red); }
+    nav button.active { color: var(--red); border-bottom-color: var(--red); }
+
+    /* ─── Main ─── */
+    main { max-width: 1200px; margin: 0 auto; padding: 28px 36px 48px; }
+
+    .tab-panel        { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ─── Card ─── */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 26px;
+    }
+    .card-head {
+      background: linear-gradient(90deg, var(--red) 0%, #e74c3c 100%);
+      color: #fff;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: .95rem;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .card-body { padding: 20px; }
+
+    /* ─── Info grid ─── */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+    .info-item { margin-bottom: 12px; }
+    .info-item label {
+      display: block;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .info-item span { font-size: .95rem; font-weight: 600; }
+    .chip {
+      display: inline-block;
+      background: #fdecea;
+      color: var(--red);
+      border: 1px solid #f5b7b1;
+      border-radius: 4px;
+      padding: 2px 10px;
+      font-size: .83rem;
+      font-weight: 700;
+    }
+
+    /* ─── PDF embed ─── */
+    .pdf-frame {
+      width: 100%;
+      height: 680px;
+      border: none;
+      display: block;
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+
+    /* ─── Deck picker ─── */
+    .deck-picker {
+      display: flex;
+      gap: 10px;
+      padding: 14px 20px;
+      background: #fafafa;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .deck-btn {
+      padding: 7px 18px;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      background: #fff;
+      font-size: .87rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text);
+      transition: border-color .15s, color .15s, background .15s;
+    }
+    .deck-btn:hover,
+    .deck-btn.active {
+      border-color: var(--red);
+      color: var(--red);
+      background: #fdecea;
+    }
+
+    /* ─── Media players ─── */
+    .media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    @media (max-width: 600px) { .media-grid { grid-template-columns: 1fr; } }
+
+    .media-box {
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .media-label {
+      background: #f2e8de;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: .87rem;
+      color: var(--red-dk);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border-bottom: 1px solid var(--border);
+    }
+    .media-body { padding: 16px; }
+    .media-desc { font-size: .81rem; color: var(--muted); margin-bottom: 12px; }
+
+    audio { width: 100%; border-radius: 30px; outline: none; }
+    video { width: 100%; border-radius: 7px; background: #111; display: block; }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center;
+      font-size: .79rem;
+      color: var(--muted);
+      padding: 16px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header>
+  <div class="hdr-icon">🔬</div>
+  <div class="hdr-text">
+    <h1>Phương pháp nghiên cứu</h1>
+    <p>Trường Đại học Mở &nbsp;|&nbsp; Khoa Ngoại ngữ &nbsp;|&nbsp; HK2 · 2025–2026</p>
+  </div>
+  <span class="hdr-badge">🎓 OUDE</span>
+</header>
+
+<!-- ═══════════ TAB NAV ═══════════ -->
+<nav id="tabNav">
+  <button class="active" onclick="switchTab('intro',this)">📋 Giới thiệu môn học</button>
+  <button onclick="switchTab('slides',this)">📊 Bài giảng</button>
+  <button onclick="switchTab('media',this)">🎵 Âm thanh &amp; Video</button>
+</nav>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<main>
+
+  <!-- ─── TAB 1: GIỚI THIỆU ─── -->
+  <div id="tab-intro" class="tab-panel active">
+
+    <div class="card">
+      <div class="card-head">📌 Thông tin môn học</div>
+      <div class="card-body">
+        <div class="info-grid">
+          <div>
+            <div class="info-item"><label>Tên môn học</label><span>Phương pháp nghiên cứu</span></div>
+            <div class="info-item"><label>Mã môn</label><span class="chip">PPNCKH</span></div>
+            <div class="info-item"><label>Số tín chỉ</label><span>3 tín chỉ</span></div>
+          </div>
+          <div>
+            <div class="info-item"><label>Giảng viên</label><span>Mr. Hiếu</span></div>
+            <div class="info-item"><label>Hình thức học</label><span>Trực tuyến (Online)</span></div>
+            <div class="info-item"><label>Học kỳ</label><span>HK2 · 2025–2026</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">📄 Slides – Giới thiệu môn học</div>
+      <embed src="GioiThieu_MrHieu_V1.pdf" type="application/pdf" class="pdf-frame" />
+    </div>
+
+  </div>
+
+  <!-- ─── TAB 2: BÀI GIẢNG ─── -->
+  <div id="tab-slides" class="tab-panel">
+
+    <div class="card">
+      <div class="card-head">📊 Bài giảng</div>
+
+      <div class="deck-picker">
+        <button class="deck-btn active" id="deck-vc1" onclick="switchPdf('VC1.pdf', this)">📊 VC1 &nbsp;<span style="opacity:.6;font-weight:400">(29 slides)</span></button>
+        <button class="deck-btn"        id="deck-vc2" onclick="switchPdf('VC2.pdf', this)">📊 VC2 &nbsp;<span style="opacity:.6;font-weight:400">(45 slides)</span></button>
+      </div>
+
+      <embed id="slides-pdf" src="VC1.pdf" type="application/pdf" class="pdf-frame" />
+    </div>
+
+  </div>
+
+  <!-- ─── TAB 3: MEDIA ─── -->
+  <div id="tab-media" class="tab-panel">
+
+    <div class="media-grid">
+
+      <div class="media-box">
+        <div class="media-label">🎵 Âm thanh</div>
+        <div class="media-body">
+          <p class="media-desc">Audio.m4a – Tài liệu nghe</p>
+          <audio controls preload="metadata">
+            <source src="Audio.m4a" type="audio/mp4" />
+            <source src="Audio.m4a" type="audio/x-m4a" />
+          </audio>
+        </div>
+      </div>
+
+      <div class="media-box">
+        <div class="media-label">🎬 Video bài giảng</div>
+        <div class="media-body">
+          <p class="media-desc">Video.mp4 – Video bài giảng</p>
+          <video controls preload="metadata">
+            <source src="Video.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  &copy; 2026 · Phương pháp nghiên cứu · Trường Đại học Mở · Khoa Ngoại ngữ
+</footer>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('#tabNav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function switchPdf(file, btn) {
+    document.querySelectorAll('.deck-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('slides-pdf').src = file;
+  }
+</script>
+</body>
+</html>
