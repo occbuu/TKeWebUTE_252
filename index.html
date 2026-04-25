@@ -7,284 +7,389 @@
     <meta name="author" content="TS. Lê Ngọc Hiếu">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 60px 20px;
             color: #fff;
+            padding: 60px 20px 80px;
         }
 
-        /* --- HEADER --- */
-        .header {
+        /* ── Orbs ── */
+        .orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: -1; }
+        .orb-1 { width: 500px; height: 500px; background: rgba(167,139,250,0.15); top: -150px; left: -150px; }
+        .orb-2 { width: 400px; height: 400px; background: rgba(45,212,191,0.1);   bottom: -100px; right: -100px; }
+
+        /* ── Page header ── */
+        .page-header {
             text-align: center;
-            margin-bottom: 60px;
+            max-width: 640px;
+            margin: 0 auto 72px;
             animation: fadeDown 0.7s ease both;
         }
 
-        .badge {
+        .page-badge {
             display: inline-block;
-            padding: 6px 18px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            padding: 5px 16px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.18);
             border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 1.5px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.8px;
             text-transform: uppercase;
             color: #a78bfa;
-            margin-bottom: 20px;
-            backdrop-filter: blur(8px);
+            margin-bottom: 22px;
         }
 
-        .header h1 {
-            font-size: clamp(2rem, 5vw, 3.2rem);
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
-            line-height: 1.2;
-            background: linear-gradient(90deg, #fff 0%, #a78bfa 50%, #60a5fa 100%);
+            background: linear-gradient(90deg, #fff 0%, #a78bfa 55%, #60a5fa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 16px;
+            line-height: 1.2;
+            margin-bottom: 14px;
         }
 
-        .header p {
-            font-size: 1rem;
-            color: rgba(255,255,255,0.55);
-            font-weight: 400;
-            max-width: 480px;
-            margin: 0 auto;
-            line-height: 1.6;
+        .page-header p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.7;
         }
 
-        /* --- GRID --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            width: 100%;
-            max-width: 960px;
-        }
+        /* ── Wrapper ── */
+        .content { max-width: 1080px; margin: 0 auto; }
 
-        /* --- CARD --- */
-        .card {
-            position: relative;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 36px 32px;
-            text-decoration: none;
-            color: #fff;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            backdrop-filter: blur(12px);
+        /* ── School section ──
+           Thêm trường mới: copy <section class="school school--xxx"> và
+           định nghĩa .school--xxx { --accent: ...; --glow: ...; --bg: ...; --border: ...; }
+        */
+        .school {
+            margin-bottom: 56px;
             animation: fadeUp 0.6s ease both;
         }
 
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
+        /* Per-school accent palette */
+        .school--ute   { --accent: #a78bfa; --glow: rgba(167,139,250,0.18); --bg: rgba(167,139,250,0.08); --border: rgba(167,139,250,0.3); }
+        .school--ou    { --accent: #2dd4bf; --glow: rgba(45,212,191,0.18);  --bg: rgba(45,212,191,0.08);  --border: rgba(45,212,191,0.3); }
+        .school--hcmue { --accent: #fbbf24; --glow: rgba(251,191,36,0.18);  --bg: rgba(251,191,36,0.08);  --border: rgba(251,191,36,0.3); }
+
+        /* ── School header bar ── */
+        .school-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .school-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            box-shadow: 0 0 10px var(--glow);
+        }
+
+        .school-abbr {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 3px 10px;
+            flex-shrink: 0;
+        }
+
+        .school-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .school-sub {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+            font-weight: 400;
+        }
+
+        .school-count {
+            margin-left: auto;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.25);
+            flex-shrink: 0;
+        }
+
+        /* ── Cards grid ── */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        /* ── Card ── */
+        .card {
+            position: relative;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 16px;
+            padding: 28px 26px;
+            text-decoration: none;
+            color: #fff;
+            overflow: hidden;
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+        }
 
         .card::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: var(--card-glow);
+            background: radial-gradient(ellipse at top left, var(--glow), transparent 65%);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.28s ease;
             border-radius: inherit;
         }
 
         .card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255,255,255,0.25);
-            box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+            transform: translateY(-6px);
+            border-color: var(--border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.35);
         }
 
         .card:hover::before { opacity: 1; }
 
-        .card--purple { --card-glow: radial-gradient(ellipse at top left, rgba(167,139,250,0.15), transparent 60%); }
-        .card--teal   { --card-glow: radial-gradient(ellipse at top left, rgba(45,212,191,0.15),  transparent 60%); }
-        .card--amber  { --card-glow: radial-gradient(ellipse at top left, rgba(251,191,36,0.15),   transparent 60%); }
-
         .card-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+            font-size: 1.3rem;
+            margin-bottom: 18px;
         }
 
-        .card--purple .card-icon { background: rgba(167,139,250,0.2); }
-        .card--teal   .card-icon { background: rgba(45,212,191,0.2); }
-        .card--amber  .card-icon { background: rgba(251,191,36,0.2); }
-
-        .card-label {
-            font-size: 0.72rem;
-            font-weight: 600;
+        .card-kw {
+            font-size: 0.68rem;
+            font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.35;
             margin-bottom: 8px;
         }
 
-        .card--purple .card-label { color: #a78bfa; }
-        .card--teal   .card-label { color: #2dd4bf; }
-        .card--amber  .card-label { color: #fbbf24; }
-
-        .card h2 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-
-        .card p {
-            font-size: 0.875rem;
-            color: rgba(255,255,255,0.5);
+        .card-desc {
+            font-size: 0.83rem;
+            color: rgba(255,255,255,0.45);
             line-height: 1.6;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
         }
 
-        .card-meta {
+        .card-tags {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .tag {
-            padding: 3px 10px;
+            padding: 2px 9px;
             border-radius: 20px;
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 600;
-            border: 1px solid;
+            color: var(--accent);
+            background: var(--bg);
+            border: 1px solid var(--border);
         }
-
-        .card--purple .tag { color: #a78bfa; border-color: rgba(167,139,250,0.35); background: rgba(167,139,250,0.08); }
-        .card--teal   .tag { color: #2dd4bf; border-color: rgba(45,212,191,0.35);  background: rgba(45,212,191,0.08); }
-        .card--amber  .tag { color: #fbbf24; border-color: rgba(251,191,36,0.35);  background: rgba(251,191,36,0.08); }
 
         .card-arrow {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
+            gap: 7px;
+            font-size: 0.82rem;
             font-weight: 600;
+            color: var(--accent);
             transition: gap 0.2s ease;
         }
 
-        .card--purple .card-arrow { color: #a78bfa; }
-        .card--teal   .card-arrow { color: #2dd4bf; }
-        .card--amber  .card-arrow { color: #fbbf24; }
+        .card:hover .card-arrow { gap: 13px; }
 
-        .card:hover .card-arrow { gap: 14px; }
-
-        /* --- FOOTER --- */
+        /* ── Footer ── */
         .footer {
-            margin-top: 64px;
             text-align: center;
-            color: rgba(255,255,255,0.25);
-            font-size: 0.8rem;
-            animation: fadeUp 0.6s ease 0.5s both;
+            margin-top: 40px;
+            color: rgba(255,255,255,0.2);
+            font-size: 0.78rem;
+            animation: fadeUp 0.6s ease 0.4s both;
         }
 
-        .footer span { color: #a78bfa; }
-
-        /* --- ANIMATIONS --- */
+        /* ── Animations ── */
         @keyframes fadeDown {
-            from { opacity: 0; transform: translateY(-24px); }
+            from { opacity: 0; transform: translateY(-20px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
+            from { opacity: 0; transform: translateY(20px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- FLOATING ORBS --- */
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            pointer-events: none;
-            z-index: -1;
+        .school:nth-child(1) { animation-delay: 0.1s; }
+        .school:nth-child(2) { animation-delay: 0.2s; }
+        .school:nth-child(3) { animation-delay: 0.3s; }
+
+        /* ── Responsive ── */
+        @media (max-width: 480px) {
+            .school-name { font-size: 0.9rem; }
+            .school-sub  { display: none; }
         }
-        .orb-1 { width: 400px; height: 400px; background: rgba(167,139,250,0.18); top: -100px; left: -100px; }
-        .orb-2 { width: 350px; height: 350px; background: rgba(96,165,250,0.15); bottom: -80px; right: -80px; }
     </style>
 </head>
 <body>
 
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
 
-    <header class="header">
-        <div class="badge">Tài nguyên giảng dạy</div>
-        <h1>Các môn học</h1>
-        <p>Chọn môn học bên dưới để truy cập bài giảng, tài liệu và bài tập thực hành.</p>
-    </header>
+<!-- ═══ PAGE HEADER ═══ -->
+<header class="page-header">
+    <div class="page-badge">Tài nguyên giảng dạy</div>
+    <h1>Các môn học</h1>
+    <p>Chọn trường và môn học để truy cập bài giảng, tài liệu và bài tập.</p>
+</header>
 
-    <main class="grid">
+<main class="content">
 
-        <!-- Thiết kế Web – UTE -->
-        <a href="TKWeb.html" class="card card--purple">
-            <div class="card-icon">&#9676;</div>
-            <div class="card-label">UTE &mdash; HK252</div>
-            <h2>Thiết kế Web</h2>
-            <p>Thực hành Figma, UI/UX, thiết kế giao diện web — Khoa Kinh tế, Đại học Công nghệ Kỹ thuật TP.HCM.</p>
-            <div class="card-meta">
-                <span class="tag">HCMUTE</span>
-                <span class="tag">Figma</span>
-                <span class="tag">HK2 · 2025–2026</span>
+    <!-- ══════════════════════════════════════════
+         TRƯỜNG: HCMUTE
+         Thêm môn: copy một <a class="card"> vào .cards
+    ═══════════════════════════════════════════ -->
+    <section class="school school--ute">
+        <div class="school-header">
+            <div class="school-dot"></div>
+            <span class="school-abbr">HCMUTE</span>
+            <div>
+                <div class="school-name">Đại học Công nghệ Kỹ thuật TP.HCM</div>
+                <div class="school-sub">Khoa Kinh tế</div>
             </div>
-            <span class="card-arrow">Vào môn học &rarr;</span>
-        </a>
+            <span class="school-count">1 môn</span>
+        </div>
 
-        <!-- PPNCKH – OU -->
-        <a href="PPNCKH/index.html" class="card card--teal">
-            <div class="card-icon">&#128270;</div>
-            <div class="card-label">OU &mdash; Khoa Ngoại ngữ</div>
-            <h2>Phương pháp nghiên cứu</h2>
-            <p>Bài giảng và tài liệu môn Phương pháp nghiên cứu khoa học — Khoa Ngoại ngữ, Trường Đại học Mở TP.HCM.</p>
-            <div class="card-meta">
-                <span class="tag">Đại học Mở</span>
-                <span class="tag">PPNCKH</span>
-                <span class="tag">HK2 · 2025–2026</span>
+        <div class="cards">
+
+            <a href="TKWeb.html" class="card">
+                <div class="card-icon">&#9676;</div>
+                <div class="card-kw">HK252 · Thiết kế Web</div>
+                <h3>Thiết kế Web</h3>
+                <p class="card-desc">Thực hành Figma, UI/UX, thiết kế giao diện — từ wireframe đến prototype.</p>
+                <div class="card-tags">
+                    <span class="tag">Figma</span>
+                    <span class="tag">UI/UX</span>
+                    <span class="tag">HK2 · 2025–2026</span>
+                </div>
+                <span class="card-arrow">Vào môn &rarr;</span>
+            </a>
+
+            <!-- Thêm môn HCMUTE tại đây -->
+
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TRƯỜNG: ĐẠI HỌC MỞ TP.HCM
+         Thêm môn: copy một <a class="card"> vào .cards
+    ═══════════════════════════════════════════ -->
+    <section class="school school--ou">
+        <div class="school-header">
+            <div class="school-dot"></div>
+            <span class="school-abbr">OU</span>
+            <div>
+                <div class="school-name">Trường Đại học Mở TP.HCM</div>
+                <div class="school-sub">Khoa Ngoại ngữ</div>
             </div>
-            <span class="card-arrow">Vào môn học &rarr;</span>
-        </a>
+            <span class="school-count">1 môn</span>
+        </div>
 
-        <!-- SPSS – HCMUE -->
-        <a href="BaiGiang_B1_SPSS_JobSatisfaction.html" class="card card--amber">
-            <div class="card-icon">&#128202;</div>
-            <div class="card-label">HCMUE</div>
-            <h2>Phân tích dữ liệu SPSS</h2>
-            <p>Bài giảng phân tích dữ liệu với SPSS — ứng dụng trong nghiên cứu giáo dục, Trường Đại học Sư phạm TP.HCM.</p>
-            <div class="card-meta">
-                <span class="tag">ĐH Sư phạm</span>
-                <span class="tag">SPSS</span>
-                <span class="tag">HK2 · 2025–2026</span>
+        <div class="cards">
+
+            <a href="PPNCKH/index.html" class="card">
+                <div class="card-icon">&#128270;</div>
+                <div class="card-kw">PPNCKH · Ngoại ngữ</div>
+                <h3>Phương pháp nghiên cứu</h3>
+                <p class="card-desc">Bài giảng và tài liệu môn Phương pháp nghiên cứu khoa học.</p>
+                <div class="card-tags">
+                    <span class="tag">PPNCKH</span>
+                    <span class="tag">HK2 · 2025–2026</span>
+                </div>
+                <span class="card-arrow">Vào môn &rarr;</span>
+            </a>
+
+            <!-- Thêm môn OU tại đây -->
+
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TRƯỜNG: HCMUE
+         Thêm môn: copy một <a class="card"> vào .cards
+    ═══════════════════════════════════════════ -->
+    <section class="school school--hcmue">
+        <div class="school-header">
+            <div class="school-dot"></div>
+            <span class="school-abbr">HCMUE</span>
+            <div>
+                <div class="school-name">Trường Đại học Sư phạm TP.HCM</div>
+                <div class="school-sub">Khoa Công nghệ thông tin</div>
             </div>
-            <span class="card-arrow">Vào môn học &rarr;</span>
-        </a>
+            <span class="school-count">1 môn</span>
+        </div>
 
-    </main>
+        <div class="cards">
 
-    <footer class="footer">
-        <p>&copy; 2026 &mdash; TS. Lê Ngọc Hiếu &mdash; Tài nguyên giảng dạy</p>
-    </footer>
+            <a href="BaiGiang_B1_SPSS_JobSatisfaction.html" class="card">
+                <div class="card-icon">&#128202;</div>
+                <div class="card-kw">SPSS · Phân tích dữ liệu</div>
+                <h3>Phân tích dữ liệu SPSS</h3>
+                <p class="card-desc">Phân tích dữ liệu nghiên cứu định lượng với SPSS — ứng dụng trong giáo dục.</p>
+                <div class="card-tags">
+                    <span class="tag">SPSS</span>
+                    <span class="tag">Định lượng</span>
+                    <span class="tag">HK2 · 2025–2026</span>
+                </div>
+                <span class="card-arrow">Vào môn &rarr;</span>
+            </a>
+
+            <!-- Thêm môn HCMUE tại đây -->
+
+        </div>
+    </section>
+
+    <!-- Thêm trường mới: copy <section class="school school--xxx"> ở trên
+         và thêm .school--xxx { --accent: ...; --glow: ...; --bg: ...; --border: ...; }
+         vào phần CSS -->
+
+</main>
+
+<footer class="footer">
+    <p>&copy; 2026 &mdash; TS. Lê Ngọc Hiếu &mdash; Tài nguyên giảng dạy</p>
+</footer>
 
 </body>
 </html>
