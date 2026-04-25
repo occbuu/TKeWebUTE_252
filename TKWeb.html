@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tài nguyên giảng dạy – TS. Lê Ngọc Hiếu</title>
+    <title>Thiết kế Web – UTE HK252</title>
     <meta name="author" content="TS. Lê Ngọc Hiếu">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -23,6 +19,21 @@
             padding: 60px 20px;
             color: #fff;
         }
+
+        /* --- BACK LINK --- */
+        .back {
+            align-self: flex-start;
+            margin-bottom: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.45);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back:hover { color: #a78bfa; }
 
         /* --- HEADER --- */
         .header {
@@ -60,7 +71,6 @@
         .header p {
             font-size: 1rem;
             color: rgba(255,255,255,0.55);
-            font-weight: 400;
             max-width: 480px;
             margin: 0 auto;
             line-height: 1.6;
@@ -72,14 +82,14 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
             width: 100%;
-            max-width: 960px;
+            max-width: 900px;
         }
 
         /* --- CARD --- */
         .card {
             position: relative;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
             padding: 36px 32px;
             text-decoration: none;
@@ -113,8 +123,8 @@
         .card:hover::before { opacity: 1; }
 
         .card--purple { --card-glow: radial-gradient(ellipse at top left, rgba(167,139,250,0.15), transparent 60%); }
-        .card--teal   { --card-glow: radial-gradient(ellipse at top left, rgba(45,212,191,0.15),  transparent 60%); }
-        .card--amber  { --card-glow: radial-gradient(ellipse at top left, rgba(251,191,36,0.15),   transparent 60%); }
+        .card--blue   { --card-glow: radial-gradient(ellipse at top left, rgba(96,165,250,0.15),  transparent 60%); }
+        .card--pink   { --card-glow: radial-gradient(ellipse at top left, rgba(244,114,182,0.15), transparent 60%); }
 
         .card-icon {
             width: 52px;
@@ -128,8 +138,8 @@
         }
 
         .card--purple .card-icon { background: rgba(167,139,250,0.2); }
-        .card--teal   .card-icon { background: rgba(45,212,191,0.2); }
-        .card--amber  .card-icon { background: rgba(251,191,36,0.2); }
+        .card--blue   .card-icon { background: rgba(96,165,250,0.2); }
+        .card--pink   .card-icon { background: rgba(244,114,182,0.2); }
 
         .card-label {
             font-size: 0.72rem;
@@ -140,8 +150,8 @@
         }
 
         .card--purple .card-label { color: #a78bfa; }
-        .card--teal   .card-label { color: #2dd4bf; }
-        .card--amber  .card-label { color: #fbbf24; }
+        .card--blue   .card-label { color: #60a5fa; }
+        .card--pink   .card-label { color: #f472b6; }
 
         .card h2 {
             font-size: 1.3rem;
@@ -157,25 +167,6 @@
             margin-bottom: 28px;
         }
 
-        .card-meta {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-
-        .tag {
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.72rem;
-            font-weight: 600;
-            border: 1px solid;
-        }
-
-        .card--purple .tag { color: #a78bfa; border-color: rgba(167,139,250,0.35); background: rgba(167,139,250,0.08); }
-        .card--teal   .tag { color: #2dd4bf; border-color: rgba(45,212,191,0.35);  background: rgba(45,212,191,0.08); }
-        .card--amber  .tag { color: #fbbf24; border-color: rgba(251,191,36,0.35);  background: rgba(251,191,36,0.08); }
-
         .card-arrow {
             display: inline-flex;
             align-items: center;
@@ -186,8 +177,8 @@
         }
 
         .card--purple .card-arrow { color: #a78bfa; }
-        .card--teal   .card-arrow { color: #2dd4bf; }
-        .card--amber  .card-arrow { color: #fbbf24; }
+        .card--blue   .card-arrow { color: #60a5fa; }
+        .card--pink   .card-arrow { color: #f472b6; }
 
         .card:hover .card-arrow { gap: 14px; }
 
@@ -202,7 +193,6 @@
 
         .footer span { color: #a78bfa; }
 
-        /* --- ANIMATIONS --- */
         @keyframes fadeDown {
             from { opacity: 0; transform: translateY(-24px); }
             to   { opacity: 1; transform: translateY(0); }
@@ -213,14 +203,7 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- FLOATING ORBS --- */
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            pointer-events: none;
-            z-index: -1;
-        }
+        .orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: -1; }
         .orb-1 { width: 400px; height: 400px; background: rgba(167,139,250,0.18); top: -100px; left: -100px; }
         .orb-2 { width: 350px; height: 350px; background: rgba(96,165,250,0.15); bottom: -80px; right: -80px; }
     </style>
@@ -230,60 +213,50 @@
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
 
+    <a href="index.html" class="back">&#8592; Quay về trang chủ</a>
+
     <header class="header">
-        <div class="badge">Tài nguyên giảng dạy</div>
-        <h1>Các môn học</h1>
-        <p>Chọn môn học bên dưới để truy cập bài giảng, tài liệu và bài tập thực hành.</p>
+        <div class="badge">UTE &mdash; HK252 &mdash; Thiết kế Web</div>
+        <h1>Bài tập thực hành<br>Figma &amp; Web Design</h1>
+        <p>Tổng hợp các buổi thực hành trong học kỳ. Chọn buổi học bên dưới để xem nội dung chi tiết.</p>
     </header>
 
     <main class="grid">
 
-        <!-- Thiết kế Web – UTE -->
-        <a href="TKWeb.html" class="card card--purple">
-            <div class="card-icon">&#9676;</div>
-            <div class="card-label">UTE &mdash; HK252</div>
-            <h2>Thiết kế Web</h2>
-            <p>Thực hành Figma, UI/UX, thiết kế giao diện web — Khoa Kinh tế, Đại học Công nghệ Kỹ thuật TP.HCM.</p>
-            <div class="card-meta">
-                <span class="tag">HCMUTE</span>
-                <span class="tag">Figma</span>
-                <span class="tag">HK2 · 2025–2026</span>
-            </div>
-            <span class="card-arrow">Vào môn học &rarr;</span>
+        <a href="Figma_Buoi1.html" class="card card--purple">
+            <div class="card-icon">&#9672;</div>
+            <div class="card-label">Buổi 1</div>
+            <h2>Figma Basics</h2>
+            <p>Làm quen với giao diện Figma, các công cụ cơ bản, frame, shape và typography.</p>
+            <span class="card-arrow">Xem bài &rarr;</span>
         </a>
 
-        <!-- PPNCKH – OU -->
-        <a href="PPNCKH/index.html" class="card card--teal">
-            <div class="card-icon">&#128270;</div>
-            <div class="card-label">OU &mdash; Khoa Ngoại ngữ</div>
-            <h2>Phương pháp nghiên cứu</h2>
-            <p>Bài giảng và tài liệu môn Phương pháp nghiên cứu khoa học — Khoa Ngoại ngữ, Trường Đại học Mở TP.HCM.</p>
-            <div class="card-meta">
-                <span class="tag">Đại học Mở</span>
-                <span class="tag">PPNCKH</span>
-                <span class="tag">HK2 · 2025–2026</span>
-            </div>
-            <span class="card-arrow">Vào môn học &rarr;</span>
+        <a href="Figma_Buoi2.html" class="card card--blue">
+            <div class="card-icon">&#9670;</div>
+            <div class="card-label">Buổi 2</div>
+            <h2>Figma Advanced</h2>
+            <p>Components, Auto Layout, Prototype và các kỹ thuật thiết kế nâng cao trong Figma.</p>
+            <span class="card-arrow">Xem bài &rarr;</span>
         </a>
 
-        <!-- SPSS – HCMUE -->
-        <a href="BaiGiang_B1_SPSS_JobSatisfaction.html" class="card card--amber">
-            <div class="card-icon">&#128202;</div>
-            <div class="card-label">HCMUE</div>
-            <h2>Phân tích dữ liệu SPSS</h2>
-            <p>Bài giảng phân tích dữ liệu với SPSS — ứng dụng trong nghiên cứu giáo dục, Trường Đại học Sư phạm TP.HCM.</p>
-            <div class="card-meta">
-                <span class="tag">ĐH Sư phạm</span>
-                <span class="tag">SPSS</span>
-                <span class="tag">HK2 · 2025–2026</span>
-            </div>
-            <span class="card-arrow">Vào môn học &rarr;</span>
+        <a href="DeThi_ThietKeWeb_HK251.html" class="card card--pink">
+            <div class="card-icon">&#9998;</div>
+            <div class="card-label">Đề thi HK252</div>
+            <h2>Đề thi Thiết kế Web</h2>
+            <p>Đề thi học kỳ 252 môn Thiết kế Web — tham khảo cấu trúc và yêu cầu bài thi.</p>
+            <span class="card-arrow">Xem đề &rarr;</span>
         </a>
 
     </main>
 
     <footer class="footer">
-        <p>&copy; 2026 &mdash; TS. Lê Ngọc Hiếu &mdash; Tài nguyên giảng dạy</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px;flex-wrap:wrap;">
+            <div style="background:rgba(255,255,255,0.9);border-radius:8px;padding:3px 8px;display:inline-flex;align-items:center;">
+                <img src="img/LogoKKT.png" alt="Khoa Kinh tế" style="height:40px;object-fit:contain;">
+            </div>
+            <img src="img/logo-hcmute.png" alt="HCMUTE" style="height:48px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;">
+        </div>
+        <p>Học phần Thiết kế Web &mdash; Khoa Kinh tế &mdash; <span>UTE</span></p>
     </footer>
 
 </body>
