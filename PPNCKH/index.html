@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PPNCKH – Phương pháp nghiên cứu</title>
+  <title>PPNCKH – Phương pháp nghiên cứu / 研究方法</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --red:    #c0392b;
       --red-dk: #922b21;
+      --red-lt: #fdecea;
       --bg:     #f4efe6;
       --card:   #ffffff;
       --text:   #222;
@@ -17,28 +19,81 @@
       --border: #ddd5c5;
       --radius: 10px;
       --shadow: 0 3px 16px rgba(0,0,0,.12);
+      --zh-color: #555;
     }
 
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: 'Segoe UI', 'Noto Sans SC', Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
     }
 
+    /* ─── Song ngữ / Bilingual ─── */
+    .bi { display: flex; flex-direction: column; gap: 1px; }
+    .zh {
+      font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+      color: rgba(255,255,255,0.65);
+      font-size: .82em;
+      font-weight: 400;
+      letter-spacing: .5px;
+    }
+    .zh--dark {
+      color: var(--zh-color);
+    }
+
+    /* ─── Back nav ─── */
+    .back-nav {
+      background: var(--red-dk);
+      padding: 8px 36px;
+    }
+    .back-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.7);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-nav a:hover { color: #fff; }
+
     /* ─── Header ─── */
     header {
       background: linear-gradient(135deg, var(--red) 0%, var(--red-dk) 100%);
       color: #fff;
-      padding: 20px 36px;
+      padding: 22px 36px;
       display: flex;
       align-items: center;
       gap: 16px;
       box-shadow: 0 3px 10px rgba(0,0,0,.25);
     }
     .hdr-icon { font-size: 42px; line-height: 1; }
-    .hdr-text h1 { font-size: 1.55rem; font-weight: 700; }
-    .hdr-text p  { font-size: .86rem; opacity: .82; margin-top: 3px; }
+    .hdr-text h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .hdr-title-zh {
+      font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      opacity: .75;
+      letter-spacing: 1px;
+    }
+    .hdr-sub {
+      font-size: .84rem;
+      opacity: .78;
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .hdr-sub .zh { font-size: .8rem; }
     .hdr-badge {
       margin-left: auto;
       border: 1px solid rgba(255,255,255,.4);
@@ -46,6 +101,7 @@
       padding: 5px 16px;
       border-radius: 20px;
       font-size: .82rem;
+      flex-shrink: 0;
     }
 
     /* ─── Tab nav ─── */
@@ -58,24 +114,37 @@
       top: 0;
       z-index: 50;
       box-shadow: 0 2px 6px rgba(0,0,0,.07);
+      overflow-x: auto;
     }
     nav button {
       background: none;
       border: none;
       border-bottom: 3px solid transparent;
       margin-bottom: -2px;
-      padding: 13px 20px;
-      font-size: .92rem;
+      padding: 11px 20px;
+      font-size: .88rem;
       font-weight: 600;
       color: var(--muted);
       cursor: pointer;
       display: flex;
-      align-items: center;
-      gap: 7px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1px;
+      white-space: nowrap;
       transition: color .15s, border-color .15s;
     }
+    nav button .tab-vi { display: flex; align-items: center; gap: 6px; }
+    nav button .tab-zh {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: .72rem;
+      font-weight: 400;
+      color: #bbb;
+      padding-left: 22px;
+    }
     nav button:hover  { color: var(--red); }
+    nav button:hover .tab-zh { color: var(--red); opacity: .7; }
     nav button.active { color: var(--red); border-bottom-color: var(--red); }
+    nav button.active .tab-zh { color: var(--red); opacity: .8; }
 
     /* ─── Main ─── */
     main { max-width: 1200px; margin: 0 auto; padding: 28px 36px 48px; }
@@ -101,24 +170,40 @@
       align-items: center;
       gap: 9px;
     }
+    .card-head .zh { font-size: .78rem; font-weight: 400; margin-left: 6px; }
     .card-body { padding: 20px; }
 
     /* ─── Info grid ─── */
     .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
-    .info-item { margin-bottom: 12px; }
+
+    .info-item { margin-bottom: 14px; }
     .info-item label {
       display: block;
-      font-size: .7rem;
+      font-size: .68rem;
       text-transform: uppercase;
       letter-spacing: .7px;
       color: var(--muted);
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
-    .info-item span { font-size: .95rem; font-weight: 600; }
+    .info-item label .zh {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: .75rem;
+      text-transform: none;
+      letter-spacing: .5px;
+      color: #aaa;
+      margin-left: 5px;
+    }
+    .info-item .val-vi { font-size: .95rem; font-weight: 600; }
+    .info-item .val-zh {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: .82rem;
+      color: var(--zh-color);
+      margin-top: 1px;
+    }
     .chip {
       display: inline-block;
-      background: #fdecea;
+      background: var(--red-lt);
       color: var(--red);
       border: 1px solid #f5b7b1;
       border-radius: 4px;
@@ -160,7 +245,7 @@
     .deck-btn.active {
       border-color: var(--red);
       color: var(--red);
-      background: #fdecea;
+      background: var(--red-lt);
     }
 
     /* ─── Media players ─── */
@@ -184,8 +269,19 @@
       gap: 7px;
       border-bottom: 1px solid var(--border);
     }
+    .media-label .zh--dark { font-size: .78rem; font-weight: 400; margin-left: 4px; }
     .media-body { padding: 16px; }
-    .media-desc { font-size: .81rem; color: var(--muted); margin-bottom: 12px; }
+    .media-desc {
+      font-size: .81rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .media-desc-zh {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: .76rem;
+      color: #aaa;
+      margin-bottom: 12px;
+    }
 
     audio { width: 100%; border-radius: 30px; outline: none; }
     video { width: 100%; border-radius: 7px; background: #111; display: block; }
@@ -197,31 +293,56 @@
       color: var(--muted);
       padding: 16px;
       border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .footer-zh {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: .75rem;
+      color: #bbb;
     }
   </style>
 </head>
 <body>
 
 <!-- ═══════════ BACK NAV ═══════════ -->
-<div style="background:var(--red-dk);padding:8px 36px;">
-  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.7);font-size:13px;font-weight:500;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">← Về trang chủ</a>
+<div class="back-nav">
+  <a href="../index.html">← Về trang chủ &nbsp;/&nbsp; 返回主页</a>
 </div>
 
 <!-- ═══════════ HEADER ═══════════ -->
 <header>
-  <div class="hdr-icon">🔬</div>
+  <div class="hdr-icon">
+    <img src="../img/Logo_OU.png" alt="Đại học Mở" style="height:52px;width:auto;object-fit:contain;background:rgba(255,255,255,0.9);border-radius:10px;padding:4px 8px;display:block;">
+  </div>
   <div class="hdr-text">
-    <h1>Phương pháp nghiên cứu</h1>
-    <p>Trường Đại học Mở &nbsp;|&nbsp; Khoa Ngoại ngữ &nbsp;|&nbsp; HK2 · 2025–2026</p>
+    <h1>
+      <span class="vi">Phương pháp nghiên cứu</span>
+      <span class="hdr-title-zh">科学研究方法</span>
+    </h1>
+    <div class="hdr-sub">
+      <span class="vi">Trường Đại học Mở &nbsp;|&nbsp; Khoa Ngoại ngữ &nbsp;|&nbsp; HK2 · 2025–2026</span>
+      <span class="zh">胡志明市开放大学 &nbsp;|&nbsp; 外语系 &nbsp;|&nbsp; 第二学期 · 2025–2026</span>
+    </div>
   </div>
   <span class="hdr-badge">🎓 OUDE</span>
 </header>
 
 <!-- ═══════════ TAB NAV ═══════════ -->
 <nav id="tabNav">
-  <button class="active" onclick="switchTab('intro',this)">📋 Giới thiệu môn học</button>
-  <button onclick="switchTab('slides',this)">📊 Bài giảng</button>
-  <button onclick="switchTab('media',this)">🎵 Âm thanh &amp; Video</button>
+  <button class="active" onclick="switchTab('intro',this)">
+    <span class="tab-vi">📋 Giới thiệu môn học</span>
+    <span class="tab-zh">课程介绍</span>
+  </button>
+  <button onclick="switchTab('slides',this)">
+    <span class="tab-vi">📊 Bài giảng</span>
+    <span class="tab-zh">课件讲义</span>
+  </button>
+  <button onclick="switchTab('media',this)">
+    <span class="tab-vi">🎵 Âm thanh &amp; Video</span>
+    <span class="tab-zh">音频与视频</span>
+  </button>
 </nav>
 
 <!-- ═══════════ MAIN ═══════════ -->
@@ -231,25 +352,54 @@
   <div id="tab-intro" class="tab-panel active">
 
     <div class="card">
-      <div class="card-head">📌 Thông tin môn học</div>
+      <div class="card-head">
+        📌 Thông tin môn học
+        <span class="zh">课程信息</span>
+      </div>
       <div class="card-body">
         <div class="info-grid">
           <div>
-            <div class="info-item"><label>Tên môn học</label><span>Phương pháp nghiên cứu</span></div>
-            <div class="info-item"><label>Mã môn</label><span class="chip">PPNCKH</span></div>
-            <div class="info-item"><label>Số tín chỉ</label><span>3 tín chỉ</span></div>
+            <div class="info-item">
+              <label>Tên môn học <span class="zh">课程名称</span></label>
+              <div class="val-vi">Phương pháp nghiên cứu</div>
+              <div class="val-zh">科学研究方法</div>
+            </div>
+            <div class="info-item">
+              <label>Mã môn <span class="zh">课程代码</span></label>
+              <span class="chip">PPNCKH</span>
+            </div>
+            <div class="info-item">
+              <label>Số tín chỉ <span class="zh">学分</span></label>
+              <div class="val-vi">3 tín chỉ</div>
+              <div class="val-zh">3 学分</div>
+            </div>
           </div>
           <div>
-            <div class="info-item"><label>Giảng viên</label><span>Mr. Hiếu</span></div>
-            <div class="info-item"><label>Hình thức học</label><span>Trực tuyến (Online)</span></div>
-            <div class="info-item"><label>Học kỳ</label><span>HK2 · 2025–2026</span></div>
+            <div class="info-item">
+              <label>Giảng viên <span class="zh">授课教师</span></label>
+              <div class="val-vi">Mr. Hiếu</div>
+              <div class="val-zh">玉孝 老师</div>
+            </div>
+            <div class="info-item">
+              <label>Hình thức học <span class="zh">授课方式</span></label>
+              <div class="val-vi">Trực tuyến (Online)</div>
+              <div class="val-zh">线上教学</div>
+            </div>
+            <div class="info-item">
+              <label>Học kỳ <span class="zh">学期</span></label>
+              <div class="val-vi">HK2 · 2025–2026</div>
+              <div class="val-zh">第二学期 · 2025–2026</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head">📄 Slides – Giới thiệu môn học</div>
+      <div class="card-head">
+        📄 Slides – Giới thiệu môn học
+        <span class="zh">课程介绍讲义</span>
+      </div>
       <embed src="GioiThieu_MrHieu_V1.pdf" type="application/pdf" class="pdf-frame" />
     </div>
 
@@ -259,11 +409,18 @@
   <div id="tab-slides" class="tab-panel">
 
     <div class="card">
-      <div class="card-head">📊 Bài giảng</div>
+      <div class="card-head">
+        📊 Bài giảng
+        <span class="zh">课件讲义</span>
+      </div>
 
       <div class="deck-picker">
-        <button class="deck-btn active" id="deck-vc1" onclick="switchPdf('VC1.pdf', this)">📊 VC1 &nbsp;<span style="opacity:.6;font-weight:400">(29 slides)</span></button>
-        <button class="deck-btn"        id="deck-vc2" onclick="switchPdf('VC2.pdf', this)">📊 VC2 &nbsp;<span style="opacity:.6;font-weight:400">(45 slides)</span></button>
+        <button class="deck-btn active" id="deck-vc1" onclick="switchPdf('VC1.pdf', this)">
+          📊 VC1 &nbsp;<span style="opacity:.6;font-weight:400">(29 slides)</span>
+        </button>
+        <button class="deck-btn" id="deck-vc2" onclick="switchPdf('VC2.pdf', this)">
+          📊 VC2 &nbsp;<span style="opacity:.6;font-weight:400">(45 slides)</span>
+        </button>
       </div>
 
       <embed id="slides-pdf" src="VC1.pdf" type="application/pdf" class="pdf-frame" />
@@ -277,9 +434,13 @@
     <div class="media-grid">
 
       <div class="media-box">
-        <div class="media-label">🎵 Âm thanh</div>
+        <div class="media-label">
+          🎵 Âm thanh
+          <span class="zh--dark">音频资料</span>
+        </div>
         <div class="media-body">
           <p class="media-desc">Audio.m4a – Tài liệu nghe</p>
+          <p class="media-desc-zh">音频文件 – 听力材料</p>
           <audio controls preload="metadata">
             <source src="Audio.m4a" type="audio/mp4" />
             <source src="Audio.m4a" type="audio/x-m4a" />
@@ -288,9 +449,13 @@
       </div>
 
       <div class="media-box">
-        <div class="media-label">🎬 Video bài giảng</div>
+        <div class="media-label">
+          🎬 Video bài giảng
+          <span class="zh--dark">视频讲座</span>
+        </div>
         <div class="media-body">
           <p class="media-desc">Video.mp4 – Video bài giảng</p>
+          <p class="media-desc-zh">视频文件 – 课程讲座</p>
           <video controls preload="metadata">
             <source src="Video.mp4" type="video/mp4" />
           </video>
@@ -304,7 +469,8 @@
 </main>
 
 <footer>
-  &copy; 2026 · Phương pháp nghiên cứu · Trường Đại học Mở · Khoa Ngoại ngữ
+  <div>&copy; 2026 · Phương pháp nghiên cứu · Trường Đại học Mở · Khoa Ngoại ngữ</div>
+  <div class="footer-zh">© 2026 · 科学研究方法 · 胡志明市开放大学 · 外语系</div>
 </footer>
 
 <script>
